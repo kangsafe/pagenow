@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import Vue from 'vue'
+
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({

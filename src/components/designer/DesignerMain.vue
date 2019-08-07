@@ -69,12 +69,18 @@
         <Sider :width="300" :style="{borderLeft: '1px solid #999'}">
           <Collapse simple>
             <Panel name="1">
+              画布配置
+              <p slot="content">
+                <component :is="'AbsoluteLayoutDataForm'"></component>
+              </p>
+            </Panel>
+            <Panel name="2">
               布局块配置
               <p slot="content">
                 <component :is="this.$store.state.designer.rightSidebarComponentName"></component>
               </p>
             </Panel>
-            <Panel name="2">
+            <Panel name="3">
               组件配置
               <p slot="content">
                 <component :is="this.$store.state.designer.rightSidebarFuncCompConfigFormName"></component>

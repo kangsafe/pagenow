@@ -1,18 +1,26 @@
 <template>
   <div class="absolute-layout-data-form">
-    <a-form layout="inline">
-      <a-form-item label="编辑区宽度">
-        <a-input size="small" :style="{width: '70px'}" v-model="width"/>
-      </a-form-item>
-      <a-form-item label="编辑区高度">
-        <a-input size="small" :style="{width: '70px'}" v-model="height"/>
-      </a-form-item>
-    </a-form>
+    <Form :label-width="80">
+      <FormItem label="画布宽度">
+        <Input size="small" v-model="width"/>
+      </FormItem>
+      <FormItem label="画布高度">
+        <Input size="small" v-model="height"/>
+      </FormItem>
+      <FormItem label="背景色">
+        <ColorPicker size="small" v-model="backgroundColor" />
+      </FormItem>
+    </Form>
   </div>
 </template>
 
 <script>
-  import { mapFields } from 'vuex-map-fields';
+  import { createHelpers } from 'vuex-map-fields';
+
+  const { mapFields } = createHelpers({
+    getterType: 'designer/getField',
+    mutationType: 'designer/updateField',
+  });
 
   export default {
     name: 'AbsoluteLayoutDataForm',
@@ -31,12 +39,15 @@
     computed: {
       ...mapFields({
         width: 'pageMetadata.layout.layoutConfigData.width',
-        height: 'pageMetadata.layout.layoutConfigData.height'
+        height: 'pageMetadata.layout.layoutConfigData.height',
+        backgroundColor: 'pageMetadata.layout.layoutConfigData.backgroundColor',
       })
     }
   }
 </script>
 
 <style scoped>
-
+  .ivu-form-item {
+    margin-bottom: 0px;
+  }
 </style>
