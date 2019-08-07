@@ -33,6 +33,7 @@
       return {
         formData: {
           id: '',
+          project_id: '',
           name: '',
           path: '',
           title: '',

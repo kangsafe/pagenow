@@ -14,8 +14,13 @@ const deleteProject = async function (id) {
   return await Axios.delete('/project/deleteProject', {params: {id: id}});
 };
 
+const getProjectById = async function (id) {
+  return await Axios.get('/project/getProjectById', {params: {id: id}});
+};
+
 export default {
   saveProject,
   getAllProject,
-  deleteProject
+  deleteProject,
+  getProjectById
 }

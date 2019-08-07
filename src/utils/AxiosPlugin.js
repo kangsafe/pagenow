@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { message } from 'ant-design-vue'
+import { Message } from 'iview'
 
 // 创建 axios 实例
 // 这里 export 的原因是方便组件外使用 axios
@@ -39,7 +39,7 @@ Axios.interceptors.response.use(res => {
 
   //对响应数据做些事
   if(res.data.code == 0){
-    message.error(res.data.msg);
+    Message.error(res.data.msg);
     return Promise.reject(res)
   }
   return res

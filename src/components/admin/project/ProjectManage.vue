@@ -48,6 +48,30 @@
           {
             title: '创建时间',
             key: 'create_date'
+          },
+          {
+            title: '操作',
+            key: 'action',
+            width: 150,
+            align: 'center',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'primary',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.openProject(params.row)
+                    }
+                  }
+                }, '编辑')
+              ]);
+            }
           }
         ],
         data: [
@@ -61,7 +85,6 @@
     methods: {
 
       loadProjects () {
-        this.data = [];
         this.$PnApi.ProjectApi.getAllProject().then(result => {
           this.data = result.data.data;
         })
@@ -97,12 +120,23 @@
                   }
                 });
               });
-              this.loadProjects()
+              setTimeout(()=>{
+                this.loadProjects()
+              },100)
             }
           });
         }else {
           this.$Message.error('请勾选需要操作的数据')
         }
+      },
+
+
+      openProject (project) {
+        let routeUrl = this.$router.resolve({
+          path: '/designer',
+          query: {project_id: project.id}
+        });
+        window.open(routeUrl.href, '_blank');
       }
     },
     computed: {}

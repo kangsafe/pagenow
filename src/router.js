@@ -16,11 +16,6 @@ const router = new Router({
       name: 'admin',
       children: [
         {
-          path: 'page_info_manage',
-          name: 'page_info_manage',
-          component: () => import('./components/admin/PageInfoManage.vue')
-        },
-        {
           path: 'project_manage',
           name: 'ProjectManage',
           component: () => import('./components/admin/project/ProjectManage.vue')

@@ -117,6 +117,12 @@
       GridLayout: VueGridLayout.GridLayout,
       GridItem: VueGridLayout.GridItem
     },
+    props: {
+      projectId: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
 
@@ -124,22 +130,7 @@
 
         createPageDrawerVisible: false,
         // 页面信息树
-        pageTreeData: [
-          {
-            title: '交易中心大屏项目',
-            expand: true,
-            disabled: true,
-            children: [
-              {
-                title: '页面一'
-              },
-              {
-                title: '页面二'
-              }
-            ]
-          }
-        ],
-
+        pageTreeData: [],
 
 
         loadLayoutSchemeModalVisible: false,
@@ -159,6 +150,8 @@
 
       //this.$store.commit('setCurrentEditPageInfo', this.pageInfo)
 
+      this.initPageTreeData();
+
       $(".comp-card").draggable({
         zIndex: 999,
         revert: true,
@@ -175,10 +168,57 @@
     },
     methods: {
 
+      /**
+       * 初始化页面信息树数据
+       */
+      initPageTreeData () {
+
+        this.$PnApi.ProjectApi.getProjectById(this.projectId).then(result => {
+          let project = result.data.data;
+
+          this.pageTreeData = [
+            {
+              key: project.id,
+              title: project.name,
+              expand: true,
+              disabled: true,
+              children: []
+            }
+          ];
+
+          this.$PnApi.PageApi.getPagesByProjectId(this.projectId).then(result => {
+            let pages = result.data.data;
+            if(pages.length > 0) {
+              pages.forEach(item => {
+                let page = {
+                  key: item.id,
+                  title: item.name
+                };
+                this.pageTreeData[0].children.push(page)
+              });
+            }
+          })
+
+        })
+      },
+
       submitPageForm () {
         this.$refs.pageForm.$refs.form.validate((valid) => {
           if (valid) {
-
+            let pageFormData = this.$refs.pageForm.formData;
+            pageFormData.project_id = this.projectId;
+            this.$PnApi.PageApi.savePage(pageFormData).then((result)=>{
+              console.log(result);
+              if(result.data.code == 1) {
+                //this.$Message.success('保存成功');
+                this.$refs.pageForm.$refs.form.resetFields();
+                this.createPageDrawerVisible = false;
+                this.initPageTreeData();
+              }else if (result.data.code == 0) {
+                alert(result.data.msg);
+                //this.$Message.error(result.data.msg)
+              }
+            });
           }
         });
       },

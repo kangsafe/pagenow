@@ -1,12 +1,11 @@
 
-import LayoutSchemeApi from './LayoutSchemeApi'
-import PageInfoApi from './PageInfoApi'
-import TestApi from './TestApi'
 import ProjectApi from './ProjectApi'
+import PageApi from './PageApi'
+import TestApi from './TestApi'
+
 
 export default {
-  LayoutSchemeApi,
-  PageInfoApi,
-  TestApi,
-  ProjectApi
+  ProjectApi,
+  PageApi,
+  TestApi
 }

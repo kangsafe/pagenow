@@ -17,21 +17,20 @@ const state = {
     }
   },
 
-
   pageMetadata: {
-    id: '',
-    name: '',
-    path: '',
+    id: PnUtil.uuid(),
+    name: 'test',
+    path: '/test',
     title: '',
     component: '',
     remark: '',
     layout: {
-      id: '',
+      id: PnUtil.uuid(),
       type: '',
       layoutConfigData: {
-        width: '',
-        height: '',
-        backgroundColor: ''
+        width: '1200px',
+        height: '600px',
+        backgroundColor: 'antiquewhite'
       },
       layoutItems: [
         {

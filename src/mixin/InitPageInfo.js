@@ -3,7 +3,7 @@
 const InitPageInfo = {
   created () {
 
-    this.$PnApi.PageInfoApi.getPageInfos().then((result)=>{
+    /*this.$PnApi.PageInfoApi.getPageInfos().then((result)=>{
       let dbRoutes = result.data.data;
       let routes = [];
       dbRoutes.forEach(function (item) {
@@ -17,7 +17,7 @@ const InitPageInfo = {
       });
 
       this.$router.addRoutes(routes);
-    });
+    });*/
 
   }
 };
