@@ -7,7 +7,7 @@ const state = {
 
   // 设计器全局配置
   globalConfigData: {
-    snapEnabled: true, // 拖拽中是否打开自动对齐
+    snapEnabled: false, // 拖拽中是否打开自动对齐
 
     absolute: { // 针对绝对布局的配置
 
@@ -35,27 +35,28 @@ const state = {
         backgroundColor: 'antiquewhite'
       },
       layoutItems: [
-        // {
-        //   id: PnUtil.uuid(),
-        //   layoutItemConfigData: {
-        //     width: '200px',
-        //     height: '300px',
-        //     left: '100px',
-        //     top: '30px',
-        //     borderWidth: '2px',
-        //     borderStyle: 'solid',
-        //     borderColor: '#000',
-        //     backgroundColor: 'red',
-        //     zIndex: '1',
-        //   },
-        //   component: {
-        //     id: '',
-        //     name: '',
-        //     compConfigData: {
-        //
-        //     }
-        //   }
-        // }
+        {
+          id: PnUtil.uuid(),
+          layoutItemConfigData: {
+            width: '200px',
+            height: '300px',
+            left: '100px',
+            top: '30px',
+            borderWidth: '2px',
+            borderStyle: 'solid',
+            borderColor: '#000',
+            backgroundColor: 'red',
+            zIndex: '1',
+            display: 'block'
+          },
+          component: {
+            id: '',
+            name: '',
+            compConfigData: {
+
+            }
+          }
+        }
       ]
     }
   },

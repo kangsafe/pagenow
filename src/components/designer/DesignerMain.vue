@@ -62,7 +62,14 @@
         </Sider>
 
         <Content>
-          <div style="width: 100%; height: 100%; overflow: auto; background-color: #FFF;">
+          <div :style="{
+                width: '100%',
+                height: '100%',
+                overflow: 'auto',
+                backgroundColor: '#FFF',
+                backgroundImage: 'url('+require('../../assets/bkgd.png')+')',
+                backgroundRepeat: 'repeat'
+               }">
             <component ref="targetComp" :is="pageMetadata.layout.developCanvas"></component>
           </div>
         </Content>
@@ -238,7 +245,8 @@
             borderStyle: 'solid',
             borderColor: '#000',
             backgroundColor: 'yellow',
-            zIndex: '1'
+            zIndex: '1',
+            display: 'block'
           },
           component: {
             id: '',
@@ -296,7 +304,7 @@
   }
 
   .designer-main .ivu-layout-header {
-    background: #00152A;
+    background: #515A6E;
     color: #fff;
     height: 48px;
     line-height: 48px;

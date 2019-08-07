@@ -2,9 +2,10 @@
 
 <template>
   <div class="reactive-layout-canvas">
-    <Row :gutter="16">
-      <i-col span="12">col-12</i-col>
-      <i-col span="12">col-12</i-col>
+    <Row>
+      <Col :xs="2" :sm="4" :md="6" :lg="8">Col</Col>
+      <Col :xs="20" :sm="16" :md="12" :lg="8">Col</Col>
+      <Col :xs="2" :sm="4" :md="6" :lg="8">Col</Col>
     </Row>
   </div>
 </template>

@@ -4,7 +4,7 @@
   <div class="absolute-layout-item-form">
     <Form :label-width="80">
       <FormItem label="ID">
-        <Input size="small" v-model="id"/>
+        <Input size="small" v-model="id" disabled/>
       </FormItem>
       <FormItem label="宽度">
         <Input size="small" v-model="width"/>
@@ -31,6 +31,14 @@
       </FormItem>
       <FormItem label="背景颜色">
         <ColorPicker size="small" v-model="backgroundColor" />
+      </FormItem>
+      <FormItem label="层级">
+        <Input size="small" v-model="zIndex"/>
+      </FormItem>
+      <FormItem label="显示">
+        <Select size="small" v-model="display">
+          <Option v-for="item in $PnDict.display" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
       </FormItem>
       <FormItem label="功能组件">
         <i-input size="small" v-model="componentName">
@@ -101,6 +109,8 @@
         borderStyle: 'layoutItemConfigData.borderStyle',
         borderColor: 'layoutItemConfigData.borderColor',
         backgroundColor: 'layoutItemConfigData.backgroundColor',
+        zIndex: 'layoutItemConfigData.zIndex',
+        display: 'layoutItemConfigData.display',
         componentId: 'component.id',
         componentName: 'component.name',
         componentConfigData: 'component.compConfigData'

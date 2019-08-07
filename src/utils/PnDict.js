@@ -18,6 +18,18 @@ const borderStyles = [
   },
 ];
 
+const display = [
+  {
+    label: 'block',
+    value: 'block'
+  },
+  {
+    label: 'none',
+    value: 'none'
+  }
+];
+
 export default {
-  borderStyles
+  borderStyles,
+  display
 }

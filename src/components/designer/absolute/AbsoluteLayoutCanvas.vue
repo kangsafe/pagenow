@@ -19,7 +19,8 @@
           borderStyle: layoutItem.layoutItemConfigData.borderStyle,
           borderColor: layoutItem.layoutItemConfigData.borderColor,
           backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
-          zIndex: layoutItem.layoutItemConfigData.zIndex
+          zIndex: layoutItem.layoutItemConfigData.zIndex,
+          display: layoutItem.layoutItemConfigData.display
          }"
          @click.stop="layoutItemClick(layoutItem)">
       <FuncCompContainer>
@@ -70,7 +71,7 @@
             containment: "#AbsoluteLayout",
             snap: _this.snapEnabled,
             start: function (e) {
-              _this.$store.commit('designer/setLayoutItemZIndex', {id: $(this).attr('data-id')})
+              //_this.$store.commit('designer/setLayoutItemZIndex', {id: $(this).attr('data-id')})
             },
             drag: function (e) {
               _this.$store.commit('designer/setLayoutItemLeftAndTop', {id: $(this).attr('data-id'), left: $(this).position().left + 'px', top: $(this).position().top + 'px'})
