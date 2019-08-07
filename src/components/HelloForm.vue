@@ -30,7 +30,7 @@
     methods: {},
     computed: {
       ...mapFields({
-        text: 'component.configData.text'
+        text: 'component.compConfigData.text'
       })
     }
   }

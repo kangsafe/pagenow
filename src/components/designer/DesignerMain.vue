@@ -138,8 +138,6 @@
     },
     mounted() {
 
-      //this.$store.commit('setCurrentEditPageInfo', this.pageInfo)
-
       this.initPageTreeData();
 
       $(".comp-card").draggable({
@@ -225,19 +223,21 @@
       addLayoutItem () {
         let newLayoutItem = {
           id: this.$PnUtil.uuid(),
-          width: '200px',
-          height: '200px',
-          left: '600px',
-          top: '200px',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderColor: '#000',
-          backgroundColor: 'yellow',
-          zIndex: '1',
+          layoutItemConfigData: {
+            width: '200px',
+            height: '200px',
+            left: '600px',
+            top: '200px',
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: '#000',
+            backgroundColor: 'yellow',
+            zIndex: '1'
+          },
           component: {
             id: '',
             name: '',
-            configData: {
+            compConfigData: {
 
             }
           }

@@ -17,6 +17,7 @@ const state = {
     }
   },
 
+  // 页面源数据
   pageMetadata: {
     id: PnUtil.uuid(),
     name: 'test',
@@ -34,85 +35,31 @@ const state = {
         backgroundColor: 'antiquewhite'
       },
       layoutItems: [
-        {
-          id: PnUtil.uuid(),
-          layoutItemConfigData: {
-            width: '200px',
-            height: '300px',
-            left: '100px',
-            top: '30px',
-            borderWidth: '2px',
-            borderStyle: 'solid',
-            borderColor: '#000',
-            backgroundColor: 'red',
-            zIndex: '1',
-          },
-          component: {
-            id: '',
-            name: '',
-            compConfigData: {
-
-            }
-          }
-        }
+        // {
+        //   id: PnUtil.uuid(),
+        //   layoutItemConfigData: {
+        //     width: '200px',
+        //     height: '300px',
+        //     left: '100px',
+        //     top: '30px',
+        //     borderWidth: '2px',
+        //     borderStyle: 'solid',
+        //     borderColor: '#000',
+        //     backgroundColor: 'red',
+        //     zIndex: '1',
+        //   },
+        //   component: {
+        //     id: '',
+        //     name: '',
+        //     compConfigData: {
+        //
+        //     }
+        //   }
+        // }
       ]
     }
   },
 
-  // 当前设计器编辑的页面信息对象
-  currentEditPageInfo: {
-    id: PnUtil.uuid(),
-    name: 'test',
-    path: '/test',
-    component: '',
-    layoutData: {
-      id: '',
-      layoutCompName: 'AbsoluteLayoutCanvas',
-      width: '1200px',
-      height: '600px',
-      backgroundColor: 'antiquewhite',
-      layoutItems: [
-        {
-          id: PnUtil.uuid(),
-          width: '200px',
-          height: '300px',
-          left: '100px',
-          top: '30px',
-          borderWidth: '2px',
-          borderStyle: 'solid',
-          borderColor: '#000',
-          backgroundColor: 'red',
-          zIndex: '1',
-          component: {
-            id: '',
-            name: '',
-            configData: {
-
-            }
-          }
-        },
-        {
-          id: PnUtil.uuid(),
-          width: '100px',
-          height: '100px',
-          left: '400px',
-          top: '90px',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderColor: '#000',
-          backgroundColor: 'blue',
-          zIndex: '1',
-          component: {
-            id: '',
-            name: '',
-            configData: {
-
-            }
-          }
-        }
-      ]
-    },
-  },
 
   rightSidebarComponentName: '', //
   currentSelectLayoutItemId: '', // 当前选中的布局块ID
@@ -125,13 +72,12 @@ const state = {
 const getters = {
   getField,
 
-
   getLayoutItem (state) {
-    return getField(state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId))
+    return getField(state.pageMetadata.layout.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId))
   },
 
   getLayoutItemById: (state) => (id) => {
-    return state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==id)
+    return state.pageMetadata.layout.layoutItems.find(o=>o.id==id)
   }
 
 
@@ -146,24 +92,15 @@ const mutations = {
   updateField,
 
 
-
-  setCurrentEditPageInfo (state, pageInfo) {
-    state.currentEditPageInfo = pageInfo
-  },
-
-  updateLayoutData (state, payload) {
-    state.currentEditPageInfo.layoutData = payload
-  },
-
   /**
    * 设置布局块的左和上偏移
    * @param state
    * @param payload
    */
   setLayoutItemLeftAndTop (state, payload) {
-    let obj = state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==payload.id);
-    obj.left = payload.left;
-    obj.top = payload.top;
+    let obj = state.pageMetadata.layout.layoutItems.find(o=>o.id==payload.id);
+    obj.layoutItemConfigData.left = payload.left;
+    obj.layoutItemConfigData.top = payload.top;
   },
 
   /**
@@ -172,11 +109,11 @@ const mutations = {
    * @param payload
    */
   setLayoutItemZIndex (state, payload) {
-    for (let i = 0; i < state.currentEditPageInfo.layoutData.layoutItems.length; i++) {
-      if (state.currentEditPageInfo.layoutData.layoutItems[i].id == payload.id) {
-        state.currentEditPageInfo.layoutData.layoutItems[i].zIndex = '2'
+    for (let i = 0; i < state.pageMetadata.layout.layoutItems.length; i++) {
+      if (state.pageMetadata.layout.layoutItems[i].id == payload.id) {
+        state.pageMetadata.layout.layoutItems[i].layoutItemConfigData.zIndex = '2'
       }else {
-        state.currentEditPageInfo.layoutData.layoutItems[i].zIndex = '1'
+        state.pageMetadata.layout.layoutItems[i].layoutItemConfigData.zIndex = '1'
       }
     }
   },
@@ -187,9 +124,9 @@ const mutations = {
    * @param payload
    */
   setLayoutItemWidthAndHeight (state, payload) {
-    let obj = state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==payload.id);
-    obj.width = payload.width;
-    obj.height = payload.height;
+    let obj = state.pageMetadata.layout.layoutItems.find(o=>o.id==payload.id);
+    obj.layoutItemConfigData.width = payload.width;
+    obj.layoutItemConfigData.height = payload.height;
   },
 
   /**
@@ -198,7 +135,7 @@ const mutations = {
    * @param layoutItem
    */
   addLayoutItem(state, layoutItem) {
-    state.currentEditPageInfo.layoutData.layoutItems.push(layoutItem)
+    state.pageMetadata.layout.layoutItems.push(layoutItem)
   },
 
 
@@ -209,16 +146,13 @@ const mutations = {
     state.currentSelectLayoutItemId = layoutItemId;
   },
   updateLayoutItem (state, field) {
-    updateField(state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId), field);
+    updateField(state.pageMetadata.layout.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId), field);
   },
 
 
   setRightSidebarFuncCompConfigFormName (state, payload) {
     state.rightSidebarFuncCompConfigFormName = payload
   },
-  // updateComponent (state, field) {
-  //   updateField(state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.component.id==state.currentEditFuncCompId), field)
-  // }
 
 };
 

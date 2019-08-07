@@ -30,8 +30,8 @@
     methods: {},
     computed: {
       ...mapFields({
-        width: 'currentEditPageInfo.layoutData.width',
-        height: 'currentEditPageInfo.layoutData.height'
+        width: 'pageMetadata.layout.layoutConfigData.width',
+        height: 'pageMetadata.layout.layoutConfigData.height'
       })
     }
   }

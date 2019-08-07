@@ -1,25 +1,25 @@
 <template>
   <div id="AbsoluteLayout" class="absolute-layout"
        :style="{
-        backgroundColor: layoutData.backgroundColor,
-        width: layoutData.width,
-        height: layoutData.height
+        backgroundColor: layout.layoutConfigData.backgroundColor,
+        width: layout.layoutConfigData.width,
+        height: layout.layoutConfigData.height
        }" @click.stop="absoluteLayoutClidk">
 
     <div class="absolute-layout-item"
          :data-id="layoutItem.id"
-         v-for="layoutItem in layoutData.layoutItems"
+         v-for="layoutItem in layout.layoutItems"
          :key="layoutItem.id"
          :style="{
-          width: layoutItem.width,
-          height: layoutItem.height,
-          left: layoutItem.left,
-          top: layoutItem.top,
-          borderWidth: layoutItem.borderWidth,
-          borderStyle: layoutItem.borderStyle,
-          borderColor: layoutItem.borderColor,
-          backgroundColor: layoutItem.backgroundColor,
-          zIndex: layoutItem.zIndex
+          width: layoutItem.layoutItemConfigData.width,
+          height: layoutItem.layoutItemConfigData.height,
+          left: layoutItem.layoutItemConfigData.left,
+          top: layoutItem.layoutItemConfigData.top,
+          borderWidth: layoutItem.layoutItemConfigData.borderWidth,
+          borderStyle: layoutItem.layoutItemConfigData.borderStyle,
+          borderColor: layoutItem.layoutItemConfigData.borderColor,
+          backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
+          zIndex: layoutItem.layoutItemConfigData.zIndex
          }"
          @click.stop="layoutItemClick(layoutItem)">
       <FuncCompContainer>
@@ -28,7 +28,7 @@
     </div>
 
     <div style="position: absolute; right: 0px; top: 0px;">
-      {{layoutData.layoutItems}}
+      {{layout.layoutItems}}
     </div>
   </div>
 </template>
@@ -106,22 +106,16 @@
         this.$store.commit('designer/setRightSidebarComponentName', 'AbsoluteLayoutItemForm');
         this.$store.commit('designer/setCurrentSelectLayoutItemId', layoutItem.id)
 
-      },
-
-      test() {
-        // this.layoutData.name = '123123132'
-        // console.log(this.$parent.$el);
-        console.log('test');
       }
     },
     computed: {
       ...mapFields({
         snapEnabled: 'globalConfigData.snapEnabled',
-        layoutData: 'currentEditPageInfo.layoutData',
+        layout: 'pageMetadata.layout'
       })
     },
     watch: {
-      'layoutData': {
+      'layout': {
         handler: 'registerDragAndResizable',
         deep: true
       }

@@ -93,17 +93,17 @@
     computed: {
       ...mapFields({
         id: 'id',
-        width: 'width',
-        height: 'height',
-        left: 'left',
-        top: 'top',
-        borderWidth: 'borderWidth',
-        borderStyle: 'borderStyle',
-        borderColor: 'borderColor',
-        backgroundColor: 'backgroundColor',
+        width: 'layoutItemConfigData.width',
+        height: 'layoutItemConfigData.height',
+        left: 'layoutItemConfigData.left',
+        top: 'layoutItemConfigData.top',
+        borderWidth: 'layoutItemConfigData.borderWidth',
+        borderStyle: 'layoutItemConfigData.borderStyle',
+        borderColor: 'layoutItemConfigData.borderColor',
+        backgroundColor: 'layoutItemConfigData.backgroundColor',
         componentId: 'component.id',
         componentName: 'component.name',
-        componentConfigData: 'component.configData'
+        componentConfigData: 'component.compConfigData'
       })
     },
     watch: {
