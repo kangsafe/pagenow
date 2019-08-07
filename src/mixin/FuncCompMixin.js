@@ -16,7 +16,7 @@ const FuncCompMixin = {
       if(this.$store.state.release.pageInfo) {
         return {}
       }else {
-        return this.$store.getters['designer/getLayoutItemById2'](this.location).component.configData
+        return this.$store.getters['designer/getLayoutItemById'](this.location).component.configData
       }
     }
   }

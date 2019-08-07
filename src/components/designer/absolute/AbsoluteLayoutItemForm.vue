@@ -50,7 +50,7 @@
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({
-    getterType: 'designer/getLayoutItemById',
+    getterType: 'designer/getLayoutItem',
     mutationType: 'designer/updateLayoutItem',
   });
 
@@ -87,12 +87,6 @@
             this.componentConfigData = Object.assign({}, compInst.default.attr.configDataTemp)
           }
         });
-
-        //console.log(require('../Hello.vue'));
-
-        // setTimeout(()=>{
-        //   this.componentConfigData = this.$refs.funcComp.configData
-        // }, 100)
 
       }
     },

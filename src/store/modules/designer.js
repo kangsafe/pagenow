@@ -26,7 +26,8 @@ const state = {
     remark: '',
     layout: {
       id: PnUtil.uuid(),
-      type: '',
+      releaseCanvas: '', // 发布版画布
+      developCanvas: 'AbsoluteLayoutCanvas', // 开发版画布
       layoutConfigData: {
         width: '1200px',
         height: '600px',
@@ -34,9 +35,17 @@ const state = {
       },
       layoutItems: [
         {
-          id: '',
+          id: PnUtil.uuid(),
           layoutItemConfigData: {
-
+            width: '200px',
+            height: '300px',
+            left: '100px',
+            top: '30px',
+            borderWidth: '2px',
+            borderStyle: 'solid',
+            borderColor: '#000',
+            backgroundColor: 'red',
+            zIndex: '1',
           },
           component: {
             id: '',
@@ -116,27 +125,16 @@ const state = {
 const getters = {
   getField,
 
-  /**
-   * 根据ID获取布局块对象
-   * @param state
-   * @returns {*}
-   */
-  getLayoutItemById (state) {
+
+  getLayoutItem (state) {
     return getField(state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId))
   },
 
-  getLayoutItemById2: (state) => (id) => {
+  getLayoutItemById: (state) => (id) => {
     return state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.id==id)
   }
 
-  /**
-   * 根据布局块ID获取组件对象
-   * @param state
-   * @returns {*}
-   */
-  // getComponentByLayoutItemId (state) {
-  //   return getField(state.currentEditPageInfo.layoutData.layoutItems.find(o=>o.component.id==state.currentEditFuncCompId))
-  // }
+
 };
 
 const actions = {

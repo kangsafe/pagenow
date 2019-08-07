@@ -13,7 +13,7 @@
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({
-    getterType: 'designer/getLayoutItemById',
+    getterType: 'designer/getLayoutItem',
     mutationType: 'designer/updateLayoutItem',
   });
 

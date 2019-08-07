@@ -4,7 +4,7 @@
   <div class="designer-main">
     <Layout>
       <Header>
-        <Button size="small" type="primary" style="margin-right: 5px;">保存</Button>
+        <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentPage">保存</Button>
         <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
         <Button size="small" type="primary"
                 @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
@@ -63,7 +63,7 @@
 
         <Content>
           <div style="width: 100%; height: 100%; overflow: auto; background-color: #FFF;">
-            <component ref="targetComp" :is="pageInfo.layoutData.layoutCompName"></component>
+            <component ref="targetComp" :is="pageMetadata.layout.developCanvas"></component>
           </div>
         </Content>
         <Sider :width="300" :style="{borderLeft: '1px solid #999'}">
@@ -132,17 +132,7 @@
         // 页面信息树
         pageTreeData: [],
 
-
-        loadLayoutSchemeModalVisible: false,
-
-
-        layout: [],
-
-        targetComponentName: '',
-
-
-        rightSiderComponentName: '',
-        currentSelectLayoutItem: {}
+        currentSelectPageId: '', // 当前选中页面的ID
 
       }
     },
@@ -223,8 +213,12 @@
         });
       },
 
-      pageTreeSelectChangeHandle (e) {
-        console.log(e)
+      pageTreeSelectChangeHandle (selectPages) {
+        if(selectPages.length > 0) {
+          this.currentSelectPageId = selectPages[0].key
+        }else {
+          this.currentSelectPageId = ''
+        }
       },
 
 
@@ -251,8 +245,12 @@
         this.$store.commit('designer/addLayoutItem', newLayoutItem);
       },
 
-      saveCurrentPageInfo () {
-        console.log(this.$refs.targetComp.page);
+      saveCurrentPage () {
+        this.$PnApi.PageApi.updatePageLayoutData(this.currentSelectPageId, this.pageMetadata.layout).then(result => {
+          if(result.data.code == 1) {
+            this.$Message.success('保存成功')
+          }
+        })
       },
 
 
@@ -260,19 +258,10 @@
         this[_target] = false;
       },
 
-      test () {
-        this.pageInfo.layoutData.width = '1000px';
-        //this.$refs.targetComp.layout.push({"x": 4, "y": 0, "w": 4, "h": 4, "i": "2", "location": "1wefef", "component": "HelloWorld"});
-        //this.$refs.targetComp.sayHello();
-
-        //this.$refs.targetComp.compData.containerBackgroundColor = 'red'
-      },
-
-
     },
     computed: {
       ...mapFields({
-        pageInfo: 'currentEditPageInfo'
+        pageMetadata: 'pageMetadata'
       })
     }
   }
