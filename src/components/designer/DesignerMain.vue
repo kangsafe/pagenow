@@ -62,9 +62,9 @@
         </Sider>
 
         <Content>
-          <TargetComponentContainer>
+          <div style="width: 100%; height: 100%; overflow: auto; background-color: #FFF;">
             <component ref="targetComp" :is="pageInfo.layoutData.layoutCompName"></component>
-          </TargetComponentContainer>
+          </div>
         </Content>
         <Sider :width="300" :style="{borderLeft: '1px solid #999'}">
           <Collapse simple>
