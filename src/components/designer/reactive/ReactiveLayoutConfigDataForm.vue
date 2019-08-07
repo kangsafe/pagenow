@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute-layout-data-form">
+  <div class="reactive-layout-config-data-form">
     <Form :label-width="80">
       <FormItem label="画布宽度">
         <Input size="small" v-model="width"/>
@@ -9,6 +9,12 @@
       </FormItem>
       <FormItem label="背景色">
         <ColorPicker size="small" v-model="backgroundColor" />
+      </FormItem>
+      <FormItem label="间隔">
+        <InputNumber size="small" :max="100" :min="0" v-model="gutter" placeholder="单位：PX"></InputNumber>
+      </FormItem>
+      <FormItem label="内边距">
+        <Input size="small" v-model="padding"/>
       </FormItem>
     </Form>
   </div>
@@ -23,14 +29,11 @@
   });
 
   export default {
-    name: 'AbsoluteLayoutDataForm',
+    name: 'ReactiveLayoutConfigDataForm',
     data() {
       return {
 
       }
-    },
-    created () {
-
     },
     mounted() {
 
@@ -41,6 +44,8 @@
         width: 'pageMetadata.layout.layoutConfigData.width',
         height: 'pageMetadata.layout.layoutConfigData.height',
         backgroundColor: 'pageMetadata.layout.layoutConfigData.backgroundColor',
+        gutter: 'pageMetadata.layout.layoutConfigData.gutter',
+        padding: 'pageMetadata.layout.layoutConfigData.padding',
       })
     }
   }

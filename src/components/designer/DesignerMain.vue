@@ -78,7 +78,7 @@
             <Panel name="1">
               画布配置
               <p slot="content">
-                <component :is="'AbsoluteLayoutDataForm'"></component>
+                <component :is="canvasConfigCompName"></component>
               </p>
             </Panel>
             <Panel name="2">
@@ -98,14 +98,6 @@
         </Sider>
       </Layout>
     </Layout>
-    <!--<a-layout>
-
-      <a-layout-footer>
-
-        <AbsoluteLayoutDataForm :style="{float: 'right'}"/>
-      </a-layout-footer>
-
-    </a-layout>-->
   </div>
 </template>
 
@@ -276,7 +268,16 @@
     computed: {
       ...mapFields({
         pageMetadata: 'pageMetadata'
-      })
+      }),
+      // 根据developCanvas返回不同的画布配置表单
+      canvasConfigCompName () {
+        if(this.$store.state.designer.pageMetadata.layout.developCanvas === 'ReactiveLayoutCanvas') {
+          return 'ReactiveLayoutConfigDataForm'
+        }else if(this.$store.state.designer.pageMetadata.layout.developCanvas === 'AbsoluteLayoutCanvas') {
+          return 'AbsoluteLayoutConfigDataForm'
+        }
+        return ''
+      }
     }
   }
 </script>

@@ -69,8 +69,7 @@
     },
     data() {
       return {
-        labelCol: 6,
-        wrapperCol: 16
+
       }
     },
     mounted() {

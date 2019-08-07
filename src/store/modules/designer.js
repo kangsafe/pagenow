@@ -27,8 +27,57 @@ const state = {
     remark: '',
     layout: {
       id: PnUtil.uuid(),
-      releaseCanvas: '', // 发布版画布
-      developCanvas: 'AbsoluteLayoutCanvas', // 开发版画布
+      developCanvas: 'ReactiveLayoutCanvas', // 画布组件名称
+      layoutConfigData: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'antiquewhite',
+        gutter: 16,
+        padding: '10px'
+      },
+      layoutItems: [
+        {
+          id: PnUtil.uuid(),
+          layoutItemConfigData: {
+            height: '80px',
+            backgroundColor: '#66CCFF'
+          },
+          component: {
+            id: '',
+            name: '',
+            compConfigData: {
+
+            }
+          }
+        },
+        {
+          id: PnUtil.uuid(),
+          layoutItemConfigData: {
+            height: '80px',
+            backgroundColor: '#66CCFF'
+          },
+          component: {
+            id: '',
+            name: '',
+            compConfigData: {
+
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  /*pageMetadata: {
+    id: PnUtil.uuid(),
+    name: 'test',
+    path: '/test',
+    title: '',
+    component: '',
+    remark: '',
+    layout: {
+      id: PnUtil.uuid(),
+      developCanvas: 'AbsoluteLayoutCanvas', // 画布组件名称
       layoutConfigData: {
         width: '1200px',
         height: '600px',
@@ -59,7 +108,7 @@ const state = {
         }
       ]
     }
-  },
+  },*/
 
 
   rightSidebarComponentName: '', //
