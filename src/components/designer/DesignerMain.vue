@@ -13,7 +13,7 @@
             lineHeight: '48px',
             padding: '0 20px'
           }">
-        <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentPage">保存</Button>
+        <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentEditPage">保存</Button>
         <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
         <Button size="small" type="primary"
                 @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
@@ -36,7 +36,7 @@
               <div>
                 <Button size="small" type="primary" style="margin-right: 5px;"
                         @click="createPageDrawerVisible = !createPageDrawerVisible">新建页面</Button>
-                <Button size="small" type="error">删除</Button>
+
                 <Drawer
                     title="新建页面"
                     v-model="createPageDrawerVisible"
@@ -95,20 +95,26 @@
                  right: 0,
                  overflow: 'auto'
                }">
-          <Collapse simple>
-            <Panel name="1">
+          <Collapse simple v-model="collapseDefaultName">
+            <Panel name="page_config">
+              页面信息
+              <p slot="content">
+                <component :is="pageConfigCompName"></component>
+              </p>
+            </Panel>
+            <Panel name="canvas_config">
               画布配置
               <p slot="content">
                 <component :is="canvasConfigCompName"></component>
               </p>
             </Panel>
-            <Panel name="2">
+            <Panel name="layoutItem_config">
               布局块配置
               <p slot="content">
                 <component :is="this.$store.state.designer.rightSidebarComponentName"></component>
               </p>
             </Panel>
-            <Panel name="3">
+            <Panel name="comp_config">
               组件配置
               <p slot="content">
                 <component :is="this.$store.state.designer.rightSidebarFuncCompConfigFormName"></component>
@@ -152,6 +158,10 @@
     },
     data() {
       return {
+
+        pageConfigCompName: '',
+
+        collapseDefaultName: '',
 
         globalConfigDataDrawerVisible: false,
 
@@ -207,7 +217,44 @@
               pages.forEach(item => {
                 let page = {
                   key: item.id,
-                  title: item.name
+                  title: item.name,
+                  render: (h, {root, node, data}) => {
+                    return h('span', [
+                      h('span', {
+
+                      }, '--('+data.title+')--'),
+
+                      h('a', {
+                        on: {
+                          click: () => {
+                            this.openPageToDesigner(data.key)
+                          }
+                        }
+                      }, [
+                        h('Icon', {
+                          props: {
+                            type: 'md-create'
+                          }
+                        })
+                      ]),
+                      h('a', {
+                        style: {
+                          color: '#ed4014'
+                        },
+                        on: {
+                          click: () => {
+                            this.deletePage(data.key)
+                          }
+                        }
+                      }, [
+                        h('Icon', {
+                          props: {
+                            type: 'md-trash'
+                          }
+                        })
+                      ])
+                    ])
+                  }
                 };
                 this.pageTreeData[0].children.push(page)
               });
@@ -222,6 +269,22 @@
           if (valid) {
             let pageFormData = this.$refs.pageForm.formData;
             pageFormData.project_id = this.projectId;
+
+            let layoutData = {
+              id: this.$PnUtil.uuid(),
+              developCanvas: '',
+              layoutConfigData: {
+                rows: [
+
+                ]
+              },
+              layoutItems: [
+
+              ]
+            };
+
+            pageFormData.layoutData = JSON.stringify(layoutData);
+
             this.$PnApi.PageApi.savePage(pageFormData).then((result)=>{
               console.log(result);
               if(result.data.code == 1) {
@@ -273,7 +336,7 @@
         this.$store.commit('designer/addLayoutItem', newLayoutItem);
       },
 
-      saveCurrentPage () {
+      saveCurrentEditPage () {
         this.$PnApi.PageApi.updatePageLayoutData(this.currentSelectPageId, this.pageMetadata.layout).then(result => {
           if(result.data.code == 1) {
             this.$Message.success('保存成功')
@@ -281,6 +344,31 @@
         })
       },
 
+      openPageToDesigner (pageId) {
+        this.$store.commit('designer/resetDesigner');
+        this.$store.dispatch('designer/loadPage', pageId);
+
+        this.currentSelectPageId = pageId;
+        this.pageConfigCompName = 'PageFormForDesigner';
+        this.collapseDefaultName = 'page_config'
+      },
+
+      deletePage(pageId) {
+        this.$Modal.confirm({
+          title: '提醒',
+          content: '确认删除此页面吗？',
+          onOk: () => {
+            this.$PnApi.PageApi.deletePage(pageId).then(result=>{
+              if(result.data.code != 1) {
+                this.$Message.error(result.data.msg)
+              }else {
+                this.initPageTreeData()
+              }
+            })
+          }
+        });
+
+      },
 
       handleCancel (_target) {
         this[_target] = false;

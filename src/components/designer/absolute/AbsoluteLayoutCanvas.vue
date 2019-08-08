@@ -4,7 +4,7 @@
         backgroundColor: layout.layoutConfigData.backgroundColor,
         width: layout.layoutConfigData.width,
         height: layout.layoutConfigData.height
-       }" @click.stop="absoluteLayoutClidk">
+       }">
 
     <div class="absolute-layout-item"
          :data-id="layoutItem.id"
@@ -22,14 +22,14 @@
           zIndex: layoutItem.layoutItemConfigData.zIndex,
           display: layoutItem.layoutItemConfigData.display
          }"
-         @click.stop="layoutItemClick(layoutItem)">
-      <FuncCompContainer>
+         @click="layoutItemClick(layoutItem)">
+      <FuncCompContainer :location="layoutItem.id">
         <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
       </FuncCompContainer>
     </div>
 
     <div style="position: absolute; right: 0px; top: 0px;">
-      {{layout.layoutItems}}
+      {{layout}}
     </div>
   </div>
 </template>
@@ -95,10 +95,6 @@
             }
           });
         }, 100);
-
-      },
-
-      absoluteLayoutClidk() {
 
       },
 

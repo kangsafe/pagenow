@@ -8,6 +8,12 @@
 
   export default {
     name: 'FuncCompContainer',
+    props: {
+      location: {
+        type: String,
+        default: ''
+      }
+    },
     data() {
       return {
 
@@ -19,8 +25,8 @@
     methods: {
       funcCompContainerClick () {
         if(this.$slots.default) {
+          this.$store.commit('designer/setCurrentSelectLayoutItemId', this.location);
           this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', this.$slots.default[0].componentOptions.tag + 'Form');
-          //this.$store.commit('setCurrentEditFuncCompConfigData',  this.$slots.default[0].componentInstance.$data.configData)
         }
       }
     },

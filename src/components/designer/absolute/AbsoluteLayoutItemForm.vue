@@ -80,6 +80,7 @@
 
       },
       selectFuncComp () {
+        console.log('selectFuncComp');
 
         this.componentId = this.$PnUtil.uuid();
         this.componentName = 'Hello';

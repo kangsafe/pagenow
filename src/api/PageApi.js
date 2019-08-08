@@ -14,8 +14,18 @@ const updatePageLayoutData = async function (pageId, layoutData) {
   return await Axios.post('/page/updatePageLayoutData', {pageId: pageId, layoutData: JSON.stringify(layoutData)});
 };
 
+const deletePage = async function (id) {
+  return await Axios.delete('/page/deletePage', {params: {id: id}});
+};
+
+const getPageById = async function (id) {
+  return await Axios.get('/page/getPageById', {params: {id: id}});
+};
+
 export default {
   savePage,
   getPagesByProjectId,
-  updatePageLayoutData
+  updatePageLayoutData,
+  deletePage,
+  getPageById
 }

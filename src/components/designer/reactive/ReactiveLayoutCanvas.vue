@@ -14,13 +14,13 @@
           v-for="layoutItem in layoutItemsByRowId(row.id)"
           :key="layoutItem.id"
           :span="24/layoutItemsByRowId(row.id).length">
-        <div class="absolute-layout-item"
+        <div class="reactive-layout-item"
              :style="{
               height: layoutItem.layoutItemConfigData.height,
               backgroundColor: layoutItem.layoutItemConfigData.backgroundColor
              }"
-             @click.stop="layoutItemClick(layoutItem)">
-          <FuncCompContainer>
+             @click="layoutItemClick(layoutItem)">
+          <FuncCompContainer :location="layoutItem.id">
             <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
           </FuncCompContainer>
         </div>
@@ -72,7 +72,7 @@
 </script>
 
 <style scoped>
-  .absolute-layout-item {
+  .reactive-layout-item {
 
   }
 </style>

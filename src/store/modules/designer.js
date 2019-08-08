@@ -1,6 +1,8 @@
 
 import PnUtil from '../../utils/PnUtil'
 
+import PnApi from '../../api/PnApi'
+
 import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
@@ -27,7 +29,7 @@ const state = {
     remark: '',
     layout: {
       id: PnUtil.uuid(),
-      developCanvas: 'ReactiveLayoutCanvas', // 画布组件名称
+      //developCanvas: 'ReactiveLayoutCanvas', // 画布组件名称
       layoutConfigData: {
         width: '100%',
         height: '100%',
@@ -147,11 +149,43 @@ const getters = {
 
 const actions = {
 
+  loadPage ({commit}, pageId) {
+    PnApi.PageApi.getPageById(pageId).then(result => {
+      let page = result.data.data;
+      let pageMetadataTmp = {
+        id: page.id,
+        name: page.name,
+        path: page.path,
+        title: page.title,
+        component: page.component,
+        remark: page.remark,
+        layout: JSON.parse(page.layoutData)
+      };
+      commit('setPageMetadata', pageMetadataTmp)
+    });
+
+  }
+
 };
 
 const mutations = {
 
   updateField,
+
+  resetDesigner (state) {
+    state.rightSidebarComponentName = '';
+    state.currentSelectLayoutItemId = '';
+    state.rightSidebarFuncCompConfigFormName = '';
+    state.pageMetadata.layout.layoutItems = [];
+  },
+
+  setPageMetadata (state, pageMetadata) {
+    state.pageMetadata = pageMetadata
+  },
+
+  setLayoutConfigData (state, layoutConfigData) {
+    state.pageMetadata.layout.layoutConfigData = layoutConfigData
+  },
 
   /**
    * 设置布局块的左和上偏移
