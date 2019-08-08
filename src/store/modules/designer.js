@@ -32,38 +32,50 @@ const state = {
         width: '100%',
         height: '100%',
         backgroundColor: 'antiquewhite',
-        gutter: 16,
-        padding: '10px'
+        padding: '10px',
+        rows: [
+          // {
+          //   id: '88888888',
+          //   gutter: 10
+          // },
+          // {
+          //   id: '99999999',
+          //   gutter: 16
+          // }
+        ]
       },
+
       layoutItems: [
-        {
-          id: PnUtil.uuid(),
-          layoutItemConfigData: {
-            height: '80px',
-            backgroundColor: '#66CCFF'
-          },
-          component: {
-            id: '',
-            name: '',
-            compConfigData: {
-
-            }
-          }
-        },
-        {
-          id: PnUtil.uuid(),
-          layoutItemConfigData: {
-            height: '80px',
-            backgroundColor: '#66CCFF'
-          },
-          component: {
-            id: '',
-            name: '',
-            compConfigData: {
-
-            }
-          }
-        }
+        // {
+        //   id: PnUtil.uuid(),
+        //   layoutItemConfigData: {
+        //     rowId: '88888888',
+        //     height: '80px',
+        //     backgroundColor: '#66CCFF'
+        //   },
+        //   component: {
+        //     id: '',
+        //     name: '',
+        //     compConfigData: {
+        //
+        //     }
+        //   }
+        // },
+        // {
+        //   id: PnUtil.uuid(),
+        //   layoutItemConfigData: {
+        //     rowId: '88888888',
+        //     height: '80px',
+        //     backgroundColor: '#66CCFF'
+        //   },
+        //   component: {
+        //     id: '',
+        //     name: '',
+        //     compConfigData: {
+        //
+        //     }
+        //   }
+        // }
       ]
     }
   },
@@ -141,7 +153,6 @@ const mutations = {
 
   updateField,
 
-
   /**
    * 设置布局块的左和上偏移
    * @param state
@@ -186,6 +197,42 @@ const mutations = {
    */
   addLayoutItem(state, layoutItem) {
     state.pageMetadata.layout.layoutItems.push(layoutItem)
+  },
+
+  /**
+   * 添加响应式布局的行对象
+   * @param state
+   * @param row
+   */
+  addRow (state, row) {
+    state.pageMetadata.layout.layoutConfigData.rows.push(row)
+  },
+
+  /**
+   *
+   * @param state
+   * @param rowId
+   */
+  deleteRow (state, rowId) {
+    let rows = state.pageMetadata.layout.layoutConfigData.rows;
+    rows.splice(rows.findIndex(item => item.id === rowId), 1);
+    let layoutItems = state.pageMetadata.layout.layoutItems;
+    for (let i = 0; i < layoutItems.length; i++) {
+      if(layoutItems[i].layoutItemConfigData.rowId === rowId) {
+        layoutItems.splice(i, 1);
+        i--
+      }
+    }
+  },
+
+  /**
+   * 设置响应式布局行配置中的列间隔
+   * @param state
+   * @param payload
+   */
+  setRowGutter (state, payload) {
+    let obj = state.pageMetadata.layout.layoutConfigData.rows.find(o=>o.id==payload.rowId)
+    obj.gutter = payload.gutter
   },
 
 

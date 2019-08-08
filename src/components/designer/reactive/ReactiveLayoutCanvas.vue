@@ -8,9 +8,12 @@
         height: layout.layoutConfigData.height,
         padding: layout.layoutConfigData.padding
        }">
-    {{layout.layoutItems}}
-    <Row :gutter="layout.layoutConfigData.gutter">
-      <i-col v-for="layoutItem in layout.layoutItems" :key="layoutItem.id" :span="24/layout.layoutItems.length">
+    {{layout}}
+    <Row :style="{marginBottom: '10px'}" :gutter="row.gutter" v-for="row in layout.layoutConfigData.rows" :key="row.id">
+      <i-col
+          v-for="layoutItem in layoutItemsByRowId(row.id)"
+          :key="layoutItem.id"
+          :span="24/layoutItemsByRowId(row.id).length">
         <div class="absolute-layout-item"
              :style="{
               height: layoutItem.layoutItemConfigData.height,
@@ -37,11 +40,8 @@
   export default {
     name: 'ReactiveLayoutCanvas',
     data() {
-      const colCounts = {};
-      const arr = [1, 2, 3, 4, 6, 8, 12];
-      arr.forEach((value) => { colCounts[value] = value; });
       return {
-        colCounts
+
       }
     },
     mounted() {
@@ -51,6 +51,16 @@
       layoutItemClick(layoutItem) {
         this.$store.commit('designer/setRightSidebarComponentName', 'ReactiveLayoutItemForm');
         this.$store.commit('designer/setCurrentSelectLayoutItemId', layoutItem.id)
+      },
+
+      layoutItemsByRowId (rowId) {
+        let arr = [];
+        this.layout.layoutItems.forEach(item=>{
+          if(item.layoutItemConfigData.rowId === rowId) {
+            arr.push(item)
+          }
+        });
+        return arr
       }
     },
     computed: {

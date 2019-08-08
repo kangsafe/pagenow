@@ -13,9 +13,11 @@
       </FormItem>
       <FormItem label="功能组件">
         <i-input size="small" v-model="componentName">
-
           <Button size="small" slot="append" @click="selectFuncComp">选择</Button>
         </i-input>
+      </FormItem>
+      <FormItem label="操作">
+        <Button size="small" type="error" style="margin-right: 5px;">删除</Button>
       </FormItem>
     </Form>
   </div>
