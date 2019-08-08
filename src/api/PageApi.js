@@ -10,8 +10,12 @@ const getPagesByProjectId = async function (projectId) {
   return await Axios.get('/page/getPagesByProjectId', {params: {projectId: projectId}});
 };
 
-const updatePageLayoutData = async function (pageId, layoutData) {
-  return await Axios.post('/page/updatePageLayoutData', {pageId: pageId, layoutData: JSON.stringify(layoutData)});
+const updatePage = async function (data) {
+  return await Axios.post('/page/updatePage', {data: JSON.stringify(data)});
+};
+
+const updatePageLayout = async function (pageId, layout) {
+  return await Axios.post('/page/updatePageLayout', {pageId: pageId, layout: JSON.stringify(layout)});
 };
 
 const deletePage = async function (id) {
@@ -25,7 +29,8 @@ const getPageById = async function (id) {
 export default {
   savePage,
   getPagesByProjectId,
-  updatePageLayoutData,
+  updatePage,
+  updatePageLayout,
   deletePage,
   getPageById
 }

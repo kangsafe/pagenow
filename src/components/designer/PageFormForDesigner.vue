@@ -21,12 +21,12 @@
       </FormItem>
       <FormItem label="布局方案">
         <Select size="small" v-model="developCanvas" @on-change="developCanvasChangeHandle">
-          <Option v-for="item in layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
+          <Option v-for="item in $PnDict.layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </FormItem>
-      <FormItem label="操作">
+      <!--<FormItem label="操作">
 
-      </FormItem>
+      </FormItem>-->
     </Form>
   </div>
 </template>
@@ -43,16 +43,7 @@
     name: 'PageFormForDesigner',
     data() {
       return {
-        layoutSchemes: [
-          {
-            label: '栅格布局',
-            value: 'ReactiveLayoutCanvas'
-          },
-          {
-            label: '绝对布局',
-            value: 'AbsoluteLayoutCanvas'
-          }
-        ]
+
       }
     },
     mounted() {
@@ -61,22 +52,13 @@
     methods: {
       developCanvasChangeHandle (value) {
         this.$store.commit('designer/resetDesigner');
+
         if(value === 'ReactiveLayoutCanvas') {
-          let layoutConfigData = {
-            width: '100%',
-            height: '100%',
-            backgroundColor: 'antiquewhite',
-            padding: '10px',
-            rows: []
-          };
-          this.$store.commit('designer/setLayoutConfigData', layoutConfigData)
+          this.$store.commit('designer/setLayoutConfigData',
+            this.$store.state.designer.globalConfigData.reactive.defaultLayoutConfigData)
         }else if(value === 'AbsoluteLayoutCanvas') {
-          let layoutConfigData = {
-            width: '1200px',
-            height: '600px',
-            backgroundColor: 'antiquewhite'
-          };
-          this.$store.commit('designer/setLayoutConfigData', layoutConfigData)
+          this.$store.commit('designer/setLayoutConfigData',
+            this.$store.state.designer.globalConfigData.absolute.defaultLayoutConfigData)
         }
       }
     },
@@ -87,7 +69,7 @@
         path: 'pageMetadata.path',
         title: 'pageMetadata.title',
         remark: 'pageMetadata.remark',
-        developCanvas: 'pageMetadata.layout.developCanvas'
+        developCanvas: 'pageMetadata.developCanvas'
       })
     }
   }

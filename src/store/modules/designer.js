@@ -12,10 +12,20 @@ const state = {
     snapEnabled: false, // 拖拽中是否打开自动对齐
 
     absolute: { // 针对绝对布局的配置
-
+      defaultLayoutConfigData: { // 绝对布局默认配置（只读，不用于逻辑处理）
+        width: '1440px',
+        height: '900px',
+        backgroundColor: 'antiquewhite'
+      }
     },
     reactive: { // 针对响应式布局的配置
-
+      defaultLayoutConfigData: { // 响应式布局默认配置（只读，不用于逻辑处理）
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'antiquewhite',
+        padding: '10px',
+        rows: []
+      }
     }
   },
 
@@ -26,10 +36,10 @@ const state = {
     path: '/test',
     title: '',
     component: '',
+    //developCanvas: 'ReactiveLayoutCanvas',
     remark: '',
     layout: {
       id: PnUtil.uuid(),
-      //developCanvas: 'ReactiveLayoutCanvas', // 画布组件名称
       layoutConfigData: {
         width: '100%',
         height: '100%',
@@ -88,10 +98,10 @@ const state = {
     path: '/test',
     title: '',
     component: '',
+    developCanvas: 'AbsoluteLayoutCanvas', // 画布组件名称
     remark: '',
     layout: {
       id: PnUtil.uuid(),
-      developCanvas: 'AbsoluteLayoutCanvas', // 画布组件名称
       layoutConfigData: {
         width: '1200px',
         height: '600px',
@@ -158,8 +168,9 @@ const actions = {
         path: page.path,
         title: page.title,
         component: page.component,
+        developCanvas: page.developCanvas,
         remark: page.remark,
-        layout: JSON.parse(page.layoutData)
+        layout: JSON.parse(page.layout)
       };
       commit('setPageMetadata', pageMetadataTmp)
     });

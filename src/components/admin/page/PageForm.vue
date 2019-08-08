@@ -10,12 +10,17 @@
       <FormItem label="标题">
         <Input v-model="formData.title" placeholder=""/>
       </FormItem>
+      <FormItem label="布局方案" prop="developCanvas">
+        <Select v-model="formData.developCanvas">
+          <Option v-for="item in $PnDict.layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
       <FormItem label="备注">
         <Input v-model="formData.remark" />
       </FormItem>
-      <FormItem label="关联组件">
+      <!--<FormItem label="关联组件">
         <Input v-model="formData.component" />
-      </FormItem>
+      </FormItem>-->
     </Form>
   </div>
 </template>
@@ -38,6 +43,7 @@
           path: '',
           title: '',
           component: '',
+          developCanvas: '',
           remark: ''
         },
         ruleValidate: {
@@ -46,6 +52,9 @@
           ],
           path: [
             { required: true, message: '路径不能为空', trigger: 'blur' }
+          ],
+          developCanvas: [
+            { required: true, message: '布局方案不能为空', trigger: 'blur' }
           ]
         }
       }

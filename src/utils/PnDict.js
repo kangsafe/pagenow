@@ -29,7 +29,19 @@ const display = [
   }
 ];
 
+const layoutSchemes = [
+  {
+    label: '响应式栅格布局',
+    value: 'ReactiveLayoutCanvas'
+  },
+  {
+    label: '绝对布局',
+    value: 'AbsoluteLayoutCanvas'
+  }
+];
+
 export default {
   borderStyles,
-  display
+  display,
+  layoutSchemes
 }

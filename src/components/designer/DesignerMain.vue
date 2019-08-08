@@ -81,7 +81,7 @@
                 backgroundImage: 'url('+require('../../assets/bkgd.png')+')',
                 backgroundRepeat: 'repeat'
                }">
-            <component ref="targetComp" :is="pageMetadata.layout.developCanvas"></component>
+            <component ref="targetComp" :is="pageMetadata.developCanvas"></component>
           </div>
         </Content>
 
@@ -220,6 +220,11 @@
                   title: item.name,
                   render: (h, {root, node, data}) => {
                     return h('span', [
+                      h('Icon', {
+                        props: {
+                          type: 'md-browsers'
+                        }
+                      }),
                       h('span', {
 
                       }, '--('+data.title+')--'),
@@ -264,37 +269,34 @@
         })
       },
 
+
       submitPageForm () {
         this.$refs.pageForm.$refs.form.validate((valid) => {
           if (valid) {
             let pageFormData = this.$refs.pageForm.formData;
-            pageFormData.project_id = this.projectId;
+            pageFormData.project_id = this.projectId; // 赋值工程ID
 
-            let layoutData = {
+            let layout = {
               id: this.$PnUtil.uuid(),
-              developCanvas: '',
-              layoutConfigData: {
-                rows: [
-
-                ]
-              },
-              layoutItems: [
-
-              ]
+              layoutConfigData: {},
+              layoutItems: []
             };
+            if (pageFormData.developCanvas === 'ReactiveLayoutCanvas') {
+              layout.layoutConfigData = this.$store.state.designer.globalConfigData.reactive.defaultLayoutConfigData
+            }else if (pageFormData.developCanvas === 'AbsoluteLayoutCanvas') {
+              layout.layoutConfigData = this.$store.state.designer.globalConfigData.absolute.defaultLayoutConfigData
+            }
 
-            pageFormData.layoutData = JSON.stringify(layoutData);
+            pageFormData.layout = JSON.stringify(layout);
 
             this.$PnApi.PageApi.savePage(pageFormData).then((result)=>{
-              console.log(result);
               if(result.data.code == 1) {
                 //this.$Message.success('保存成功');
                 this.$refs.pageForm.$refs.form.resetFields();
                 this.createPageDrawerVisible = false;
                 this.initPageTreeData();
               }else if (result.data.code == 0) {
-                alert(result.data.msg);
-                //this.$Message.error(result.data.msg)
+                this.$Message.error(result.data.msg)
               }
             });
           }
@@ -337,11 +339,18 @@
       },
 
       saveCurrentEditPage () {
-        this.$PnApi.PageApi.updatePageLayoutData(this.currentSelectPageId, this.pageMetadata.layout).then(result => {
+        let page = Object.assign({}, this.pageMetadata);
+        page.layout = JSON.stringify(page.layout);
+        this.$PnApi.PageApi.updatePage(page).then(result => {
           if(result.data.code == 1) {
             this.$Message.success('保存成功')
           }
         })
+        // this.$PnApi.PageApi.updatePageLayout(this.currentSelectPageId, this.pageMetadata.layout).then(result => {
+        //   if(result.data.code == 1) {
+        //     this.$Message.success('保存成功')
+        //   }
+        // })
       },
 
       openPageToDesigner (pageId) {
@@ -381,9 +390,9 @@
       }),
       // 根据developCanvas返回不同的画布配置表单
       canvasConfigCompName () {
-        if(this.$store.state.designer.pageMetadata.layout.developCanvas === 'ReactiveLayoutCanvas') {
+        if(this.$store.state.designer.pageMetadata.developCanvas === 'ReactiveLayoutCanvas') {
           return 'ReactiveLayoutConfigDataForm'
-        }else if(this.$store.state.designer.pageMetadata.layout.developCanvas === 'AbsoluteLayoutCanvas') {
+        }else if(this.$store.state.designer.pageMetadata.developCanvas === 'AbsoluteLayoutCanvas') {
           return 'AbsoluteLayoutConfigDataForm'
         }
         return ''
