@@ -4,7 +4,15 @@
   <div class="designer-main">
     <Layout>
       <!--顶部栏，固定布局-->
-      <Header :style="{position: 'fixed', width: '100%'}">
+      <Header
+          :style="{
+            position: 'fixed',
+            width: '100%',
+            height: '48px',
+            backgroundColor: '#515A6E',
+            lineHeight: '48px',
+            padding: '0 20px'
+          }">
         <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentPage">保存</Button>
         <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
         <Button size="small" type="primary"
@@ -317,15 +325,6 @@
   .designer-main .ivu-layout {
     height: 100%;
   }
-
-  .designer-main .ivu-layout-header {
-    background: #515A6E;
-    color: #fff;
-    height: 48px;
-    line-height: 48px;
-    padding: 0 20px;
-  }
-
 
   .designer-main .ivu-layout-content {
     padding: 10px;
