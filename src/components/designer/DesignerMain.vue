@@ -3,7 +3,8 @@
 <template>
   <div class="designer-main">
     <Layout>
-      <Header>
+      <!--顶部栏，固定布局-->
+      <Header :style="{position: 'fixed', width: '100%'}">
         <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentPage">保存</Button>
         <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
         <Button size="small" type="primary"
@@ -17,9 +18,10 @@
         </Drawer>
 
       </Header>
-      <Layout>
+      <Layout :style="{paddingTop: '48px'}">
+
         <!--左侧边栏-->
-        <Sider :width="300" :style="{borderRight: '1px solid #999'}">
+        <Sider :width="300" :style="{borderRight: '1px solid #999', backgroundColor: '#FFF'}">
           <Tabs size="small" value="project_tab">
             <TabPane label="工程信息" name="project_tab" :style="{padding: '0px 10px 0px 10px'}">
 
@@ -61,7 +63,8 @@
 
         </Sider>
 
-        <Content>
+        <!--中间内容区-->
+        <Content :style="{marginRight: '300px'}">
           <div :style="{
                 width: '100%',
                 height: '100%',
@@ -73,7 +76,17 @@
             <component ref="targetComp" :is="pageMetadata.layout.developCanvas"></component>
           </div>
         </Content>
-        <Sider :width="300" :style="{borderLeft: '1px solid #999'}">
+
+        <!--右侧边栏，固定布局-->
+        <Sider :width="300"
+               :style="{
+                 backgroundColor: '#FFF',
+                 borderLeft: '1px solid #999',
+                 position: 'fixed',
+                 height: 'calc(100% - 48px)',
+                 right: 0,
+                 overflow: 'auto'
+               }">
           <Collapse simple>
             <Panel name="1">
               画布配置
@@ -98,6 +111,7 @@
         </Sider>
       </Layout>
     </Layout>
+
   </div>
 </template>
 
@@ -312,9 +326,7 @@
     padding: 0 20px;
   }
 
-  .designer-main .ivu-layout-sider {
-    background: #FFF;
-  }
+
   .designer-main .ivu-layout-content {
     padding: 10px;
     background-color: #B0B0B0;
