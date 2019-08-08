@@ -111,7 +111,7 @@
             <Panel name="layoutItem_config">
               布局块配置
               <p slot="content">
-                <component :is="this.$store.state.designer.rightSidebarComponentName"></component>
+                <component :is="this.$store.state.designer.rightSidebarLayoutItemConfigFormName"></component>
               </p>
             </Panel>
             <Panel name="comp_config">

@@ -99,7 +99,7 @@
       },
 
       layoutItemClick(layoutItem) {
-        this.$store.commit('designer/setRightSidebarComponentName', 'AbsoluteLayoutItemForm');
+        this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'AbsoluteLayoutItemForm');
         this.$store.commit('designer/setCurrentSelectLayoutItemId', layoutItem.id)
       }
     },

@@ -49,7 +49,7 @@
     },
     methods: {
       layoutItemClick(layoutItem) {
-        this.$store.commit('designer/setRightSidebarComponentName', 'ReactiveLayoutItemForm');
+        this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'ReactiveLayoutItemForm');
         this.$store.commit('designer/setCurrentSelectLayoutItemId', layoutItem.id)
       },
 

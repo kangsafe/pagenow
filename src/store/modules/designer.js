@@ -125,7 +125,7 @@ const state = {
   },*/
 
 
-  rightSidebarComponentName: '', //
+  rightSidebarLayoutItemConfigFormName: '', // 右侧边栏布局块编辑区表单名称
   currentSelectLayoutItemId: '', // 当前选中的布局块ID
 
 
@@ -173,7 +173,7 @@ const mutations = {
   updateField,
 
   resetDesigner (state) {
-    state.rightSidebarComponentName = '';
+    state.rightSidebarLayoutItemConfigFormName = '';
     state.currentSelectLayoutItemId = '';
     state.rightSidebarFuncCompConfigFormName = '';
     state.pageMetadata.layout.layoutItems = [];
@@ -270,8 +270,8 @@ const mutations = {
   },
 
 
-  setRightSidebarComponentName (state, compName) {
-    state.rightSidebarComponentName = compName
+  setRightSidebarLayoutItemConfigFormName (state, compName) {
+    state.rightSidebarLayoutItemConfigFormName = compName
   },
   setCurrentSelectLayoutItemId (state, layoutItemId) {
     state.currentSelectLayoutItemId = layoutItemId;
