@@ -117,7 +117,7 @@
       deleteRow (rowId) {
         this.$Modal.confirm({
           title: '提醒',
-          content: '确认删除此行吗？',
+          content: '删除行将会级联删除行内所关联的列与组件数据，您确认要删除吗？',
           onOk: () => {
             this.$store.commit('designer/deleteRow', rowId);
           }
