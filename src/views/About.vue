@@ -7,7 +7,6 @@
 </template>
 
 <script>
-  import PnGridLayout from '../components/layout/PnGridLayout'
   export default {
     name: 'About',
     data() {
@@ -18,15 +17,7 @@
     },
     methods: {
       addRoute () {
-        let newRoutes = []
-        let route = {
-          path: '/test',
-          name: 'Test',
-          component: 'PnGridLayout'
-        };
-        newRoutes.push(route)
-        // this.$router.addRoutes(newRoutes);
-        localStorage.setItem('routes', JSON.stringify(newRoutes))
+
       }
     },
     computed: {}

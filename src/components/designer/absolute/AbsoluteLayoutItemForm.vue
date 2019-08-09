@@ -53,8 +53,6 @@
       </FormItem>-->
     </Form>
 
-    <!--这里使用一个隐藏的component标签来引入动态添加的功能组件，以便获取组件的data.configData配置-->
-    <!--<component ref="funcComp" :is="componentName" v-show="false"></component>-->
   </div>
 </template>
 

@@ -9,6 +9,15 @@ const uuid = function() {
   return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 };
 
+/**
+ * 获取当前时间戳
+ * @returns {number}
+ */
+const getTimestamp = function () {
+  return new Date().getTime();
+};
+
 export default {
-  uuid
+  uuid,
+  getTimestamp
 }

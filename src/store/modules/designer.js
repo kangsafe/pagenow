@@ -192,6 +192,10 @@ const mutations = {
 
   updateField,
 
+  /**
+   * 重置设计器相关状态
+   * @param state
+   */
   resetDesigner (state) {
     state.rightSidebarLayoutItemConfigFormName = '';
     state.currentSelectLayoutItemId = '';

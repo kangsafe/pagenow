@@ -65,7 +65,7 @@
                 <p>Hello</p>
               </div>
               <div class="comp-card" style="left: 100px;">
-                <p>HelloWorld</p>
+                <p>TestBarChart</p>
               </div>
 
             </TabPane>

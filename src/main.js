@@ -11,6 +11,9 @@ import store from './store/index'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
+// 引入Echart4.x组件
+import echarts from 'echarts'
+
 // 自动扫描组件
 import './components/index.js'
 
@@ -41,6 +44,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$PnUtil = PnUtil;
 Vue.prototype.$PnDict = PnDict;
 Vue.prototype.$PnApi = PnApi;
+Vue.prototype.$Echarts = echarts;
 
 new Vue({
   router,
