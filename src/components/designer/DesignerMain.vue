@@ -55,21 +55,36 @@
             </TabPane>
             <TabPane label="组件库" name="comp_tab"
                      :style="{
-                     padding: '0px 10px 0px 10px',
-                     backgroundColor: 'blue',
+                     padding: '10px',
                      width: '100%',
                      height: '100%',
                      position: 'relative'}">
 
-              <div class="comp-card">
-                <p>Hello</p>
+              <!--<Collapse simple :style="{marginTop: '-17px'}">
+                <Panel name="1">
+                  功能组件
+                  <div slot="content">
+                    <div class="comp-card">
+                      <p>Hello</p>
+                    </div>
+                  </div>
+                </Panel>
+
+              </Collapse>-->
+
+              <div style="margin-top: -16px;">
+                <div class="comp-card">
+                  <p>Hello</p>
+                </div>
+                <div class="comp-card" style="left: 100px;">
+                  <p>TestBarChart</p>
+                </div>
+                <div class="comp-card" style="left: 200px;">
+                  <p>TestBarChart2</p>
+                </div>
               </div>
-              <div class="comp-card" style="left: 100px;">
-                <p>TestBarChart</p>
-              </div>
-              <div class="comp-card" style="left: 200px;">
-                <p>TestBarChart2</p>
-              </div>
+
+
 
             </TabPane>
           </Tabs>
@@ -382,10 +397,10 @@
   }
 
   .comp-card {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     background-color: red;
-    position: absolute;
+    float: left;
     cursor: move;
   }
 
