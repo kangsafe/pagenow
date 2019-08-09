@@ -21,10 +21,7 @@
       }
     },
     mounted() {
-      setTimeout(()=>{
-        this.drawChart();
-      }, 100)
-
+      this.drawChart();
     },
     methods: {
       drawChart: function () {

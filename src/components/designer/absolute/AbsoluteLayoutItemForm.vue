@@ -27,10 +27,10 @@
         </Select>
       </FormItem>
       <FormItem label="边框颜色">
-        <ColorPicker size="small" v-model="borderColor" />
+        <ColorPicker size="small" v-model="borderColor" alpha/>
       </FormItem>
       <FormItem label="背景颜色">
-        <ColorPicker size="small" v-model="backgroundColor" />
+        <ColorPicker size="small" v-model="backgroundColor" alpha/>
       </FormItem>
       <FormItem label="层级">
         <Input size="small" v-model="zIndex"/>
