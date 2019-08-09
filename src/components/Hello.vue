@@ -17,7 +17,10 @@
         text: '你好呀',
         msg: '测试',
         fontSize: '15px',
-        api: 'http://www.baidu.com'
+        api: 'http://www.baidu.com',
+        obj: {
+          name: 'eeee'
+        }
       }
     },
     data() {

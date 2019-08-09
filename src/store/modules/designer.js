@@ -146,14 +146,23 @@ const state = {
 const getters = {
   getField,
 
+  /**
+   * 获取布局块对象，内部根据currentSelectLayoutItemId状态属性来查询匹配的布局块对象
+   * @param state
+   * @returns {*}
+   */
   getLayoutItem (state) {
     return getField(state.pageMetadata.layout.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId))
   },
 
+  /**
+   * 根据布局块的ID获取布局块对象
+   * @param state
+   * @returns {function(*): *}
+   */
   getLayoutItemById: (state) => (id) => {
     return state.pageMetadata.layout.layoutItems.find(o=>o.id==id)
   }
-
 
 };
 

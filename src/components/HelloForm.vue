@@ -4,6 +4,9 @@
       <FormItem label="文本">
         <Input size="small" v-model="text"/>
       </FormItem>
+      <FormItem label="对象属性">
+        <Input size="small" v-model="name"/>
+      </FormItem>
     </Form>
 
   </div>
@@ -30,7 +33,8 @@
     methods: {},
     computed: {
       ...mapFields({
-        text: 'component.compConfigData.text'
+        text: 'component.compConfigData.text',
+        name: 'component.compConfigData.obj.name'
       })
     }
   }
