@@ -14,7 +14,6 @@
             padding: '0 20px'
           }">
         <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentEditPage">保存</Button>
-        <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
         <Button size="small" type="primary"
                 @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
         <Drawer
@@ -308,33 +307,6 @@
         }else {
           this.currentSelectPageId = ''
         }
-      },
-
-
-      addLayoutItem () {
-        let newLayoutItem = {
-          id: this.$PnUtil.uuid(),
-          layoutItemConfigData: {
-            width: '200px',
-            height: '200px',
-            left: '600px',
-            top: '200px',
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderColor: '#000',
-            backgroundColor: 'yellow',
-            zIndex: '1',
-            display: 'block'
-          },
-          component: {
-            id: '',
-            name: '',
-            compConfigData: {
-
-            }
-          }
-        };
-        this.$store.commit('designer/addLayoutItem', newLayoutItem);
       },
 
       saveCurrentEditPage () {

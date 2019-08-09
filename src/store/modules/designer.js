@@ -203,8 +203,19 @@ const mutations = {
     state.pageMetadata = pageMetadata
   },
 
+
   setLayoutConfigData (state, layoutConfigData) {
     state.pageMetadata.layout.layoutConfigData = layoutConfigData
+  },
+
+  /**
+   * 删除指定布局块绑定的组件
+   * @param state
+   * @param layoutItemId
+   */
+  deleteComponentByLayoutItemId (state, layoutItemId) {
+    let obj = state.pageMetadata.layout.layoutItems.find(o=>o.id==layoutItemId);
+    obj.component = {}
   },
 
   /**
@@ -309,7 +320,11 @@ const mutations = {
     updateField(state.pageMetadata.layout.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId), field);
   },
 
-
+  /**
+   * 设置右侧边栏组件配置关联的组件表单名
+   * @param state
+   * @param payload
+   */
   setRightSidebarFuncCompConfigFormName (state, payload) {
     state.rightSidebarFuncCompConfigFormName = payload
   },

@@ -10,6 +10,9 @@
       <FormItem label="背景色">
         <ColorPicker size="small" v-model="backgroundColor" />
       </FormItem>
+      <FormItem label="操作">
+        <Button size="small" type="primary" @click="addLayoutItem">添加布局块</Button>
+      </FormItem>
     </Form>
   </div>
 </template>
@@ -35,7 +38,33 @@
     mounted() {
 
     },
-    methods: {},
+    methods: {
+      addLayoutItem () {
+        let newLayoutItem = {
+          id: this.$PnUtil.uuid(),
+          layoutItemConfigData: {
+            width: '200px',
+            height: '200px',
+            left: '600px',
+            top: '200px',
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: '#000',
+            backgroundColor: 'yellow',
+            zIndex: '1',
+            display: 'block'
+          },
+          component: {
+            id: '',
+            name: '',
+            compConfigData: {
+
+            }
+          }
+        };
+        this.$store.commit('designer/addLayoutItem', newLayoutItem);
+      },
+    },
     computed: {
       ...mapFields({
         width: 'pageMetadata.layout.layoutConfigData.width',
