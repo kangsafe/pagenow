@@ -276,10 +276,19 @@ const mutations = {
    * @param payload
    */
   setRowGutter (state, payload) {
-    let obj = state.pageMetadata.layout.layoutConfigData.rows.find(o=>o.id==payload.rowId)
+    let obj = state.pageMetadata.layout.layoutConfigData.rows.find(o=>o.id==payload.rowId);
     obj.gutter = payload.gutter
   },
 
+  /**
+   * 添加组件到布局块
+   * @param state
+   * @param payload
+   */
+  addComponentToLayoutItem (state, payload) {
+    let layoutItem = state.pageMetadata.layout.layoutItems.find(o=>o.id==payload.layoutItemId);
+    layoutItem.component = payload.component
+  },
 
   setRightSidebarLayoutItemConfigFormName (state, compName) {
     state.rightSidebarLayoutItemConfigFormName = compName

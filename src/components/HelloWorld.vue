@@ -1,33 +1,32 @@
 <template>
   <div class="hello">
-    hello {{parentLocation}}
-    <a-button type="primary" @click="sayHello">按钮</a-button>
+    hello
+    <Button type="primary" @click="sayHello">按钮</Button>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    location: {
-      type: String
-    }
-  },
-  data () {
-    return {
-      parentLocation: ''
-    }
-  },
-  mounted () {
-    console.log(this.location)
-    this.parentLocation = this.location;
-  },
-  methods: {
-    sayHello () {
-      alert('hello');
+  import FuncCompMixin from '../mixin/FuncCompMixin'
+  export default {
+    name: 'HelloWorld',
+    mixins: [FuncCompMixin],
+    attr: {
+      configDataTemp: {
+        text: '你好呀'
+      }
+    },
+    data() {
+      return {}
+    },
+    mounted() {
+
+    },
+    methods: {
+      sayHello() {
+        alert('hello');
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

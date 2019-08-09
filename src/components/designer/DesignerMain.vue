@@ -65,6 +65,9 @@
               <div class="comp-card">
                 <p>Hello</p>
               </div>
+              <div class="comp-card" style="left: 100px;">
+                <p>HelloWorld</p>
+              </div>
 
             </TabPane>
           </Tabs>
@@ -179,15 +182,11 @@
 
       $(".comp-card").draggable({
         zIndex: 999,
-        revert: true,
-        // helper: function () {
-        //   let clone = $('<div class="comp-card">' + $(".comp-card").html() + '</div>');
-        //   clone.appendTo('body');
-        //   return clone;
-        // },
+        revert: "invalid",
         helper: 'clone',
         containment: 'body',
-        appendTo: 'body'
+        appendTo: 'body',
+        scope: 'layoutItemScope'
       });
 
     },
