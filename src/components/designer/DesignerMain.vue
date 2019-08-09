@@ -28,7 +28,16 @@
       <Layout :style="{paddingTop: '48px'}">
 
         <!--左侧边栏-->
-        <Sider :width="300" :style="{borderRight: '1px solid #999', backgroundColor: '#FFF'}">
+        <Sider :width="300"
+               :style="{
+                 backgroundColor: '#FFF',
+                 borderRight: '1px solid #999',
+                 position: 'fixed',
+                 height: 'calc(100% - 48px)',
+                 left: 0,
+                 overflow: 'auto',
+                 zIndex: 2
+               }">
           <Tabs size="small" value="project_tab">
             <TabPane label="工程信息" name="project_tab" :style="{padding: '0px 10px 0px 10px'}">
 
@@ -92,10 +101,16 @@
         </Sider>
 
         <!--中间内容区-->
-        <Content :style="{marginRight: '300px'}">
+        <Content
+            :style="{
+              marginRight: '300px',
+              marginLeft: '300px',
+              padding: '10px',
+              backgroundColor: '#B0B0B0'
+            }">
           <div :style="{
                 width: '100%',
-                height: '100%',
+                height: 'calc(100% - 48px)',
                 overflow: 'auto',
                 backgroundColor: '#FFF',
                 backgroundImage: 'url('+require('../../assets/bkgd.png')+')',
@@ -105,6 +120,7 @@
           </div>
         </Content>
 
+
         <!--右侧边栏，固定布局-->
         <Sider :width="300"
                :style="{
@@ -113,7 +129,8 @@
                  position: 'fixed',
                  height: 'calc(100% - 48px)',
                  right: 0,
-                 overflow: 'auto'
+                 overflow: 'auto',
+                 zIndex: 2
                }">
           <Collapse simple v-model="collapseDefaultName">
             <Panel name="page_config">
@@ -143,6 +160,8 @@
             </Panel>
           </Collapse>
         </Sider>
+
+        <DesignerFooter></DesignerFooter>
       </Layout>
     </Layout>
 
@@ -412,10 +431,6 @@
     height: 100%;
   }
 
-  .designer-main .ivu-layout-content {
-    padding: 10px;
-    background-color: #B0B0B0;
-  }
 
 
   .vue-grid-item {

@@ -31,6 +31,14 @@ const state = {
 
   // 页面源数据
   pageMetadata: {
+    layout: {
+      layoutItems: [
+
+      ]
+    }
+  },
+
+  /*pageMetadata: {
     id: PnUtil.uuid(),
     name: 'test',
     path: '/test',
@@ -90,7 +98,7 @@ const state = {
         // }
       ]
     }
-  },
+  },*/
 
   /*pageMetadata: {
     id: PnUtil.uuid(),
@@ -138,9 +146,8 @@ const state = {
   rightSidebarLayoutItemConfigFormName: '', // 右侧边栏布局块编辑区表单名称
   currentSelectLayoutItemId: '', // 当前选中的布局块ID
 
-
   rightSidebarFuncCompConfigFormName: '', // 右侧边栏组件编辑区表单名称
-  //currentEditFuncCompId: ''
+
 };
 
 const getters = {
@@ -162,6 +169,18 @@ const getters = {
    */
   getLayoutItemById: (state) => (id) => {
     return state.pageMetadata.layout.layoutItems.find(o=>o.id==id)
+  },
+
+
+  getComponents (state) {
+    let layoutItems = state.pageMetadata.layout.layoutItems;
+    let components = [];
+    layoutItems.forEach((item)=>{
+      if(item.component.id) {
+        components.push(item.component)
+      }
+    });
+    return components;
   }
 
 };
@@ -322,6 +341,7 @@ const mutations = {
   setRightSidebarLayoutItemConfigFormName (state, payload) {
     state.rightSidebarLayoutItemConfigFormName = payload
   },
+
 
   setCurrentSelectLayoutItemId (state, layoutItemId) {
     state.currentSelectLayoutItemId = layoutItemId;
