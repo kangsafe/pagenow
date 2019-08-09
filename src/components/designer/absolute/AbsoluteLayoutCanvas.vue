@@ -28,9 +28,9 @@
       </FuncCompContainer>
     </div>
 
-    <div style="position: absolute; right: 0px; top: 0px;">
+    <!--<div style="position: absolute; right: 0px; top: 0px;">
       {{layout}}
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -105,6 +105,7 @@
                 }
               });
 
+              this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
               this.$store.commit('designer/addComponentToLayoutItem', {
                 layoutItemId: layoutItemId,
                 component: component

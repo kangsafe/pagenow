@@ -11,13 +11,16 @@
       <FormItem label="背景颜色">
         <ColorPicker size="small" v-model="backgroundColor" />
       </FormItem>
-      <FormItem label="功能组件">
+      <!--<FormItem label="功能组件">
         <i-input size="small" v-model="componentName">
           <Button size="small" slot="append" @click="selectFuncComp">选择</Button>
         </i-input>
+      </FormItem>-->
+      <FormItem label="关联组件">
+        <Input size="small" v-model="componentName" disabled/>
       </FormItem>
       <FormItem label="操作">
-        <Button size="small" type="error" style="margin-right: 5px;">删除</Button>
+        <Button :disabled="componentName == undefined" size="small" type="error" @click="deleteComponent">删除关联组件</Button>
       </FormItem>
     </Form>
   </div>
@@ -41,6 +44,20 @@
     },
     methods: {
 
+      deleteComponent () {
+        this.$Modal.confirm({
+          title: '提醒',
+          content: '确认删除关联的组件吗？',
+          onOk: () => {
+            this.$store.commit('designer/deleteComponentByLayoutItemId', this.id);
+            this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+          }
+        });
+      },
+
+      /**
+       * 弃用
+       */
       selectFuncComp () {
 
         this.componentId = this.$PnUtil.uuid();

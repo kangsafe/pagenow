@@ -1,6 +1,6 @@
 <template>
   <div class="test-bar-chart">
-    <div ref="chartBox" :id="'chart-'+$PnUtil.getTimestamp()" style="width: 100%; height:100%;"></div>
+    <div :id="'chart-'+component.id" style="width: 100%; height:100%;"></div>
   </div>
 </template>
 
@@ -21,11 +21,14 @@
       }
     },
     mounted() {
-      this.drawChart();
+      setTimeout(()=>{
+        this.drawChart();
+      }, 100)
+
     },
     methods: {
       drawChart: function () {
-        this.chart = this.$Echarts.init(document.getElementById(this.$refs['chartBox'].id));
+        this.chart = this.$Echarts.init(document.getElementById('chart-'+this.component.id));
         let option = {
           color: ['#3398DB'],
           tooltip : {

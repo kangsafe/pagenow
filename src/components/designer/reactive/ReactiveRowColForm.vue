@@ -120,6 +120,7 @@
           content: '删除行将会级联删除行内所关联的列与组件数据，您确认要删除吗？',
           onOk: () => {
             this.$store.commit('designer/deleteRow', rowId);
+            this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '')
           }
         });
       },

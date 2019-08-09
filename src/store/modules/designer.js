@@ -314,9 +314,15 @@ const mutations = {
     layoutItem.component = payload.component
   },
 
-  setRightSidebarLayoutItemConfigFormName (state, compName) {
-    state.rightSidebarLayoutItemConfigFormName = compName
+  /**
+   * 设置右侧边栏布局块配置关联的组件表单名
+   * @param state
+   * @param compName
+   */
+  setRightSidebarLayoutItemConfigFormName (state, payload) {
+    state.rightSidebarLayoutItemConfigFormName = payload
   },
+
   setCurrentSelectLayoutItemId (state, layoutItemId) {
     state.currentSelectLayoutItemId = layoutItemId;
   },

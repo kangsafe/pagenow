@@ -12,11 +12,11 @@ const FuncCompMixin = {
 
   },
   computed: {
-    configData: function () {
+    component: function () {
       if(this.$store.state.release.pageInfo) {
         return {}
       }else {
-        return this.$store.getters['designer/getLayoutItemById'](this.location).component.compConfigData
+        return this.$store.getters['designer/getLayoutItemById'](this.location).component
       }
     }
   }

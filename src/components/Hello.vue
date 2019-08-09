@@ -1,7 +1,7 @@
 <template>
     <div class="hello" :style="{width: '100%', height: '100%', backgroundColor: 'blue'}">
       <h2>{{msg}}</h2>
-      <h2>Hello {{configData.text}}</h2>
+      <h2>Hello {{component.compConfigData.text}}</h2>
     </div>
 </template>
 
@@ -29,7 +29,7 @@
       }
     },
     mounted() {
-      this.$PnApi.TestApi.getMsg(this.configData.msg).then((result)=> {
+      this.$PnApi.TestApi.getMsg(this.component.compConfigData.msg).then((result)=> {
         this.msg = result.data.data;
       })
     },

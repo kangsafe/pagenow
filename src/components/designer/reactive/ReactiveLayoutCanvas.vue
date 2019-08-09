@@ -8,7 +8,7 @@
         height: layout.layoutConfigData.height,
         padding: layout.layoutConfigData.padding
        }">
-    {{layout}}
+    <!--{{layout}}-->
     <Row :style="{marginBottom: '10px'}" :gutter="row.gutter" v-for="row in layout.layoutConfigData.rows" :key="row.id">
       <i-col
           v-for="layoutItem in layoutItemsByRowId(row.id)"
@@ -80,6 +80,7 @@
                 }
               });
 
+              this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
               this.$store.commit('designer/addComponentToLayoutItem', {
                 layoutItemId: layoutItemId,
                 component: component

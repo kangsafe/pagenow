@@ -67,6 +67,9 @@
               <div class="comp-card" style="left: 100px;">
                 <p>TestBarChart</p>
               </div>
+              <div class="comp-card" style="left: 200px;">
+                <p>TestBarChart2</p>
+              </div>
 
             </TabPane>
           </Tabs>
