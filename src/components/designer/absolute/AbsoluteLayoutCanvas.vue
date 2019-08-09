@@ -4,9 +4,10 @@
         backgroundColor: layout.layoutConfigData.backgroundColor,
         width: layout.layoutConfigData.width,
         height: layout.layoutConfigData.height
-       }">
+       }" @click.stop="layoutCanvasClick">
 
     <div class="absolute-layout-item"
+         :class="{active: $store.state.designer.currentSelectLayoutItemId == layoutItem.id}"
          :data-id="layoutItem.id"
          v-for="layoutItem in layout.layoutItems"
          :key="layoutItem.id"
@@ -123,19 +124,27 @@
 
       },
 
+      layoutCanvasClick () {
+        this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
+        this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
+        this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+      },
+
       layoutItemClick(layoutItem, event) {
         // 点击布局块的时候，给布局块设置droppable的属性scope为layoutItemScope，
-        // 与组件库拖拽对象的scope对应，这样组件库的拖拽对象就可以放置在当前点击的布局块里。
-        // 同时给当前布局块设置激活样式active
-        $(".absolute-layout-item").droppable('option', 'scope', '').removeClass('active');
+        // 与组件库拖拽对象的scope对应，这样组件库的拖拽对象就可以放置在当前点击的布局块里
+        $(".absolute-layout-item").droppable('option', 'scope', '');
         for (let i=0; i<event.path.length; i++) {
           let s = $(event.path[i])[0].className + '';
           if (s.indexOf('absolute-layout-item') != -1) {
             $(event.path[i]).droppable('option', 'scope', 'layoutItemScope');
-            $(event.path[i]).addClass('active')
           }
         }
 
+        // 如果当前点击的布局块没有关联组件，那么就清空rightSidebarFuncCompConfigFormName状态
+        if (layoutItem.component.id === '') {
+          this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
+        }
         this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'AbsoluteLayoutItemForm');
         this.$store.commit('designer/setCurrentSelectLayoutItemId', layoutItem.id)
       }
