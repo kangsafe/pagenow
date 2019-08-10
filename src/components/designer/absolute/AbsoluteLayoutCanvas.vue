@@ -37,11 +37,6 @@
 
 <script>
 
-  import $ from 'jquery'
-
-  require('webpack-jquery-ui');
-  require('webpack-jquery-ui/css');
-
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({

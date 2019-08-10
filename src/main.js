@@ -11,6 +11,11 @@ import store from './store/index'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
+// JQuery
+import $ from 'jquery'
+require('webpack-jquery-ui');
+require('webpack-jquery-ui/css');
+
 // 引入Echart4.x组件
 import echarts from 'echarts'
 
@@ -28,8 +33,7 @@ import PnApi from './api/PnApi'
 
 
 // 引入自定义指令
-
-
+import './directives/directives'
 
 // Vue.use(AntDesignVue);
 Vue.use(iView, {
