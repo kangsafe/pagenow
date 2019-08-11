@@ -105,7 +105,7 @@
         }
 
         // 如果当前点击的布局块没有关联组件，那么就清空rightSidebarFuncCompConfigFormName状态
-        if (layoutItem.component.id === '') {
+        if (!layoutItem.component.id) {
           this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
         }
         this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'ReactiveLayoutItemForm');
