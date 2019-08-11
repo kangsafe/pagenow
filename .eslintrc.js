@@ -13,6 +13,7 @@ module.exports = {
     'no-empty': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-parsing-error': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-undef': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -14,7 +14,7 @@
             padding: '0 20px'
           }">
         <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentEditPage">保存</Button>
-        <Button size="small" type="primary"
+        <Button size="small" type="primary" style="margin-right: 5px;"
                 @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
         <Drawer
             title="全局配置"
@@ -23,6 +23,14 @@
             :mask-closable="true">
           <GlobalConfigDataForm></GlobalConfigDataForm>
         </Drawer>
+
+        <div :style="{float: 'right'}">
+          <Button size="small" type="primary"
+                  style="margin-right: 5px;"
+                  :disabled="!$store.state.designer.pageMetadata.id"
+                  @click="previewPage">预览</Button>
+        </div>
+
 
       </Header>
       <Layout :style="{paddingTop: '48px'}">
@@ -169,10 +177,6 @@
 </template>
 
 <script>
-  import $ from 'jquery'
-
-  require('webpack-jquery-ui');
-  require('webpack-jquery-ui/css');
 
   import { createHelpers } from 'vuex-map-fields';
 
@@ -379,7 +383,7 @@
               if(result.data.code != 1) {
                 this.$Message.error(result.data.msg)
               }else {
-                this.initPageTreeData()
+                this.initPageTreeData();
               }
             })
           }
@@ -390,6 +394,11 @@
       handleCancel (_target) {
         this[_target] = false;
       },
+
+      previewPage () {
+        console.log(this.pageMetadata);
+        this.$PnUtil.openPageToBlank(this.pageMetadata.path, {})
+      }
 
     },
     computed: {

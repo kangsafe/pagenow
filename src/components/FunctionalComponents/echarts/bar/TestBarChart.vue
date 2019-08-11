@@ -1,10 +1,11 @@
 <template>
-  <div class="test-bar-chart">
+  <div class="test-bar-chart" v-resize="ttt">
     <div :id="'chart-'+component.id" style="width: 100%; height:100%;"></div>
   </div>
 </template>
 
 <script>
+
   import FuncCompMixin from '../../../../mixin/FuncCompMixin'
 
   export default {
@@ -22,8 +23,12 @@
     },
     mounted() {
       this.drawChart();
+
     },
     methods: {
+      ttt () {
+        this.chart.resize();
+      },
       drawChart: function () {
         this.chart = this.$Echarts.init(document.getElementById('chart-'+this.component.id));
         let option = {

@@ -26,11 +26,16 @@ const getPageById = async function (id) {
   return await Axios.get('/page/getPageById', {params: {id: id}});
 };
 
+const getAllPage = async function () {
+  return await Axios.get('/page/getAllPage');
+};
+
 export default {
   savePage,
   getPagesByProjectId,
   updatePage,
   updatePageLayout,
   deletePage,
-  getPageById
+  getPageById,
+  getAllPage
 }

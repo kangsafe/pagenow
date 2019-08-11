@@ -132,11 +132,12 @@
 
 
       openProject (project) {
-        let routeUrl = this.$router.resolve({
+        this.$PnUtil.openPageToBlank('/designer', {project_id: project.id});
+        /*let routeUrl = this.$router.resolve({
           path: '/designer',
           query: {project_id: project.id}
         });
-        window.open(routeUrl.href, '_blank');
+        window.open(routeUrl.href, '_blank');*/
       }
     },
     computed: {}

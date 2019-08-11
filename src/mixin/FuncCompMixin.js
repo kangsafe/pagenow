@@ -13,8 +13,8 @@ const FuncCompMixin = {
   },
   computed: {
     component: function () {
-      if(this.$store.state.release.pageInfo) {
-        return {}
+      if(this.$store.state.release.pageMetadata) {
+        return this.$store.getters['release/getLayoutItemById'](this.location).component
       }else {
         return this.$store.getters['designer/getLayoutItemById'](this.location).component
       }

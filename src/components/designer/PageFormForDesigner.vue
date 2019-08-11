@@ -19,6 +19,12 @@
       <FormItem label="备注">
         <Input size="small" v-model="remark"/>
       </FormItem>
+      <FormItem label="创建日期">
+        <Input size="small" v-model="create_date" disabled/>
+      </FormItem>
+      <FormItem label="关联组件">
+        <Input size="small" v-model="component" disabled/>
+      </FormItem>
       <FormItem label="布局方案">
         <Select size="small" v-model="developCanvas" @on-change="developCanvasChangeHandle">
           <Option v-for="item in $PnDict.layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -69,6 +75,8 @@
         path: 'pageMetadata.path',
         title: 'pageMetadata.title',
         remark: 'pageMetadata.remark',
+        create_date: 'pageMetadata.create_date',
+        component: 'pageMetadata.component',
         developCanvas: 'pageMetadata.developCanvas'
       })
     }

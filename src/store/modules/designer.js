@@ -198,6 +198,7 @@ const actions = {
         component: page.component,
         developCanvas: page.developCanvas,
         remark: page.remark,
+        create_date: page.create_date,
         layout: JSON.parse(page.layout)
       };
       commit('setPageMetadata', pageMetadataTmp)

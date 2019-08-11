@@ -5,24 +5,18 @@
 </template>
 
 <script>
-  import InitPageInfo from './mixin/InitPageInfo'
+  import InitDbRoutes from './mixin/InitDbRoutes'
 
   export default {
-    mixins: [InitPageInfo],
+    mixins: [InitDbRoutes],
     data() {
       return {
 
       }
     },
-    created() {
-
-    },
-    beforeMount() {
-
-    },
-    mounted() {
-
-    },
+    created() {},
+    beforeMount() {},
+    mounted() {},
     methods: {},
   }
 

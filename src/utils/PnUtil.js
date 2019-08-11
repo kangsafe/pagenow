@@ -1,3 +1,5 @@
+import router from '../router'
+
 /**
  * 生成UUID
  * @returns {string}
@@ -17,7 +19,21 @@ const getTimestamp = function () {
   return new Date().getTime();
 };
 
+/**
+ * 打开一个新的页面
+ * @param path
+ * @param query
+ */
+const openPageToBlank = function (path, query) {
+  let routeUrl = router.resolve({
+    path: path,
+    query: query
+  });
+  window.open(routeUrl.href, '_blank');
+};
+
 export default {
   uuid,
-  getTimestamp
+  getTimestamp,
+  openPageToBlank
 }
