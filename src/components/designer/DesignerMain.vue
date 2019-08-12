@@ -396,7 +396,7 @@
       },
 
       previewPage () {
-        console.log(this.pageMetadata);
+        //console.log(this.pageMetadata);
         this.$PnUtil.openPageToBlank(this.pageMetadata.path, {})
       }
 

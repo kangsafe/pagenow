@@ -8,7 +8,7 @@
        }">
     <Row :style="{marginBottom: '10px'}" :gutter="row.gutter" v-for="row in layout.layoutConfigData.rows" :key="row.id">
       <i-col
-          v-for="layoutItem in layoutItemsByRowId(row.id)"
+          v-for="layoutItem in sortLayoutItemBySort(layoutItemsByRowId(row.id), 'sort')"
           :key="layoutItem.id"
           :span="24/layoutItemsByRowId(row.id).length">
         <div class="reactive-layout-item"
@@ -64,6 +64,14 @@
           }
         });
         return arr
+      },
+
+      sortLayoutItemBySort (array, key) {
+        return array.sort(function(a,b) {
+          let x = a.layoutItemConfigData[key];
+          let y = b.layoutItemConfigData[key];
+          return ((x<y)?-1:((x>y)?1:0));
+        });
       }
     },
     computed: {
