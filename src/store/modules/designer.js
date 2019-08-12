@@ -204,6 +204,9 @@ const mutations = {
     state.pageMetadata = pageMetadata
   },
 
+  setLayout (state, layout) {
+    state.pageMetadata.layout = layout
+  },
 
   setLayoutConfigData (state, layoutConfigData) {
     state.pageMetadata.layout.layoutConfigData = layoutConfigData

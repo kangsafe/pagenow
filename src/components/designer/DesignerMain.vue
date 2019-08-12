@@ -23,6 +23,11 @@
             :mask-closable="true">
           <GlobalConfigDataForm></GlobalConfigDataForm>
         </Drawer>
+        <ButtonGroup size="small" style="margin-right: 5px;">
+          <Button type="primary" @click="saveDraft">存为草稿</Button>
+          <Button type="default" @click="loadDraft">加载草稿</Button>
+        </ButtonGroup>
+
 
         <div :style="{float: 'right'}">
           <Button size="small" type="primary"
@@ -397,8 +402,25 @@
 
       previewPage () {
         //console.log(this.pageMetadata);
-        this.$PnUtil.openPageToBlank(this.pageMetadata.path, {})
-      }
+        this.$PnUtil.openPageToBlank(this.pageMetadata.path, {preview: 'true'})
+      },
+
+      /**
+       * 保存草稿
+       */
+      saveDraft () {
+        localStorage.setItem('layoutCache', JSON.stringify(this.$store.state.designer.pageMetadata.layout));
+        this.$Message.success('已将当前布局保存至草稿')
+      },
+
+      /**
+       * 加载草稿
+       */
+      loadDraft () {
+        if(localStorage.getItem('layoutCache')) {
+          this.$store.commit('designer/setLayout', JSON.parse(localStorage.getItem('layoutCache')))
+        }
+      },
 
     },
     computed: {
@@ -413,6 +435,11 @@
           return 'AbsoluteLayoutConfigDataForm'
         }
         return ''
+      }
+    },
+    watch: {
+      'pageMetadata.id': function () { // 监听页面源数据的ID是否改变，改变了说明切换编辑的页面
+        //localStorage.removeItem('layoutCache'); // 清空草稿
       }
     }
   }
