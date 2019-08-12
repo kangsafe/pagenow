@@ -7,10 +7,8 @@ import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
 
-  // 设计器全局配置
-  globalConfigData: {
-    snapEnabled: false, // 拖拽中是否打开自动对齐
-    autoSave: false, // 时间段自动保存
+  // 配置数据模板
+  configDataTemplate: {
 
     absolute: { // 针对绝对布局的配置
       defaultLayoutConfigData: { // 绝对布局默认配置（只读，不用于逻辑处理）

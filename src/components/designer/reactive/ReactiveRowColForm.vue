@@ -98,7 +98,7 @@
         };
         let layoutItem = {
           id: this.$PnUtil.uuid(),
-          layoutItemConfigData: this.$store.state.designer.globalConfigData.reactive.defaultLayoutItemConfigData,
+          layoutItemConfigData: this.$store.state.designer.configDataTemplate.reactive.defaultLayoutItemConfigData,
           component: {
             id: '',
             name: '',
@@ -126,7 +126,7 @@
       addCol (rowId) {
         let layoutItem = {
           id: this.$PnUtil.uuid(),
-          layoutItemConfigData: this.$store.state.designer.globalConfigData.reactive.defaultLayoutItemConfigData,
+          layoutItemConfigData: this.$store.state.designer.configDataTemplate.reactive.defaultLayoutItemConfigData,
           component: {
             id: '',
             name: '',

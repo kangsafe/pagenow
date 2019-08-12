@@ -66,7 +66,6 @@
           $(".absolute-layout-item").draggable({
             containment: '#AbsoluteLayout',
             //stack: '.absolute-layout-item',
-            snap: _this.snapEnabled,
             start: function (e) {
               //_this.$store.commit('designer/setLayoutItemZIndex', {id: $(this).attr('data-id')})
             },

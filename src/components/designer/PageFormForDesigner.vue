@@ -61,10 +61,10 @@
 
         if(value === 'ReactiveLayoutCanvas') {
           this.$store.commit('designer/setLayoutConfigData',
-            this.$store.state.designer.globalConfigData.reactive.defaultLayoutConfigData)
+            this.$store.state.designer.configDataTemplate.reactive.defaultLayoutConfigData)
         }else if(value === 'AbsoluteLayoutCanvas') {
           this.$store.commit('designer/setLayoutConfigData',
-            this.$store.state.designer.globalConfigData.absolute.defaultLayoutConfigData)
+            this.$store.state.designer.configDataTemplate.absolute.defaultLayoutConfigData)
         }
       }
     },

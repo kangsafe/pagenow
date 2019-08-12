@@ -6,9 +6,10 @@
 
 <script>
   import InitDbRoutes from './mixin/InitDbRoutes'
+  import InitGlobalConfigData from './mixin/InitGlobalConfigData'
 
   export default {
-    mixins: [InitDbRoutes],
+    mixins: [InitDbRoutes, InitGlobalConfigData],
     data() {
       return {
 

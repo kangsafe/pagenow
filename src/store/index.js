@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import designer from './modules/designer'
 import release from './modules/release'
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
