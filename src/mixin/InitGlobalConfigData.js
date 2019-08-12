@@ -2,6 +2,7 @@ const InitGlobalConfigData = {
   created() {
 
     let globalConfigData = {
+      snapEnabled: false,
       autoSave: false
     };
 

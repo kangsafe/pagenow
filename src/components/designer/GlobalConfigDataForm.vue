@@ -1,6 +1,12 @@
 <template>
   <div class="global-config-data-form">
     <Form :label-width="labelWidth">
+      <FormItem label="拖拽自动对齐">
+        <i-switch v-model="globalConfigData.snapEnabled">
+          <span slot="open">开</span>
+          <span slot="close">关</span>
+        </i-switch>
+      </FormItem>
       <FormItem label="定时自动保存">
         <i-switch v-model="globalConfigData.autoSave">
           <span slot="open">开</span>
