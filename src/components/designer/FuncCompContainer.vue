@@ -1,6 +1,6 @@
 <template>
   <div class="func-comp-container" @click="funcCompContainerClick">
-    <slot></slot>
+    <slot><span class="default-text">{{defaultText}}</span></slot>
   </div>
 </template>
 
@@ -10,6 +10,10 @@
     name: 'FuncCompContainer',
     props: {
       location: {
+        type: String,
+        default: ''
+      },
+      defaultText: {
         type: String,
         default: ''
       }
@@ -40,5 +44,15 @@
   .func-comp-container {
     width: 100%;
     height: 100%;
+  }
+
+  .default-text {
+    font-size: 2em;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity:0.5;
   }
 </style>

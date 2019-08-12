@@ -2,7 +2,8 @@
   <div class="reactive-row-col-form">
     <Button @click="addRow" type="primary">添加行(ROW)</Button>
     <Divider :style="{margin: '10px 0px'}"/>
-    <Table :columns="columns" :data="rows"></Table>
+    <Alert>提示：可拖拽行(ROW)数据排序</Alert>
+    <Table draggable :columns="columns" :data="rows" @on-drag-drop="dragDropHandle"></Table>
   </div>
 </template>
 
@@ -99,6 +100,7 @@
           id: this.$PnUtil.uuid(),
           layoutItemConfigData: {
             rowId: rowId,
+            sort: 1,
             height: '80px',
             backgroundColor: '#66CCFF'
           },
@@ -130,6 +132,7 @@
           id: this.$PnUtil.uuid(),
           layoutItemConfigData: {
             rowId: rowId,
+            sort: 1,
             height: '80px',
             backgroundColor: '#66CCFF'
           },
@@ -142,13 +145,20 @@
           }
         };
         this.$store.commit('designer/addLayoutItem', layoutItem);
+      },
+
+      dragDropHandle (index1, index2) {
+        let newRows = [...this.rows];
+        newRows[index1] = newRows.splice(index2, 1, newRows[index1])[0];
+        this.$store.commit('designer/setRows', newRows)
       }
     },
     computed: {
       ...mapFields({
         rows: 'pageMetadata.layout.layoutConfigData.rows'
       })
-    }
+    },
+
   }
 </script>
 

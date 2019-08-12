@@ -171,7 +171,6 @@ const getters = {
     return state.pageMetadata.layout.layoutItems.find(o=>o.id==id)
   },
 
-
   getComponents (state) {
     let layoutItems = state.pageMetadata.layout.layoutItems;
     let components = [];
@@ -289,6 +288,21 @@ const mutations = {
   },
 
   /**
+   * 删除布局块
+   * @param state
+   * @param layoutItemId
+   */
+  deleteLayoutItem(state, layoutItemId) {
+    let layoutItems = state.pageMetadata.layout.layoutItems;
+    for (let i = 0; i < layoutItems.length; i++) {
+      if(layoutItems[i].id === layoutItemId) {
+        layoutItems.splice(i, 1);
+        i--
+      }
+    }
+  },
+
+  /**
    * 添加响应式布局的行对象
    * @param state
    * @param row
@@ -298,7 +312,7 @@ const mutations = {
   },
 
   /**
-   *
+   * 删除栅格行
    * @param state
    * @param rowId
    */
@@ -315,6 +329,15 @@ const mutations = {
   },
 
   /**
+   * 设置响应式布局行数据
+   * @param state
+   * @param payload
+   */
+  setRows (state, payload) {
+    state.pageMetadata.layout.layoutConfigData.rows = payload
+  },
+
+  /**
    * 设置响应式布局行配置中的列间隔
    * @param state
    * @param payload
@@ -322,6 +345,16 @@ const mutations = {
   setRowGutter (state, payload) {
     let obj = state.pageMetadata.layout.layoutConfigData.rows.find(o=>o.id==payload.rowId);
     obj.gutter = payload.gutter
+  },
+
+  /**
+   * 设置响应式布局行配置中的排序字段
+   * @param state
+   * @param payload
+   */
+  setRowSort (state, payload) {
+    let obj = state.pageMetadata.layout.layoutConfigData.rows.find(o=>o.id==payload.rowId);
+    obj.sort = payload.sort
   },
 
   /**

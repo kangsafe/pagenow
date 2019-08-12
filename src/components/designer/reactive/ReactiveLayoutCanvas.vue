@@ -9,9 +9,12 @@
         padding: layout.layoutConfigData.padding
        }" @click.stop="layoutCanvasClick">
     <!--{{layout}}-->
-    <Row :style="{marginBottom: '10px'}" :gutter="row.gutter" v-for="row in layout.layoutConfigData.rows" :key="row.id">
+    <Row :style="{marginBottom: '10px'}"
+         :gutter="row.gutter"
+         v-for="row in layout.layoutConfigData.rows"
+         :key="row.id">
       <i-col
-          v-for="layoutItem in layoutItemsByRowId(row.id)"
+          v-for="layoutItem in sortLayoutItemBySort(layoutItemsByRowId(row.id), 'sort')"
           :key="layoutItem.id"
           :span="24/layoutItemsByRowId(row.id).length">
         <div class="reactive-layout-item"
@@ -22,7 +25,7 @@
               backgroundColor: layoutItem.layoutItemConfigData.backgroundColor
              }"
              @click.stop="layoutItemClick(layoutItem)">
-          <FuncCompContainer :location="layoutItem.id">
+          <FuncCompContainer :location="layoutItem.id" :defaultText="layoutItem.layoutItemConfigData.sort + ''">
             <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
           </FuncCompContainer>
         </div>
@@ -48,10 +51,10 @@
       }
     },
     mounted() {
-      this.registerDragAndResizable()
+      this.registerDrop()
     },
     methods: {
-      registerDragAndResizable () {
+      registerDrop () {
         let _this = this;
 
         setTimeout(() => {
@@ -120,6 +123,14 @@
           }
         });
         return arr
+      },
+
+      sortLayoutItemBySort (array, key) {
+        return array.sort(function(a,b) {
+          let x = a.layoutItemConfigData[key];
+          let y = b.layoutItemConfigData[key];
+          return ((x<y)?-1:((x>y)?1:0));
+        });
       }
     },
     computed: {
@@ -129,7 +140,7 @@
     },
     watch: {
       'layout': {
-        handler: 'registerDragAndResizable',
+        handler: 'registerDrop',
         deep: true
       }
     }

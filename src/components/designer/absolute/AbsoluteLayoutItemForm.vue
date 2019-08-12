@@ -44,7 +44,7 @@
         <Input size="small" v-model="componentName" disabled/>
       </FormItem>
       <FormItem label="操作">
-        <Button :disabled="componentName == undefined" size="small" type="error" @click="deleteComponent">删除关联组件</Button>
+        <Button :disabled="!componentName" size="small" type="error" @click="deleteComponent">删除关联组件</Button>
       </FormItem>
       <!--<FormItem label="功能组件">
         <i-input size="small" v-model="componentName">

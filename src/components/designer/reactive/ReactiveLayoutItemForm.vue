@@ -11,6 +11,9 @@
       <FormItem label="背景颜色">
         <ColorPicker size="small" v-model="backgroundColor" />
       </FormItem>
+      <FormItem label="排序">
+        <InputNumber size="small" v-model="sort" />
+      </FormItem>
       <!--<FormItem label="功能组件">
         <i-input size="small" v-model="componentName">
           <Button size="small" slot="append" @click="selectFuncComp">选择</Button>
@@ -20,7 +23,8 @@
         <Input size="small" v-model="componentName" disabled/>
       </FormItem>
       <FormItem label="操作">
-        <Button :disabled="componentName == undefined" size="small" type="error" @click="deleteComponent">删除关联组件</Button>
+        <Button :disabled="!componentName" size="small" type="error" @click="deleteComponent">删除关联组件</Button>
+        <Button size="small" type="error" style="margin-left: 5px;" @click="deleteLayoutItem">删除此布局块</Button>
       </FormItem>
     </Form>
   </div>
@@ -55,6 +59,19 @@
         });
       },
 
+      deleteLayoutItem () {
+        this.$Modal.confirm({
+          title: '提醒',
+          content: '确认删除此布局块吗？',
+          onOk: () => {
+            this.$store.commit('designer/deleteLayoutItem', this.id);
+            this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
+            this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
+            this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+          }
+        });
+      },
+
       /**
        * 弃用
        */
@@ -81,6 +98,7 @@
         id: 'id',
         height: 'layoutItemConfigData.height',
         backgroundColor: 'layoutItemConfigData.backgroundColor',
+        sort: 'layoutItemConfigData.sort',
         componentId: 'component.id',
         componentName: 'component.name',
         componentConfigData: 'component.compConfigData'
