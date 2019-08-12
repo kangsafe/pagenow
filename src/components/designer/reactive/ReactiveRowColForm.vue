@@ -98,16 +98,16 @@
         };
         let layoutItem = {
           id: this.$PnUtil.uuid(),
-          layoutItemConfigData: this.$store.state.designer.configDataTemplate.reactive.defaultLayoutItemConfigData,
+          layoutItemConfigData: this.$PnDesigner.buildReactiveLayoutItemConfigData({rowId: rowId}),
           component: {
             id: '',
             name: '',
             compConfigData: {
 
+
             }
           }
         };
-        layoutItem.layoutItemConfigData.rowId = rowId;
         this.$store.commit('designer/addRow', row);
         this.$store.commit('designer/addLayoutItem', layoutItem);
       },
@@ -126,7 +126,7 @@
       addCol (rowId) {
         let layoutItem = {
           id: this.$PnUtil.uuid(),
-          layoutItemConfigData: this.$store.state.designer.configDataTemplate.reactive.defaultLayoutItemConfigData,
+          layoutItemConfigData: this.$PnDesigner.buildReactiveLayoutItemConfigData({rowId: rowId}),
           component: {
             id: '',
             name: '',
@@ -135,7 +135,6 @@
             }
           }
         };
-        layoutItem.layoutItemConfigData.rowId = rowId;
         this.$store.commit('designer/addLayoutItem', layoutItem);
       },
 

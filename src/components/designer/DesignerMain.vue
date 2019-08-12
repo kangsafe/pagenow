@@ -321,9 +321,9 @@
               layoutItems: []
             };
             if (pageFormData.developCanvas === 'ReactiveLayoutCanvas') {
-              layout.layoutConfigData = this.$store.state.designer.configDataTemplate.reactive.defaultLayoutConfigData
+              layout.layoutConfigData = this.$PnDesigner.buildReactiveLayoutConfigData()
             }else if (pageFormData.developCanvas === 'AbsoluteLayoutCanvas') {
-              layout.layoutConfigData = this.$store.state.designer.configDataTemplate.absolute.defaultLayoutConfigData
+              layout.layoutConfigData = this.$PnDesigner.buildAbsoluteLayoutConfigData()
             }
 
             pageFormData.layout = JSON.stringify(layout);

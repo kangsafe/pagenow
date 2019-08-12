@@ -28,6 +28,7 @@ import AxiosPlugin from './utils/AxiosPlugin'
 // 全局工具类
 import PnUtil from './utils/PnUtil'
 import PnDict from './utils/PnDict'
+import PnDesigner from './utils/PnDesigner'
 
 import PnApi from './api/PnApi'
 
@@ -47,6 +48,7 @@ Vue.config.productionTip = false;
 // 注册全局变量
 Vue.prototype.$PnUtil = PnUtil;
 Vue.prototype.$PnDict = PnDict;
+Vue.prototype.$PnDesigner = PnDesigner;
 Vue.prototype.$PnApi = PnApi;
 Vue.prototype.$Echarts = echarts;
 

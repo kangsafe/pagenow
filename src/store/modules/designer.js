@@ -7,33 +7,6 @@ import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
 
-  // 配置数据模板
-  configDataTemplate: {
-
-    absolute: { // 针对绝对布局的配置
-      defaultLayoutConfigData: { // 绝对布局默认配置（只读，不用于逻辑处理）
-        width: '1440px',
-        height: '900px',
-        backgroundColor: 'antiquewhite'
-      }
-    },
-    reactive: { // 针对响应式布局的配置
-      defaultLayoutConfigData: { // 响应式布局默认配置（只读，不用于逻辑处理）
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'antiquewhite',
-        padding: '10px',
-        rows: []
-      },
-      defaultLayoutItemConfigData: { // 响应式布局布局块默认配置（只读，不用于逻辑处理）
-        height: '80px',
-        backgroundColor: '#66CCFF',
-        padding: '0px',
-        sort: 1,
-      }
-    }
-  },
-
   // 页面源数据
   pageMetadata: {
     layout: {
