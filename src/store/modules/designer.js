@@ -10,6 +10,7 @@ const state = {
   // 设计器全局配置
   globalConfigData: {
     snapEnabled: false, // 拖拽中是否打开自动对齐
+    autoSave: false, // 时间段自动保存
 
     absolute: { // 针对绝对布局的配置
       defaultLayoutConfigData: { // 绝对布局默认配置（只读，不用于逻辑处理）
@@ -25,6 +26,12 @@ const state = {
         backgroundColor: 'antiquewhite',
         padding: '10px',
         rows: []
+      },
+      defaultLayoutItemConfigData: { // 响应式布局布局块默认配置（只读，不用于逻辑处理）
+        height: '80px',
+        backgroundColor: '#66CCFF',
+        padding: '0px',
+        sort: 1,
       }
     }
   },
@@ -400,6 +407,6 @@ export default {
   state,
   getters,
   actions,
-  mutations,
+  mutations
 }
 

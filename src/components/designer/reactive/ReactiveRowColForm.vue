@@ -98,12 +98,7 @@
         };
         let layoutItem = {
           id: this.$PnUtil.uuid(),
-          layoutItemConfigData: {
-            rowId: rowId,
-            sort: 1,
-            height: '80px',
-            backgroundColor: '#66CCFF'
-          },
+          layoutItemConfigData: this.$store.state.designer.globalConfigData.reactive.defaultLayoutItemConfigData,
           component: {
             id: '',
             name: '',
@@ -112,6 +107,7 @@
             }
           }
         };
+        layoutItem.layoutItemConfigData.rowId = rowId;
         this.$store.commit('designer/addRow', row);
         this.$store.commit('designer/addLayoutItem', layoutItem);
       },
@@ -130,12 +126,7 @@
       addCol (rowId) {
         let layoutItem = {
           id: this.$PnUtil.uuid(),
-          layoutItemConfigData: {
-            rowId: rowId,
-            sort: 1,
-            height: '80px',
-            backgroundColor: '#66CCFF'
-          },
+          layoutItemConfigData: this.$store.state.designer.globalConfigData.reactive.defaultLayoutItemConfigData,
           component: {
             id: '',
             name: '',
@@ -144,6 +135,7 @@
             }
           }
         };
+        layoutItem.layoutItemConfigData.rowId = rowId;
         this.$store.commit('designer/addLayoutItem', layoutItem);
       },
 

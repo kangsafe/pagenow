@@ -8,6 +8,9 @@
       <FormItem label="高度">
         <Input size="small" v-model="height"/>
       </FormItem>
+      <FormItem label="内边距">
+        <Input size="small" v-model="padding"/>
+      </FormItem>
       <FormItem label="背景颜色">
         <ColorPicker size="small" v-model="backgroundColor" />
       </FormItem>
@@ -97,8 +100,10 @@
       ...mapFields({
         id: 'id',
         height: 'layoutItemConfigData.height',
+        padding: 'layoutItemConfigData.padding',
         backgroundColor: 'layoutItemConfigData.backgroundColor',
         sort: 'layoutItemConfigData.sort',
+
         componentId: 'component.id',
         componentName: 'component.name',
         componentConfigData: 'component.compConfigData'

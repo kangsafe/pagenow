@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import designer from './modules/designer'
 import release from './modules/release'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
@@ -14,4 +15,11 @@ export default new Vuex.Store({
     release: release
   },
   strict: debug,
+  // plugins: [createPersistedState({
+  //   reducer (val) {
+  //     return {
+  //       globalConfigData: val.designer.globalConfigData
+  //     }
+  //   }
+  // })]
 })

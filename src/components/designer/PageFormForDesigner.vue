@@ -79,6 +79,11 @@
         component: 'pageMetadata.component',
         developCanvas: 'pageMetadata.developCanvas'
       })
+    },
+    watch: {
+      developCanvas: function (val) {
+        this.component = val.replace('Canvas', '');
+      }
     }
   }
 </script>

@@ -22,7 +22,8 @@
              :data-id="layoutItem.id"
              :style="{
               height: layoutItem.layoutItemConfigData.height,
-              backgroundColor: layoutItem.layoutItemConfigData.backgroundColor
+              backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
+              padding: layoutItem.layoutItemConfigData.padding
              }"
              @click.stop="layoutItemClick(layoutItem)">
           <FuncCompContainer :location="layoutItem.id" :defaultText="layoutItem.layoutItemConfigData.sort + ''">

@@ -5,22 +5,22 @@
         <Input v-model="formData.name" placeholder="请输入页面名称"/>
       </FormItem>
       <FormItem label="路径" prop="path">
-        <Input v-model="formData.path" placeholder="请输入路径"/>
+        <Input v-model="formData.path" placeholder="页面路径默认自动生成"/>
       </FormItem>
       <FormItem label="标题">
         <Input v-model="formData.title" placeholder=""/>
       </FormItem>
+      <!--<FormItem label="关联组件">
+        <Input v-model="formData.component" placeholder=""/>
+      </FormItem>-->
       <FormItem label="布局方案" prop="developCanvas">
-        <Select v-model="formData.developCanvas">
+        <Select v-model="formData.developCanvas" @on-change="developCanvasChangeHandle">
           <Option v-for="item in $PnDict.layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </FormItem>
       <FormItem label="备注">
         <Input v-model="formData.remark" />
       </FormItem>
-      <!--<FormItem label="关联组件">
-        <Input v-model="formData.component" />
-      </FormItem>-->
     </Form>
   </div>
 </template>
@@ -40,7 +40,7 @@
           id: '',
           project_id: '',
           name: '',
-          path: '',
+          path: '/' + this.$PnUtil.getTimestamp(),
           title: '',
           component: '',
           developCanvas: '',
@@ -62,7 +62,12 @@
     mounted() {
 
     },
-    methods: {},
+    methods: {
+      developCanvasChangeHandle (val) {
+
+        this.formData.component = val.replace('Canvas', '');
+      }
+    },
     computed: {}
   }
 </script>
