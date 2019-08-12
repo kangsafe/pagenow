@@ -5,7 +5,9 @@
         <Input v-model="formData.name" placeholder="请输入页面名称"/>
       </FormItem>
       <FormItem label="路径" prop="path">
-        <Input v-model="formData.path" placeholder="页面路径默认自动生成"/>
+        <i-input v-model="formData.path" placeholder="页面路径默认自动生成">
+          <Button slot="append" @click="createPath">自动生成</Button>
+        </i-input>
       </FormItem>
       <FormItem label="标题">
         <Input v-model="formData.title" placeholder=""/>
@@ -40,7 +42,7 @@
           id: '',
           project_id: '',
           name: '',
-          path: '/' + this.$PnUtil.getTimestamp(),
+          path: '',
           title: '',
           component: '',
           developCanvas: '',
@@ -63,6 +65,9 @@
 
     },
     methods: {
+      createPath () {
+        this.formData.path = '/' + this.$PnUtil.getTimestamp()
+      },
       developCanvasChangeHandle (val) {
         if(val) {
           this.formData.component = val.replace('Canvas', '');
