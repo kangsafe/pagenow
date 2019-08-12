@@ -1,3 +1,7 @@
+/**
+ * 构建 绝对布局默认配置
+ * @returns {{width: string, height: string, backgroundColor: string}}
+ */
 const buildAbsoluteLayoutConfigData = function () {
   let layoutConfigData = { // 绝对布局默认配置
     width: '1440px',
@@ -7,8 +11,12 @@ const buildAbsoluteLayoutConfigData = function () {
   return layoutConfigData
 };
 
+/**
+ * 构建 响应式布局默认配置
+ * @returns {{width: string, height: string, backgroundColor: string, padding: string, rows: Array}}
+ */
 const buildReactiveLayoutConfigData = function () {
-  let layoutConfigData = { // 响应式布局默认配置
+  let layoutConfigData = {
     width: '100%',
     height: '100%',
     backgroundColor: 'antiquewhite',
@@ -18,8 +26,13 @@ const buildReactiveLayoutConfigData = function () {
   return layoutConfigData
 };
 
+/**
+ * 构建 响应式布局布局块默认配置
+ * @param payload
+ * @returns {{height: string, backgroundColor: string, padding: string, sort: number}}
+ */
 const buildReactiveLayoutItemConfigData = function (payload) {
-  let layoutItemConfigData = { // 响应式布局布局块默认配置
+  let layoutItemConfigData = {
     height: '80px',
     backgroundColor: '#66CCFF',
     padding: '0px',

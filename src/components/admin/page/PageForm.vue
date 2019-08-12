@@ -64,8 +64,9 @@
     },
     methods: {
       developCanvasChangeHandle (val) {
-
-        this.formData.component = val.replace('Canvas', '');
+        if(val) {
+          this.formData.component = val.replace('Canvas', '');
+        }
       }
     },
     computed: {}

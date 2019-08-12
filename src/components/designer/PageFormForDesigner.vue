@@ -82,7 +82,9 @@
     },
     watch: {
       developCanvas: function (val) {
-        this.component = val.replace('Canvas', '');
+        if(val) {
+          this.component = val.replace('Canvas', '');
+        }
       }
     }
   }
