@@ -45,12 +45,18 @@
       }
     },
     created() {
-      this.$PnApi.PageApi.getPageById(this.$route.meta.id).then(result => {
-        let dbPage = result.data.data;
-        dbPage.layout = JSON.parse(dbPage.layout);
+      if(this.$route.query.preview) {
+        let dbPage = JSON.parse(localStorage.getItem('previewPageMetadata'));
         this.layout = dbPage.layout;
         this.$store.commit('release/setPageMetadata', dbPage)
-      });
+      }else {
+        this.$PnApi.PageApi.getPageById(this.$route.meta.id).then(result => {
+          let dbPage = result.data.data;
+          dbPage.layout = JSON.parse(dbPage.layout);
+          this.layout = dbPage.layout;
+          this.$store.commit('release/setPageMetadata', dbPage)
+        });
+      }
     },
     mounted() {
 

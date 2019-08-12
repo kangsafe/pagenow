@@ -14,8 +14,7 @@
             padding: '0 20px'
           }">
         <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentEditPage">保存</Button>
-        <Button size="small" type="primary" style="margin-right: 5px;"
-                @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
+
         <Drawer
             title="全局配置"
             v-model="globalConfigDataDrawerVisible"
@@ -27,13 +26,15 @@
           <Button type="primary" @click="saveDraft">存为草稿</Button>
           <Button type="default" @click="loadDraft">加载草稿</Button>
         </ButtonGroup>
+        <Button size="small" type="primary"
+                style="margin-right: 5px;"
+                :disabled="!$store.state.designer.pageMetadata.id"
+                @click="previewPage">预览</Button>
 
 
         <div :style="{float: 'right'}">
-          <Button size="small" type="primary"
-                  style="margin-right: 5px;"
-                  :disabled="!$store.state.designer.pageMetadata.id"
-                  @click="previewPage">预览</Button>
+          <Button size="small" type="primary" style=""
+                  @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
         </div>
 
 
@@ -402,6 +403,7 @@
 
       previewPage () {
         //console.log(this.pageMetadata);
+        localStorage.setItem('previewPageMetadata', JSON.stringify(this.pageMetadata))
         this.$PnUtil.openPageToBlank(this.pageMetadata.path, {preview: 'true'})
       },
 
