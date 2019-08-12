@@ -26,8 +26,8 @@
         <Input size="small" v-model="componentName" disabled/>
       </FormItem>
       <FormItem label="操作">
-        <Button :disabled="!componentName" size="small" type="error" @click="deleteComponent">删除关联组件</Button>
-        <Button size="small" type="error" style="margin-left: 5px;" @click="deleteLayoutItem">删除此布局块</Button>
+        <Button :disabled="!componentName" size="small" type="error" @click="deleteComponent">解除关联组件</Button>
+        <Button size="small" type="error" style="margin-left: 5px;" @click="deleteLayoutItem">删除</Button>
       </FormItem>
     </Form>
   </div>
@@ -54,7 +54,7 @@
       deleteComponent () {
         this.$Modal.confirm({
           title: '提醒',
-          content: '确认删除关联的组件吗？',
+          content: '确认解除关联的组件吗？',
           onOk: () => {
             this.$store.commit('designer/deleteComponentByLayoutItemId', this.id);
             this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
