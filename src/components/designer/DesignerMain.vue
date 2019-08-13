@@ -275,6 +275,7 @@
                       }, '--('+data.title+')--'),
 
                       h('a', {
+                        attrs: {title: '打开'},
                         on: {
                           click: () => {
                             this.openPageToDesigner(data.key)
@@ -283,11 +284,26 @@
                       }, [
                         h('Icon', {
                           props: {
-                            type: 'md-create'
+                            type: 'md-create',
                           }
                         })
                       ]),
+                      // h('a', {
+                      //   attrs: {title: '拷贝'},
+                      //   on: {
+                      //     click: () => {
+                      //       this.copyPage(data.key)
+                      //     }
+                      //   }
+                      // }, [
+                      //   h('Icon', {
+                      //     props: {
+                      //       type: 'md-copy'
+                      //     }
+                      //   })
+                      // ]),
                       h('a', {
+                        attrs: {title: '删除'},
                         style: {
                           color: '#ed4014'
                         },
@@ -378,6 +394,10 @@
         this.currentSelectPageId = pageId;
         this.pageConfigCompName = 'PageFormForDesigner';
         this.collapseDefaultName = 'page_config'
+      },
+
+      copyPage (pageId) {
+
       },
 
       deletePage(pageId) {

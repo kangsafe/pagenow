@@ -11,7 +11,7 @@
         <Input size="small" v-model="name"/>
       </FormItem>
       <FormItem label="页面路径">
-        <Input size="small" v-model="path"/>
+        <Input size="small" v-model="path" disabled/>
       </FormItem>
       <FormItem label="页面标题">
         <Input size="small" v-model="title"/>

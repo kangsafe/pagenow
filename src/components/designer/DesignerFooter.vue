@@ -15,6 +15,7 @@
         paddingRight: '310px'
       }">
     <div :style="{float: 'right'}">
+      <Button size="small" type="primary" style="margin-right: 5px;">隐藏所有布局块</Button>
       <Button size="small" type="primary" @click="visible = !visible">源数据</Button>
     </div>
 
