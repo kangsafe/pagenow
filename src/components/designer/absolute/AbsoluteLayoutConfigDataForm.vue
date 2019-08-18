@@ -40,29 +40,7 @@
     },
     methods: {
       addLayoutItem () {
-        let newLayoutItem = {
-          id: this.$PnUtil.uuid(),
-          layoutItemConfigData: {
-            width: '200px',
-            height: '200px',
-            left: '600px',
-            top: '200px',
-            borderWidth: '1px',
-            borderStyle: 'solid',
-            borderColor: '#000',
-            backgroundColor: 'yellow',
-            zIndex: '1',
-            display: 'block'
-          },
-          component: {
-            id: '',
-            name: '',
-            compConfigData: {
-
-            }
-          }
-        };
-        this.$store.commit('designer/addLayoutItem', newLayoutItem);
+        this.$store.commit('designer/addLayoutItem', this.$PnDesigner.buildAbsoluteLayoutItemConfigData());
       },
     },
     computed: {

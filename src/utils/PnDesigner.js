@@ -1,3 +1,5 @@
+import PnUtil from './PnUtil'
+
 /**
  * 构建 绝对布局默认配置
  * @returns {{width: string, height: string, backgroundColor: string}}
@@ -9,6 +11,38 @@ const buildAbsoluteLayoutConfigData = function () {
     backgroundColor: 'antiquewhite'
   };
   return layoutConfigData
+};
+
+/**
+ * 构建 绝对布局布局块默认配置
+ * @param payload
+ * @returns
+ */
+const buildAbsoluteLayoutItemConfigData = function (payload) {
+  let layoutItemConfigData = {
+    id: PnUtil.uuid(),
+    layoutItemConfigData: {
+      width: '250px',
+      height: '250px',
+      left: '0px',
+      top: '0px',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: '#000',
+      backgroundColor: 'yellow',
+      zIndex: '1',
+      display: 'block',
+      compVisible: true,
+    },
+    component: {
+      id: '',
+      name: '',
+      compConfigData: {
+
+      }
+    }
+  };
+  return layoutItemConfigData
 };
 
 /**
@@ -47,6 +81,7 @@ const buildReactiveLayoutItemConfigData = function (payload) {
 
 export default {
   buildAbsoluteLayoutConfigData,
+  buildAbsoluteLayoutItemConfigData,
   buildReactiveLayoutConfigData,
   buildReactiveLayoutItemConfigData
 }
