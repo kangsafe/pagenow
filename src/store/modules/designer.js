@@ -120,11 +120,11 @@ const state = {
     }
   },*/
 
-
+  rightSidebarPageConfigFormName: '',       // 右侧边栏页面信息编辑表单名称
   rightSidebarLayoutItemConfigFormName: '', // 右侧边栏布局块编辑区表单名称
-  currentSelectLayoutItemId: '', // 当前选中的布局块ID
+  currentSelectLayoutItemId: '',            // 当前选中的布局块ID
 
-  rightSidebarFuncCompConfigFormName: '', // 右侧边栏组件编辑区表单名称
+  rightSidebarFuncCompConfigFormName: '',   // 右侧边栏组件编辑区表单名称
 
 };
 
@@ -158,6 +158,15 @@ const getters = {
       }
     });
     return components;
+  },
+
+  getLayoutConfigFormName (state) {
+    if(state.pageMetadata.developCanvas === 'ReactiveLayoutCanvas') {
+      return 'ReactiveLayoutConfigDataForm'
+    }else if(state.pageMetadata.developCanvas === 'AbsoluteLayoutCanvas') {
+      return 'AbsoluteLayoutConfigDataForm'
+    }
+    return ''
   }
 
 };
@@ -349,6 +358,15 @@ const mutations = {
   },
 
   /**
+   * 设置右侧边栏页面信息编辑表单名称
+   * @param state
+   * @param payload
+   */
+  setRightSidebarPageConfigFormName (state, payload) {
+    state.rightSidebarPageConfigFormName = payload
+  },
+
+  /**
    * 设置右侧边栏布局块配置关联的组件表单名
    * @param state
    * @param compName
@@ -357,10 +375,16 @@ const mutations = {
     state.rightSidebarLayoutItemConfigFormName = payload
   },
 
-
+  /**
+   *
+   * @param state
+   * @param layoutItemId
+   */
   setCurrentSelectLayoutItemId (state, layoutItemId) {
     state.currentSelectLayoutItemId = layoutItemId;
   },
+
+
   updateLayoutItem (state, field) {
     updateField(state.pageMetadata.layout.layoutItems.find(o=>o.id==state.currentSelectLayoutItemId), field);
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="designer-container">
-    <DesignerMain :projectId="this.$route.query.project_id"/>
+    <DesignerMain/>
   </div>
 </template>
 

@@ -24,7 +24,8 @@
           zIndex: layoutItem.layoutItemConfigData.zIndex,
           display: layoutItem.layoutItemConfigData.display
          }">
-      <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
+      <component :is="layoutItem.component.name" :location="layoutItem.id"
+                 v-show="layoutItem.layoutItemConfigData.compVisible"></component>
     </div>
 
   </div>

@@ -117,7 +117,7 @@
             <Panel name="page_config">
               页面信息
               <p slot="content">
-                <component :is="pageConfigCompName"></component>
+                <component :is="this.$store.state.designer.rightSidebarPageConfigFormName"></component>
               </p>
             </Panel>
             <Panel name="canvas_config">
@@ -158,28 +158,12 @@
     mutationType: 'designer/updateField',
   });
 
-  import VueGridLayout from 'vue-grid-layout';
-
   export default {
     name: 'DesignerMain',
-    components: {
-      GridLayout: VueGridLayout.GridLayout,
-      GridItem: VueGridLayout.GridItem
-    },
-    props: {
-      projectId: {
-        type: String,
-        required: true
-      }
-    },
     data() {
       return {
 
-        pageConfigCompName: '',
-
         collapseDefaultName: '',
-
-
 
         createPageDrawerVisible: false,
         // 页面信息树
@@ -210,7 +194,7 @@
        */
       initPageTreeData () {
 
-        this.$PnApi.ProjectApi.getProjectById(this.projectId).then(result => {
+        this.$PnApi.ProjectApi.getProjectById(this.$route.query.project_id).then(result => {
           let project = result.data.data;
 
           this.pageTreeData = [
@@ -223,7 +207,7 @@
             }
           ];
 
-          this.$PnApi.PageApi.getPagesByProjectId(this.projectId).then(result => {
+          this.$PnApi.PageApi.getPagesByProjectId(this.$route.query.project_id).then(result => {
             let pages = result.data.data;
             if(pages.length > 0) {
               pages.forEach(item => {
@@ -340,14 +324,13 @@
       },
 
 
-
       openPageToDesigner (pageId) {
+        this.$store.commit('designer/setRightSidebarPageConfigFormName', 'PageFormForDesigner');
         this.$store.commit('designer/resetDesigner');
         this.$store.dispatch('designer/loadPage', pageId);
 
         this.currentSelectPageId = pageId;
-        this.pageConfigCompName = 'PageFormForDesigner';
-        this.collapseDefaultName = 'page_config'
+        this.collapseDefaultName = ['page_config','canvas_config']
       },
 
       deletePage(pageId) {
@@ -366,14 +349,6 @@
         });
 
       },
-
-      handleCancel (_target) {
-        this[_target] = false;
-      },
-
-
-
-
 
     },
     computed: {
@@ -420,11 +395,4 @@
     height: 100%;
   }
 
-
-
-  .vue-grid-item {
-    background-color: aliceblue;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
 </style>

@@ -25,7 +25,8 @@
          }"
          @click.stop="layoutItemClick(layoutItem, $event)">
       <FuncCompContainer :location="layoutItem.id">
-        <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
+        <component :is="layoutItem.component.name" :location="layoutItem.id"
+                   v-show="layoutItem.layoutItemConfigData.compVisible"></component>
       </FuncCompContainer>
     </div>
 

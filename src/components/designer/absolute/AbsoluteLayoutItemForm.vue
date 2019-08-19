@@ -40,11 +40,26 @@
           <Option v-for="item in $PnDict.display" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </FormItem>
+      <FormItem label="显示组件">
+        <i-switch v-model="compVisible">
+          <span slot="open"></span>
+          <span slot="close"></span>
+        </i-switch>
+      </FormItem>
       <FormItem label="关联组件">
         <Input size="small" v-model="componentName" disabled/>
       </FormItem>
       <FormItem label="操作">
-        <Button :disabled="!componentName" size="small" type="error" @click="deleteComponent">解除关联组件</Button>
+        <Dropdown trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
+          <Button type="primary" size="small">
+            操作
+            <Icon type="ios-arrow-down"></Icon>
+          </Button>
+          <DropdownMenu slot="list">
+            <DropdownItem divided name="deleteLayoutItem">删除布局块</DropdownItem>
+            <DropdownItem name="deleteComponent">解除关联组件</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </FormItem>
       <!--<FormItem label="功能组件">
         <i-input size="small" v-model="componentName">
@@ -79,12 +94,35 @@
 
     },
     methods: {
+
+      dropdownClickHandle (name) {
+        if (name == 'deleteComponent') {
+          this.deleteComponent()
+        }
+        if (name == 'deleteLayoutItem') {
+          this.deleteLayoutItem()
+        }
+      },
+
       deleteComponent () {
         this.$Modal.confirm({
           title: '提醒',
           content: '确认解除关联的组件吗？',
           onOk: () => {
             this.$store.commit('designer/deleteComponentByLayoutItemId', this.id);
+            this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+          }
+        });
+      },
+
+      deleteLayoutItem () {
+        this.$Modal.confirm({
+          title: '提醒',
+          content: '确认删除此布局块吗？',
+          onOk: () => {
+            this.$store.commit('designer/deleteLayoutItem', this.id);
+            this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
+            this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
             this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
           }
         });
@@ -125,6 +163,8 @@
         backgroundColor: 'layoutItemConfigData.backgroundColor',
         zIndex: 'layoutItemConfigData.zIndex',
         display: 'layoutItemConfigData.display',
+        compVisible: 'layoutItemConfigData.compVisible',
+
         componentId: 'component.id',
         componentName: 'component.name',
         componentConfigData: 'component.compConfigData'
