@@ -29,8 +29,10 @@ import AxiosPlugin from './utils/AxiosPlugin'
 import PnUtil from './utils/PnUtil'
 import PnDict from './utils/PnDict'
 import PnDesigner from './utils/PnDesigner'
+import EventBus from './utils/EventBus'
 
 import PnApi from './api/PnApi'
+
 
 
 // 引入自定义指令
@@ -49,6 +51,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$PnUtil = PnUtil;
 Vue.prototype.$PnDict = PnDict;
 Vue.prototype.$PnDesigner = PnDesigner;
+Vue.prototype.$EventBus = EventBus;
 Vue.prototype.$PnApi = PnApi;
 Vue.prototype.$Echarts = echarts;
 
