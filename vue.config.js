@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = {
-  publicPath: '/pagenow/',
+  // publicPath: '/pagenow/',
   // 配置less
   css: {
     loaderOptions: {
@@ -12,17 +12,16 @@ module.exports = {
   },
   devServer: {
     port: 8081,
-    //proxy: 'http://localhost:8080'
-    proxy: {
-      '/pagenow': {
-        target: 'http://localhost:8090',
-        ws: true,
-        changOrigin: true,
-        pathRewrite: {
-          "^/pagenow": ""
-        }
-      }
-    }
+    // proxy: {
+    //   '/pagenow': {
+    //     target: 'http://localhost:8090',
+    //     ws: true,
+    //     changOrigin: true,
+    //     pathRewrite: {
+    //       "^/pagenow": ""
+    //     }
+    //   }
+    // }
   },
   configureWebpack: {
     plugins: [
