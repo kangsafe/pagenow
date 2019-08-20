@@ -24,6 +24,18 @@ const EchartCompMixin = {
     resizeHandle () {
       this.chart.resize();
     },
+    buildApiPath (apiPath, useUrlParam) {
+      if(useUrlParam) {
+        let params = '';
+        for(let q in this.$route.query) {
+          params += ''+q+'='+this.$route.query[q]+'&'
+        }
+        params = params.substr(0, params.length-1);
+
+        apiPath += '?'+params;
+      }
+      return apiPath
+    }
   },
   computed: {
     component: function () {
@@ -32,6 +44,12 @@ const EchartCompMixin = {
       }else {
         return this.$store.getters['designer/getLayoutItemById'](this.location).component
       }
+    }
+  },
+  watch: {
+    'component.compConfigData': {
+      handler: 'drawChart',
+      deep: true
     }
   }
 };

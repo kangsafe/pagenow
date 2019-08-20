@@ -79,9 +79,22 @@ const buildReactiveLayoutItemConfigData = function (payload) {
   return layoutItemConfigData
 };
 
+/**
+ * 构建 Echart组件默认配置
+ * @returns {{useUrlParam: boolean, apiPath: string}}
+ */
+const buildEchartConfigDataTemp = function () {
+  let configDataTemp = {
+    useUrlParam: false, // 使用URL参数
+    apiPath: '' // 接口地址
+  };
+  return configDataTemp
+};
+
 export default {
   buildAbsoluteLayoutConfigData,
   buildAbsoluteLayoutItemConfigData,
   buildReactiveLayoutConfigData,
-  buildReactiveLayoutItemConfigData
+  buildReactiveLayoutItemConfigData,
+  buildEchartConfigDataTemp
 }

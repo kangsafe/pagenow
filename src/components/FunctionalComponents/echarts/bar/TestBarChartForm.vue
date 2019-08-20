@@ -1,37 +1,30 @@
 <template>
   <div class="">
-    <!--<Collapse>
-      <Panel name="1">
-        标题配置
-        <p slot="content">
+    <Form :label-width="100">
+      <FormItem label="接口地址">
+        <Input size="small" v-model="apiPath"/>
+      </FormItem>
+      <FormItem label="联动URL参数">
+        <i-switch v-model="useUrlParam">
+          <span slot="open"></span>
+          <span slot="close"></span>
+        </i-switch>
+      </FormItem>
+      <FormItem label="操作">
+        <Button size="small" type="primary" @click="visible = !visible">源数据编辑</Button>
+      </FormItem>
+    </Form>
 
-        </p>
-      </Panel>
-      <Panel name="2">
-        其他配置
-        <p slot="content">
-          <i-form :label-width="80">
-            <FormItem label="接口地址">
-              <Input size="small" v-model="apiPath"/>
-            </FormItem>
-          </i-form>
-          <Button size="small" @click="">源数据编辑</Button>
-          <vue-json-editor v-model="option" :show-btns="false"></vue-json-editor>
-        </p>
-      </Panel>
-    </Collapse>-->
-    <Button size="small" @click="visible = !visible">源数据编辑</Button>
 
     <Modal
         v-model="visible"
         draggable
         scrollable
-        title="源数据"
+        title="图表源数据编辑"
         width="650"
         :mask="true"
         :z-index="3">
-        <Alert type="error">请谨慎编辑源数据！（非特殊情况不要在此编辑源数据）</Alert>
-        <vue-json-editor v-model="option" :show-btns="false" ></vue-json-editor>
+        <vue-json-editor v-model="chartOption" :show-btns="false" ></vue-json-editor>
       <div slot="footer">
         <Button type="default" @click="visible = false">关闭</Button>
       </div>
@@ -67,7 +60,8 @@
     computed: {
       ...mapFields({
         apiPath: 'component.compConfigData.apiPath',
-        option: 'component.compConfigData.option'
+        useUrlParam: 'component.compConfigData.useUrlParam',
+        chartOption: 'component.compConfigData.chartOption'
       })
     }
   }
