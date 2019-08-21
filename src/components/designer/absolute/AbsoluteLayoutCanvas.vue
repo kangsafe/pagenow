@@ -155,17 +155,6 @@
       'layout': {
         handler: 'registerDragAndResizable',
         deep: true
-      },
-      'layout.layoutConfigData.lockDragAndResizable': {
-        handler: function (val) {
-          if(val) {
-            $(".absolute-layout-item").draggable('disable');
-            $(".absolute-layout-item").resizable('disable');
-          }else {
-            $(".absolute-layout-item").draggable('enable');
-            $(".absolute-layout-item").resizable('enable');
-          }
-        }
       }
     }
   }

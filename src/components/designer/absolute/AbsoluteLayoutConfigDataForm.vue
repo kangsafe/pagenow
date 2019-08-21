@@ -10,12 +10,6 @@
       <FormItem label="背景色">
         <ColorPicker size="small" v-model="backgroundColor" />
       </FormItem>
-      <FormItem label="锁定拖拽">
-        <i-switch v-model="lockDragAndResizable">
-          <span slot="open"></span>
-          <span slot="close"></span>
-        </i-switch>
-      </FormItem>
       <FormItem label="操作">
         <Button size="small" type="primary" @click="addLayoutItem">添加布局块</Button>
       </FormItem>
@@ -53,8 +47,7 @@
       ...mapFields({
         width: 'pageMetadata.layout.layoutConfigData.width',
         height: 'pageMetadata.layout.layoutConfigData.height',
-        backgroundColor: 'pageMetadata.layout.layoutConfigData.backgroundColor',
-        lockDragAndResizable: 'pageMetadata.layout.layoutConfigData.lockDragAndResizable',
+        backgroundColor: 'pageMetadata.layout.layoutConfigData.backgroundColor'
       })
     }
   }

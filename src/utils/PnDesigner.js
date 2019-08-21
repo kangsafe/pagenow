@@ -8,8 +8,7 @@ const buildAbsoluteLayoutConfigData = function () {
   let layoutConfigData = { // 绝对布局默认配置
     width: '1440px',
     height: '900px',
-    backgroundColor: 'antiquewhite',
-    lockDragAndResizable: false
+    backgroundColor: 'antiquewhite'
   };
   return layoutConfigData
 };
