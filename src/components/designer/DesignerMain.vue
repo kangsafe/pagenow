@@ -66,11 +66,17 @@
                 <div class="comp-card">
                   <p>Hello</p>
                 </div>
-                <div class="comp-card" style="left: 100px;">
+                <div class="comp-card" >
                   <p>TestBarChart</p>
                 </div>
-                <div class="comp-card" style="left: 200px;">
+                <div class="comp-card" >
                   <p>TestBarChart2</p>
+                </div>
+                <div class="comp-card" >
+                  <p>TestChinaMapChart</p>
+                </div>
+                <div class="comp-card" >
+                  <p>ImageComp</p>
                 </div>
               </div>
 
@@ -286,7 +292,7 @@
         this.$refs.pageForm.$refs.form.validate((valid) => {
           if (valid) {
             let pageFormData = this.$refs.pageForm.formData;
-            pageFormData.project_id = this.projectId; // 赋值工程ID
+            pageFormData.project_id = this.$route.query.project_id; // 赋值工程ID
 
             let layout = {
               id: this.$PnUtil.uuid(),
@@ -385,6 +391,7 @@
     background-color: red;
     float: left;
     cursor: move;
+    word-break: break-all;
   }
 
   .designer-main {
