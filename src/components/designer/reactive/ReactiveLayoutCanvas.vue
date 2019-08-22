@@ -140,9 +140,8 @@
       })
     },
     watch: {
-      'layout': {
+      'layout.layoutItems': {
         handler: 'registerDrop',
-        deep: true
       }
     }
   }

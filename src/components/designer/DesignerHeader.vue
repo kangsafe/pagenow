@@ -8,7 +8,9 @@
             lineHeight: '48px',
             padding: '0 20px'
           }">
-    <Button size="small" type="primary" style="margin-right: 5px;" @click="saveCurrentEditPage">保存</Button>
+    <Button size="small" type="primary" style="margin-right: 5px;"
+            :disabled="!pageMetadata.id"
+            @click="saveCurrentEditPage">保存</Button>
 
     <Drawer
         title="全局配置"
@@ -18,11 +20,12 @@
       <GlobalConfigDataForm></GlobalConfigDataForm>
     </Drawer>
     <ButtonGroup size="small" style="margin-right: 5px;">
-      <Button type="primary" @click="saveDraft">存为草稿</Button>
-      <Button type="default" @click="loadDraft">加载草稿</Button>
+      <Button type="primary" :disabled="!pageMetadata.id" @click="saveDraft">存为草稿</Button>
+      <Button type="default" :disabled="!pageMetadata.id" @click="loadDraft">加载草稿</Button>
     </ButtonGroup>
     <Button size="small" type="primary"
             style="margin-right: 5px;"
+            :disabled="!pageMetadata.id"
             @click="clearCanvas">清空画布</Button>
     <Button size="small" type="primary"
             style="margin-right: 5px;"
