@@ -7,7 +7,7 @@
           <Button size="small" icon="ios-cloud-upload-outline">上传图片</Button>
         </Upload>
       </FormItem>
-      <FormItem label="图片相对路径">
+      <FormItem label="相对路径">
         <Input size="small" v-model="relativePath"/>
       </FormItem>
       <FormItem label="图片宽度">

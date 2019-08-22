@@ -30,6 +30,10 @@
           <Option v-for="item in $PnDict.layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </FormItem>
+      <FormItem label="操作">
+        <Button size="small" type="primary" @click="heavyLoadPage" style="margin-right: 5px;">重载</Button>
+
+      </FormItem>
       <!--<FormItem label="操作">
 
       </FormItem>-->
@@ -66,6 +70,10 @@
           this.$store.commit('designer/setLayoutConfigData',
             this.$PnDesigner.buildAbsoluteLayoutConfigData())
         }
+      },
+
+      heavyLoadPage () {
+        this.$store.dispatch('designer/loadPage', this.id);
       }
     },
     computed: {

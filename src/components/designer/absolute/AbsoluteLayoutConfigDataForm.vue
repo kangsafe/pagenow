@@ -11,7 +11,16 @@
         <ColorPicker size="small" v-model="backgroundColor" />
       </FormItem>
       <FormItem label="操作">
-        <Button size="small" type="primary" @click="addLayoutItem">添加布局块</Button>
+        <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
+        <Dropdown trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
+          <Button type="primary" size="small">
+            其他操作
+            <Icon type="ios-arrow-down"></Icon>
+          </Button>
+          <DropdownMenu slot="list">
+            <DropdownItem name="lockDragAndResizable">{{lockDragAndResizableVisible ? '解锁拖拽':'锁定拖拽'}}</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </FormItem>
     </Form>
   </div>
@@ -29,7 +38,7 @@
     name: 'AbsoluteLayoutConfigDataForm',
     data() {
       return {
-
+        lockDragAndResizableVisible: false
       }
     },
     created () {
@@ -41,6 +50,19 @@
     methods: {
       addLayoutItem () {
         this.$store.commit('designer/addLayoutItem', this.$PnDesigner.buildAbsoluteLayoutItemConfigData());
+      },
+
+      dropdownClickHandle (name) {
+        if (name == 'lockDragAndResizable') {
+          if(this.lockDragAndResizableVisible) {
+            $('.absolute-layout-item').draggable('enable');
+            $('.absolute-layout-item').resizable('enable');
+          }else {
+            $('.absolute-layout-item').draggable('disable');
+            $('.absolute-layout-item').resizable('disable');
+          }
+          this.lockDragAndResizableVisible = !this.lockDragAndResizableVisible
+        }
       },
     },
     computed: {
