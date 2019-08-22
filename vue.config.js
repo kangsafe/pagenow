@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = {
-  // publicPath: '/pagenow/',
+  publicPath: '/pagenow',
   // 配置less
   css: {
     loaderOptions: {

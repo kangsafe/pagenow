@@ -1,7 +1,6 @@
 <template>
   <div class="image-comp">
-    <img :src="component.compConfigData.imageSrc"
-         :style="styleObj"/>
+    <img :src="imageSrc" :style="styleObj"/>
   </div>
 </template>
 
@@ -14,11 +13,11 @@
     mixins: [FuncCompMixin],
     attr: {
       configDataTemp: {
-        imageSrc: '',
+        relativePath: '',
         width: '100%',
         height: '100%',
         useCustomStyle: false,
-        customStyleCode: '{}'
+        customStyleCode: {}
       }
     },
     data() {
@@ -31,18 +30,19 @@
     },
     methods: {
       buildStyleObj () {
+        this.styleObj = {
+          width: this.component.compConfigData.width,
+          height: this.component.compConfigData.height
+        };
         if(this.component.compConfigData.useCustomStyle) {
-          this.styleObj = JSON.parse(this.component.compConfigData.customStyleCode)
-        }else {
-          this.styleObj = {
-            width: this.component.compConfigData.width,
-            height: this.component.compConfigData.height
-          }
+          this.styleObj = Object.assign(this.styleObj, this.component.compConfigData.customStyleCode)
         }
       }
     },
     computed: {
-
+      imageSrc () {
+        return process.env.VUE_APP_BASEPATH + '/' + this.component.compConfigData.relativePath
+      }
     },
     watch: {
       'component.compConfigData': {

@@ -78,6 +78,9 @@
                 <div class="comp-card" >
                   <p>ImageComp</p>
                 </div>
+                <div class="comp-card" >
+                  <p>AComp</p>
+                </div>
               </div>
 
 
@@ -169,7 +172,7 @@
     data() {
       return {
 
-        collapseDefaultName: '',
+        collapseDefaultName: ['page_config', 'canvas_config', 'layoutItem_config', 'comp_config'],
 
         createPageDrawerVisible: false,
         // 页面信息树
@@ -336,7 +339,6 @@
         this.$store.dispatch('designer/loadPage', pageId);
 
         this.currentSelectPageId = pageId;
-        this.collapseDefaultName = ['page_config','canvas_config']
       },
 
       deletePage(pageId) {

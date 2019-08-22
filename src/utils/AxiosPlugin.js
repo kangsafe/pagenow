@@ -5,7 +5,7 @@ import { Message } from 'iview'
 // 这里 export 的原因是方便组件外使用 axios
 export const Axios = axios.create({
   //baseURL: process.env.BASE_URL,
-  baseURL: 'http://localhost:8090',
+  baseURL: process.env.VUE_APP_BASEPATH,
   timeout: 10000,
 });
 

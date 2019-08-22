@@ -2,12 +2,13 @@
   <div class="">
     <Form :label-width="80">
       <FormItem label="操作">
-        <Upload action="http://localhost:8090/file/upload" name="files" :max-size="1024*5">
+        <Upload :action="uploadAction"
+                name="files" :on-success="imageUploadSuccessHandle" :show-upload-list="true">
           <Button size="small" icon="ios-cloud-upload-outline">上传图片</Button>
         </Upload>
       </FormItem>
-      <FormItem label="图片路径">
-        <Input size="small" v-model="imageSrc"/>
+      <FormItem label="图片相对路径">
+        <Input size="small" v-model="relativePath"/>
       </FormItem>
       <FormItem label="图片宽度">
         <Input size="small" v-model="width"/>
@@ -21,14 +22,30 @@
           <span slot="close"></span>
         </i-switch>
       </FormItem>
-      <FormItem label="样式代码">
-        <Input v-model="customStyleCode" type="textarea" :rows="4" placeholder="" />
+      <FormItem label="操作">
+        <Button size="small" type="primary" @click="customStyleCodeModalVisible = !customStyleCodeModalVisible">样式代码</Button>
       </FormItem>
     </Form>
+
+    <Modal
+        v-model="customStyleCodeModalVisible"
+        draggable
+        scrollable
+        title="样式代码编辑"
+        width="650"
+        :mask="true"
+        :z-index="3">
+      <vue-json-editor v-model="customStyleCode" :show-btns="false" :mode="'code'"></vue-json-editor>
+      <div slot="footer">
+        <Button type="default" @click="customStyleCodeModalVisible = false">关闭</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+  import vueJsonEditor from 'vue-json-editor'
+
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({
@@ -38,16 +55,29 @@
 
   export default {
     name: 'ImageCompForm',
+    components: {
+      vueJsonEditor
+    },
     data() {
-      return {}
+      return {
+        customStyleCodeModalVisible: false,
+        uploadAction: process.env.VUE_APP_BASEPATH + '/file/upload'
+      }
     },
     mounted() {
 
     },
-    methods: {},
+    methods: {
+      imageUploadSuccessHandle (res) {
+
+        if(res.code == 1) {
+          this.relativePath = res.data.relativePath
+        }
+      }
+    },
     computed: {
       ...mapFields({
-        imageSrc: 'component.compConfigData.imageSrc',
+        relativePath: 'component.compConfigData.relativePath',
         width: 'component.compConfigData.width',
         height: 'component.compConfigData.height',
         useCustomStyle: 'component.compConfigData.useCustomStyle',
