@@ -16,14 +16,8 @@
       <FormItem label="图片高度">
         <Input size="small" v-model="height"/>
       </FormItem>
-      <FormItem label="自定义样式">
-        <i-switch v-model="useCustomStyle">
-          <span slot="open"></span>
-          <span slot="close"></span>
-        </i-switch>
-      </FormItem>
       <FormItem label="操作">
-        <Button size="small" type="primary" @click="customStyleCodeModalVisible = !customStyleCodeModalVisible">样式代码</Button>
+        <Button size="small" type="primary" @click="customStyleCodeModalVisible = !customStyleCodeModalVisible">自定义样式</Button>
       </FormItem>
     </Form>
 
@@ -31,10 +25,11 @@
         v-model="customStyleCodeModalVisible"
         draggable
         scrollable
-        title="样式代码编辑"
+        title="自定义样式编辑"
         width="650"
         :mask="true"
         :z-index="3">
+      <Alert type="info">提示：自定义样式会与预设样式进行浅合并，如果存在相同属性配置，自定义样式会覆盖预设样式</Alert>
       <vue-json-editor v-model="customStyleCode" :show-btns="false" :mode="'code'"></vue-json-editor>
       <div slot="footer">
         <Button type="default" @click="customStyleCodeModalVisible = false">关闭</Button>
@@ -80,7 +75,6 @@
         relativePath: 'component.compConfigData.relativePath',
         width: 'component.compConfigData.width',
         height: 'component.compConfigData.height',
-        useCustomStyle: 'component.compConfigData.useCustomStyle',
         customStyleCode: 'component.compConfigData.customStyleCode'
       })
     }

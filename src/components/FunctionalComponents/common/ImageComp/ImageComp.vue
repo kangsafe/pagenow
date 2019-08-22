@@ -16,7 +16,6 @@
         relativePath: '',
         width: '100%',
         height: '100%',
-        useCustomStyle: false,
         customStyleCode: {}
       }
     },
@@ -34,9 +33,7 @@
           width: this.component.compConfigData.width,
           height: this.component.compConfigData.height
         };
-        if(this.component.compConfigData.useCustomStyle) {
-          this.styleObj = Object.assign(this.styleObj, this.component.compConfigData.customStyleCode)
-        }
+        this.styleObj = Object.assign(this.styleObj, this.component.compConfigData.customStyleCode)
       }
     },
     computed: {
