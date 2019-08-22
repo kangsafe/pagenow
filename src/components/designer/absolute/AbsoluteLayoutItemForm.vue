@@ -56,7 +56,7 @@
             <Icon type="ios-arrow-down"></Icon>
           </Button>
           <DropdownMenu slot="list">
-            <DropdownItem divided name="deleteLayoutItem">删除布局块</DropdownItem>
+            <DropdownItem name="deleteLayoutItem">删除布局块</DropdownItem>
             <DropdownItem name="deleteComponent">解除关联组件</DropdownItem>
           </DropdownMenu>
         </Dropdown>

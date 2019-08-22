@@ -3,7 +3,12 @@
        :style="styleObj" @click.stop="layoutCanvasClick">
 
     <div class="absolute-layout-item"
-         :class="{active: $store.state.designer.currentSelectLayoutItemId == layoutItem.id}"
+         :class="{
+          activeBlack: $store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
+            $PnUtil.getContrastYIQ(layout.layoutConfigData.backgroundColor.substring(1,7)) == 'black',
+          activeWhite: $store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
+            $PnUtil.getContrastYIQ(layout.layoutConfigData.backgroundColor.substring(1,7)) == 'white'
+         }"
          :data-id="layoutItem.id"
          v-for="layoutItem in layout.layoutItems"
          :key="layoutItem.id"
@@ -177,7 +182,10 @@
     position: absolute;
   }
 
-  .absolute-layout-item.active {
+  .absolute-layout-item.activeBlack {
     box-shadow: 0 0 10px #000
+  }
+  .absolute-layout-item.activeWhite {
+    box-shadow: 0 0 10px white
   }
 </style>

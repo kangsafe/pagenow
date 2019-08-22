@@ -18,7 +18,12 @@
           :key="layoutItem.id"
           :span="24/layoutItemsByRowId(row.id).length">
         <div class="reactive-layout-item"
-             :class="{active: $store.state.designer.currentSelectLayoutItemId == layoutItem.id}"
+             :class="{
+              activeBlack: $store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
+                $PnUtil.getContrastYIQ(layout.layoutConfigData.backgroundColor.substring(1,7)) == 'black',
+              activeWhite: $store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
+                $PnUtil.getContrastYIQ(layout.layoutConfigData.backgroundColor.substring(1,7)) == 'white'
+             }"
              :data-id="layoutItem.id"
              :style="{
               height: layoutItem.layoutItemConfigData.height,
@@ -151,7 +156,11 @@
   .reactive-layout-item {
 
   }
-  .reactive-layout-item.active {
+
+  .reactive-layout-item.activeBlack {
     box-shadow: 0 0 10px #000
+  }
+  .reactive-layout-item.activeWhite {
+    box-shadow: 0 0 10px white
   }
 </style>

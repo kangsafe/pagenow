@@ -8,7 +8,7 @@ const buildAbsoluteLayoutConfigData = function () {
   let layoutConfigData = { // 绝对布局默认配置
     width: '1440px',
     height: '900px',
-    backgroundColor: 'antiquewhite',
+    backgroundColor: '#999999',
     customStyleCode: {}
   };
   return layoutConfigData
@@ -34,6 +34,7 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
       zIndex: '1',
       display: 'block',
       compVisible: true,
+      customStyleCode: {}
     },
     component: {
       id: '',
@@ -54,7 +55,7 @@ const buildReactiveLayoutConfigData = function () {
   let layoutConfigData = {
     width: '100%',
     height: '100%',
-    backgroundColor: 'antiquewhite',
+    backgroundColor: '#999999',
     padding: '10px',
     rows: []
   };
