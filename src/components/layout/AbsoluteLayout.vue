@@ -2,7 +2,11 @@
 
 <template>
   <div class="absolute-layout"
-       :style="styleObj">
+       :style="Object.assign({
+         width: layout.layoutConfigData.width,
+         height: layout.layoutConfigData.height,
+         backgroundColor: layout.layoutConfigData.backgroundColor
+       }, layout.layoutConfigData.customStyleCode)">
 
     <div class="absolute-layout-item"
          :data-id="layoutItem.id"
@@ -39,7 +43,6 @@
     name: 'AbsoluteLayout',
     data() {
       return {
-        styleObj: {},
         layout: {
           layoutConfigData: {
 
@@ -64,17 +67,10 @@
       }
     },
     mounted() {
-      this.buildStyleObj()
+
     },
     methods: {
-      buildStyleObj () {
-        this.styleObj = {
-          width: this.layout.layoutConfigData.width,
-          height: this.layout.layoutConfigData.height,
-          backgroundColor: this.layout.layoutConfigData.backgroundColor,
-        };
-        this.styleObj = Object.assign(this.styleObj, this.layout.layoutConfigData.customStyleCode)
-      },
+
     },
     computed: {}
   }

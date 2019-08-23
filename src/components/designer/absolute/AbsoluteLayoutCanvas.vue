@@ -1,6 +1,10 @@
 <template>
   <div id="AbsoluteLayout" class="absolute-layout-canvas"
-       :style="styleObj" @click.stop="layoutCanvasClick">
+       :style="Object.assign({
+         width: layout.layoutConfigData.width,
+         height: layout.layoutConfigData.height,
+         backgroundColor: layout.layoutConfigData.backgroundColor
+       }, layout.layoutConfigData.customStyleCode)" @click.stop="layoutCanvasClick">
 
     <div class="absolute-layout-item"
          :class="{
@@ -50,23 +54,14 @@
     name: 'AbsoluteLayoutCanvas',
     data() {
       return {
-        styleObj: {}
+
       }
     },
     mounted() {
-      this.buildStyleObj();
+
       this.registerDragAndResizable();
     },
     methods: {
-
-      buildStyleObj () {
-        this.styleObj = {
-          width: this.layout.layoutConfigData.width,
-          height: this.layout.layoutConfigData.height,
-          backgroundColor: this.layout.layoutConfigData.backgroundColor,
-        };
-        this.styleObj = Object.assign(this.styleObj, this.layout.layoutConfigData.customStyleCode)
-      },
 
       registerDragAndResizable() {
         let _this = this;
@@ -164,10 +159,6 @@
     watch: {
       'layout.layoutItems': {
         handler: 'registerDragAndResizable'
-      },
-      'layout.layoutConfigData': {
-        handler: 'buildStyleObj',
-        deep: true
       }
     }
   }

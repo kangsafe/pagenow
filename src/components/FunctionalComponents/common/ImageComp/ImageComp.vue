@@ -1,6 +1,9 @@
 <template>
   <div class="image-comp">
-    <img :src="imageSrc" :style="styleObj"/>
+    <img :src="imageSrc" :style="Object.assign({
+      width: component.compConfigData.width,
+      height: component.compConfigData.height
+    }, component.compConfigData.customStyleCode)"/>
   </div>
 </template>
 
@@ -21,20 +24,14 @@
     },
     data() {
       return {
-        styleObj: {}
+
       }
     },
     mounted() {
-      this.buildStyleObj()
+
     },
     methods: {
-      buildStyleObj () {
-        this.styleObj = {
-          width: this.component.compConfigData.width,
-          height: this.component.compConfigData.height
-        };
-        this.styleObj = Object.assign(this.styleObj, this.component.compConfigData.customStyleCode)
-      }
+
     },
     computed: {
       imageSrc () {
@@ -42,10 +39,7 @@
       }
     },
     watch: {
-      'component.compConfigData': {
-        handler: 'buildStyleObj',
-        deep: true
-      }
+      
     }
   }
 </script>
