@@ -84,6 +84,9 @@
                 <div class="comp-card" >
                   <p>HelloWorld</p>
                 </div>
+                <div class="comp-card" >
+                  <p>TextComp</p>
+                </div>
               </div>
 
 

@@ -19,6 +19,9 @@ require('webpack-jquery-ui/css');
 // 引入Echart4.x组件
 import echarts from 'echarts'
 
+// 引入UEditor组件
+import VueUeditorWrap from 'vue-ueditor-wrap'
+
 // 自动扫描组件
 import './components/index.js'
 
@@ -46,6 +49,7 @@ Vue.use(AxiosPlugin);
 
 Vue.config.productionTip = false;
 
+Vue.component('vue-ueditor-wrap', VueUeditorWrap);
 
 // 注册全局变量
 Vue.prototype.$PnUtil = PnUtil;
