@@ -71,6 +71,7 @@
           // 注册布局块拖拽
           $(".absolute-layout-item").draggable({
             containment: '#AbsoluteLayout',
+            delay: 100,
             //stack: '.absolute-layout-item',
             snap: JSON.parse(localStorage.getItem('globalConfigData')).snapEnabled,
             start: function (e) {
@@ -117,6 +118,7 @@
 
           // 注册布局块可变尺寸
           $(".absolute-layout-item").resizable({
+            delay: 100,
             resize: function (e) {
               _this.$store.commit('designer/setLayoutItemWidthAndHeight', {id: $(this).attr('data-id'), width: $(this).width() + 'px', height: $(this).height() + 'px'})
             }
