@@ -4,9 +4,6 @@
       <FormItem label="文本">
         <Input size="small" v-model="text"/>
       </FormItem>
-      <FormItem label="对象属性">
-        <Input size="small" v-model="name"/>
-      </FormItem>
       <FormItem label="点击事件">
         <Input size="small" v-model="customJsCode"/>
       </FormItem>
@@ -24,7 +21,7 @@
   });
 
   export default {
-    name: 'HelloForm',
+    name: 'HelloWorldForm',
     data() {
       return {
 
@@ -37,7 +34,6 @@
     computed: {
       ...mapFields({
         text: 'component.compConfigData.text',
-        name: 'component.compConfigData.obj.name',
         customJsCode: 'component.compConfigData.customJsCode',
       })
     }

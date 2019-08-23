@@ -15,13 +15,14 @@
     mixins: [FuncCompMixin],
     attr: {
       configDataTemp: {
-        text: "alert('123')",
+        text: "huangjian",
         msg: '测试',
         fontSize: '15px',
         api: 'http://www.baidu.com',
         obj: {
           name: 'eeee'
-        }
+        },
+        customJsCode: ''
       }
     },
     data() {
@@ -36,8 +37,13 @@
     },
     methods: {
       sendEvent () {
-        let fn = Function(this.component.compConfigData.text);
-        fn();
+        let _this = this;
+
+        eval(this.component.compConfigData.customJsCode)
+
+        // let fn = Function(this.component.compConfigData.text);
+        // fn();
+
         //console.log($('#3b996173-8270-2851-e7b2-60ded587672d').html);
         //eval("(function(){"+this.component.compConfigData.text+"})()")
         //this.$EventBus.$emit('hello-click', 'hello');
