@@ -56,7 +56,8 @@
             <Icon type="ios-arrow-down"></Icon>
           </Button>
           <DropdownMenu slot="list">
-            <DropdownItem name="deleteLayoutItem">删除布局块</DropdownItem>
+            <DropdownItem name="customStyle">自定义样式</DropdownItem>
+            <DropdownItem divided name="deleteLayoutItem">删除布局块</DropdownItem>
             <DropdownItem name="deleteComponent">解除关联组件</DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -68,10 +69,26 @@
       </FormItem>-->
     </Form>
 
+    <Modal
+        v-model="customStyleCodeModalVisible"
+        draggable
+        scrollable
+        title="自定义样式编辑"
+        width="650"
+        :mask="true"
+        :z-index="3">
+      <Alert type="info">提示：自定义样式会与预设样式进行浅合并，如果存在相同属性配置，自定义样式会覆盖预设样式</Alert>
+      <vue-json-editor v-model="customStyleCode" :show-btns="false" :mode="'code'"></vue-json-editor>
+      <div slot="footer">
+        <Button type="default" @click="customStyleCodeModalVisible = false">关闭</Button>
+      </div>
+    </Modal>
+
   </div>
 </template>
 
 <script>
+  import vueJsonEditor from 'vue-json-editor'
 
   import { createHelpers } from 'vuex-map-fields';
 
@@ -82,12 +99,12 @@
 
   export default {
     name: 'AbsoluteLayoutItemForm',
-    props: {
-
+    components: {
+      vueJsonEditor
     },
     data() {
       return {
-
+        customStyleCodeModalVisible: false
       }
     },
     mounted() {
@@ -96,6 +113,9 @@
     methods: {
 
       dropdownClickHandle (name) {
+        if (name == 'customStyle') {
+          this.customStyleCodeModalVisible = !this.customStyleCodeModalVisible
+        }
         if (name == 'deleteComponent') {
           this.deleteComponent()
         }
@@ -164,6 +184,7 @@
         zIndex: 'layoutItemConfigData.zIndex',
         display: 'layoutItemConfigData.display',
         compVisible: 'layoutItemConfigData.compVisible',
+        customStyleCode: 'layoutItemConfigData.customStyleCode',
 
         componentId: 'component.id',
         componentName: 'component.name',

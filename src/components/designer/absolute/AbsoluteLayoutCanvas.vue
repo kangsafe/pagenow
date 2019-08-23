@@ -16,18 +16,18 @@
          :data-id="layoutItem.id"
          v-for="layoutItem in layout.layoutItems"
          :key="layoutItem.id"
-         :style="{
-          width: layoutItem.layoutItemConfigData.width,
-          height: layoutItem.layoutItemConfigData.height,
-          left: layoutItem.layoutItemConfigData.left,
-          top: layoutItem.layoutItemConfigData.top,
-          borderWidth: layoutItem.layoutItemConfigData.borderWidth,
-          borderStyle: layoutItem.layoutItemConfigData.borderStyle,
-          borderColor: layoutItem.layoutItemConfigData.borderColor,
-          backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
-          zIndex: layoutItem.layoutItemConfigData.zIndex,
-          display: layoutItem.layoutItemConfigData.display
-         }"
+         :style="Object.assign({
+           width: layoutItem.layoutItemConfigData.width,
+           height: layoutItem.layoutItemConfigData.height,
+           left: layoutItem.layoutItemConfigData.left,
+           top: layoutItem.layoutItemConfigData.top,
+           borderWidth: layoutItem.layoutItemConfigData.borderWidth,
+           borderStyle: layoutItem.layoutItemConfigData.borderStyle,
+           borderColor: layoutItem.layoutItemConfigData.borderColor,
+           backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
+           zIndex: layoutItem.layoutItemConfigData.zIndex,
+           display: layoutItem.layoutItemConfigData.display
+         }, layoutItem.layoutItemConfigData.customStyleCode)"
          @click.stop="layoutItemClick(layoutItem, $event)">
       <FuncCompContainer :location="layoutItem.id">
         <component :is="layoutItem.component.name" :location="layoutItem.id"
