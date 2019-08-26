@@ -192,7 +192,7 @@
           // 注册布局块拖拽
           $(".absolute-layout-item").draggable({
             containment: '#AbsoluteLayout',
-            delay: 100,
+            delay: 150,
             //stack: '.absolute-layout-item',
             snap: JSON.parse(localStorage.getItem('globalConfigData')).snapEnabled,
             start: function (a, b) {
@@ -281,6 +281,7 @@
       },
 
       layoutCanvasClick () {
+        this.registerKeyDownAndUp(); // 重新注册键盘监听
         this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
         this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
         this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
@@ -288,6 +289,8 @@
       },
 
       layoutItemClick(layoutItem, event) {
+        this.registerKeyDownAndUp(); // 重新注册键盘监听
+
         // 点击布局块的时候，给布局块设置droppable的属性scope为layoutItemScope，
         // 与组件库拖拽对象的scope对应，这样组件库的拖拽对象就可以放置在当前点击的布局块里
         $(".absolute-layout-item").droppable('option', 'scope', '');

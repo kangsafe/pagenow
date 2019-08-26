@@ -18,7 +18,7 @@
                  left: 0,
                  overflow: 'auto',
                  zIndex: 2
-               }">
+               }" @click.stop.native="clearKeyDownAndUp">
           <Tabs size="small" value="project_tab">
             <TabPane label="工程信息" name="project_tab" :style="{padding: '0px 10px 0px 10px'}">
 
@@ -127,7 +127,7 @@
                  right: 0,
                  overflow: 'auto',
                  zIndex: 2
-               }">
+               }" @click.stop.native="clearKeyDownAndUp">
           <Collapse simple v-model="collapseDefaultName">
             <Panel name="page_config">
               页面信息
@@ -203,6 +203,15 @@
 
     },
     methods: {
+
+
+      /**
+       * 注销键盘监听
+       */
+      clearKeyDownAndUp () {
+        $(document).unbind('keydown');
+        $(document).unbind('keyup');
+      },
 
       /**
        * 初始化页面信息树数据
