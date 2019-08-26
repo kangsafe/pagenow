@@ -29,6 +29,10 @@
             @click="clearCanvas">清空画布</Button>
     <Button size="small" type="primary"
             style="margin-right: 5px;"
+            :disabled="!pageMetadata.id"
+            @click="clearMultiSelect">清除多选</Button>
+    <Button size="small" type="primary"
+            style="margin-right: 5px;"
             :disabled="!$store.state.designer.pageMetadata.id"
             @click="previewPage">预览</Button>
 
@@ -105,6 +109,10 @@
             this.$store.commit('designer/resetDesigner')
           }
         });
+      },
+
+      clearMultiSelect () {
+        this.$store.commit('designer/setCurrentSelectLayoutItemIds', [])
       },
 
       previewPage () {

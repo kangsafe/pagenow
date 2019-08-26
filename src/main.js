@@ -59,6 +59,16 @@ Vue.prototype.$EventBus = EventBus;
 Vue.prototype.$PnApi = PnApi;
 Vue.prototype.$Echarts = echarts;
 
+// 给数组注册去重插入函数
+Array.prototype.pushNoRepeat = function () {
+  for(let i=0; i < arguments.length; i++) {
+    let ele = arguments[i];
+    if(this.indexOf(ele) == -1){
+      this.push(ele);
+    }
+  }
+};
+
 new Vue({
   router,
   store,

@@ -126,6 +126,8 @@ const state = {
 
   rightSidebarFuncCompConfigFormName: '',   // 右侧边栏组件编辑区表单名称
 
+  currentSelectLayoutItemIds: []            // 当前选中的多个布局块的ID数组
+
 };
 
 const getters = {
@@ -205,6 +207,7 @@ const mutations = {
   resetDesigner (state) {
     state.rightSidebarLayoutItemConfigFormName = '';
     state.currentSelectLayoutItemId = '';
+    state.currentSelectLayoutItemIds = [];
     state.rightSidebarFuncCompConfigFormName = '';
     state.pageMetadata.layout.layoutItems = [];
   },
@@ -390,13 +393,32 @@ const mutations = {
   },
 
   /**
-   * 设置右侧边栏组件配置关联的组件表单名
+   * 设置 右侧边栏组件配置关联的组件表单名
    * @param state
    * @param payload
    */
   setRightSidebarFuncCompConfigFormName (state, payload) {
     state.rightSidebarFuncCompConfigFormName = payload
   },
+
+
+  /**
+   * 添加 当前选中的多个布局块的ID数组 项
+   * @param state
+   * @param layoutItemId
+   */
+  addIdToCurrentSelectLayoutItemIds (state, layoutItemId) {
+    state.currentSelectLayoutItemIds.pushNoRepeat(layoutItemId)
+  },
+
+  /**
+   * 设置 当前选中的多个布局块的ID数组
+   * @param state
+   * @param layoutItemIds 一个存储布局块ID字符串的数组
+   */
+  setCurrentSelectLayoutItemIds (state, layoutItemIds) {
+    state.currentSelectLayoutItemIds = layoutItemIds
+  }
 
 };
 

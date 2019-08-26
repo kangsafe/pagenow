@@ -45,9 +45,27 @@ const getContrastYIQ = function (hexcolor) {
   return (yiq >= 128) ? 'black' : 'white';
 };
 
+/**
+ * 判断是否为Mac系统
+ * @returns {*|boolean}
+ */
+const isMac = function () {
+  return /macintosh|mac os x/i.test(navigator.userAgent);
+};
+
+/**
+ * 判断是否为Windows系统
+ * @returns {*|boolean}
+ */
+const isWindows = function () {
+  return /windows|win32/i.test(navigator.userAgent);
+};
+
 export default {
   uuid,
   getTimestamp,
   openPageToBlank,
-  getContrastYIQ
+  getContrastYIQ,
+  isMac,
+  isWindows
 }

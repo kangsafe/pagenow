@@ -7,12 +7,8 @@
        }, layout.layoutConfigData.customStyleCode)" @click.stop="layoutCanvasClick">
 
     <div class="absolute-layout-item"
-         :class="{
-          activeBlack: $store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
-            $PnUtil.getContrastYIQ(layout.layoutConfigData.backgroundColor.substring(1,7)) == 'black',
-          activeWhite: $store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
-            $PnUtil.getContrastYIQ(layout.layoutConfigData.backgroundColor.substring(1,7)) == 'white'
-         }"
+         :class="buildLayoutItemClassObj(layoutItem)"
+         :id="layoutItem.id"
          :data-id="layoutItem.id"
          v-for="layoutItem in layout.layoutItems"
          :key="layoutItem.id"
@@ -54,14 +50,47 @@
     name: 'AbsoluteLayoutCanvas',
     data() {
       return {
-
+        keepCtrl: false, // 标识当前是否保持按住Ctrl按键（mac下会监听command按键），用于多选布局块时使用
+        topList: {}, // 用于ctrl多选拖拽
+        leftList: {}, // 用于ctrl多选拖拽
       }
     },
     mounted() {
 
       this.registerDragAndResizable();
+      this.registerCtrlKeyDownAndUp();
     },
     methods: {
+
+      /**
+       * 注册监听键盘按下事件，这里注册ctrl按键
+       */
+      registerCtrlKeyDownAndUp () {
+        let _this = this;
+        $(document).bind("keydown", function(e) {
+          if(_this.$PnUtil.isMac()) {
+            if(e.keyCode == 91) {
+              _this.keepCtrl = true;
+            }
+          }else if(_this.$PnUtil.isWindows()) {
+            if(e.keyCode == 17) {
+              _this.keepCtrl = true;
+            }
+          }
+        });
+        $(document).bind("keyup", function(e) {
+          if(_this.$PnUtil.isMac()) {
+            if(e.keyCode == 91) {
+              _this.keepCtrl = false;
+            }
+          }else if(_this.$PnUtil.isWindows()) {
+            if(e.keyCode == 17) {
+              _this.keepCtrl = false;
+            }
+          }
+        });
+
+      },
 
       registerDragAndResizable() {
         let _this = this;
@@ -74,11 +103,43 @@
             delay: 100,
             //stack: '.absolute-layout-item',
             snap: JSON.parse(localStorage.getItem('globalConfigData')).snapEnabled,
-            start: function (e) {
+            start: function (a, b) {
               //_this.$store.commit('designer/setLayoutItemZIndex', {id: $(this).attr('data-id')})
+
+              let currentSelectLayoutItemIds = _this.$store.state.designer.currentSelectLayoutItemIds;
+              if(currentSelectLayoutItemIds.length > 0) {
+                let t0 = $(this)[0].offsetTop;
+                let l0 = $(this)[0].offsetLeft;
+
+                for (let i=0; i<currentSelectLayoutItemIds.length; i++) {
+                  if($(this).attr('data-id') != currentSelectLayoutItemIds[i]) {
+
+                    let t1 = $('#'+currentSelectLayoutItemIds[i])[0].offsetTop;
+                    let l1 = $('#'+currentSelectLayoutItemIds[i])[0].offsetLeft;
+                    _this.topList[currentSelectLayoutItemIds[i]] = t1-t0;
+                    _this.leftList[currentSelectLayoutItemIds[i]] = l1-l0;
+                  }
+                }
+              }
             },
-            drag: function (e) {
+            drag: function (e, b) {
               _this.$store.commit('designer/setLayoutItemLeftAndTop', {id: $(this).attr('data-id'), left: $(this).position().left + 'px', top: $(this).position().top + 'px'})
+
+              let currentSelectLayoutItemIds = _this.$store.state.designer.currentSelectLayoutItemIds;
+              if(currentSelectLayoutItemIds.length > 0) {
+                let t0 = $(this)[0].offsetTop;
+                let l0 = $(this)[0].offsetLeft;
+
+                for (let i=0; i<currentSelectLayoutItemIds.length; i++) {
+                  if($(this).attr('data-id') != currentSelectLayoutItemIds[i]) {
+
+                    let t = _this.topList[currentSelectLayoutItemIds[i]];
+                    let l = _this.leftList[currentSelectLayoutItemIds[i]];
+
+                    _this.$store.commit('designer/setLayoutItemLeftAndTop', {id: currentSelectLayoutItemIds[i], left: l0+l + 'px', top: t0+t + 'px'})
+                  }
+                }
+              }
             },
             stop: function () {
 
@@ -130,7 +191,8 @@
       layoutCanvasClick () {
         this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
         this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
-        this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+        this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
+        this.$store.commit('designer/setCurrentSelectLayoutItemIds', [])
       },
 
       layoutItemClick(layoutItem, event) {
@@ -144,18 +206,65 @@
           }
         }
 
+        // 判断当前是否按住了ctrl按键
+        if(this.keepCtrl) {
+          let selectLayoutItemIds = this.currentSelectLayoutItemIds.concat();
+
+          if(selectLayoutItemIds.indexOf(layoutItem.id) > -1) {
+            for (let i=0; i<selectLayoutItemIds.length; i++) {
+              if(layoutItem.id == selectLayoutItemIds[i]) {
+                selectLayoutItemIds.splice(i, 1);
+                i--
+              }
+            }
+          }else {
+            selectLayoutItemIds.pushNoRepeat(layoutItem.id);
+          }
+          this.$store.commit('designer/setCurrentSelectLayoutItemIds', selectLayoutItemIds);
+        } else {
+          if(this.$store.state.designer.currentSelectLayoutItemIds.indexOf(layoutItem.id) == -1) {
+            this.$store.commit('designer/setCurrentSelectLayoutItemIds', []) // 清除ctrl选中的布局块
+
+          }
+        }
+
         // 如果当前点击的布局块没有关联组件，那么就清空rightSidebarFuncCompConfigFormName状态
         if (!layoutItem.component.id) {
           this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
         }
         this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'AbsoluteLayoutItemForm');
         this.$store.commit('designer/setCurrentSelectLayoutItemId', layoutItem.id)
+      },
+
+      buildLayoutItemClassObj: function (layoutItem) {
+
+        if (this.$store.state.designer.currentSelectLayoutItemIds.length > 0) {
+          if (this.$store.state.designer.currentSelectLayoutItemIds.indexOf(layoutItem.id) > -1 &&
+            this.$PnUtil.getContrastYIQ(this.layout.layoutConfigData.backgroundColor.substring(1,7)) == 'black') {
+            return 'activeBlack'
+          }
+          if (this.$store.state.designer.currentSelectLayoutItemIds.indexOf(layoutItem.id) > -1 &&
+            this.$PnUtil.getContrastYIQ(this.layout.layoutConfigData.backgroundColor.substring(1,7)) == 'white') {
+            return 'activeWhite'
+          }
+        }else {
+          if (this.$store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
+            this.$PnUtil.getContrastYIQ(this.layout.layoutConfigData.backgroundColor.substring(1,7)) == 'black') {
+            return 'activeBlack'
+          }
+          if (this.$store.state.designer.currentSelectLayoutItemId == layoutItem.id &&
+            this.$PnUtil.getContrastYIQ(this.layout.layoutConfigData.backgroundColor.substring(1,7)) == 'white') {
+            return 'activeWhite'
+          }
+        }
+
+        return ''
       }
     },
     computed: {
       ...mapFields({
-        snapEnabled: 'globalConfigData.snapEnabled',
-        layout: 'pageMetadata.layout'
+        layout: 'pageMetadata.layout',
+        currentSelectLayoutItemIds: 'currentSelectLayoutItemIds'
       })
     },
     watch: {
