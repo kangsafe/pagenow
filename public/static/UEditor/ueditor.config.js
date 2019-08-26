@@ -56,6 +56,9 @@
         'insertrow', //前插入行
         'insertcol', //前插入列
 
+        'fontfamily', //字体
+        'fontsize', //字号
+
         'justifyleft', //居左对齐
         'justifyright', //居右对齐
         'justifycenter', //居中对齐
@@ -381,7 +384,7 @@
 		//output xss过滤
 		,outputXssFilter: true
 		// xss过滤白名单 名单来源: https://raw.githubusercontent.com/leizongmin/js-xss/master/lib/default.js
-		,whiteList: {
+		,whitList: {
 			a:      ['target', 'href', 'title', 'class', 'style'],
 			abbr:   ['title', 'class', 'style'],
 			address: ['class', 'style'],

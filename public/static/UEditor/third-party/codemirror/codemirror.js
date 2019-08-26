@@ -1,13 +1,13 @@
 // CodeMirror version 2.2
 //
-// All functions that need access to the editor's state live inside
+// All functions that need access to the UEditor's state live inside
 // the CodeMirror function. Below that, at the bottom of the file,
 // some utilities are defined.
 
 // CodeMirror is the only global var we claim
 var CodeMirror = (function() {
-    // This is the function that produces an editor instance. It's
-    // closure is used to store the editor state.
+    // This is the function that produces an UEditor instance. It's
+    // closure is used to store the UEditor state.
     function CodeMirror(place, givenOptions) {
         // Determine effective options based on given values and defaults.
         var options = {}, defaults = CodeMirror.defaults;
@@ -16,10 +16,10 @@ var CodeMirror = (function() {
                 options[opt] = (givenOptions && givenOptions.hasOwnProperty(opt) ? givenOptions : defaults)[opt];
 
         var targetDocument = options["document"];
-        // The element in which the editor lives.
+        // The element in which the UEditor lives.
         var wrapper = targetDocument.createElement("div");
         wrapper.className = "CodeMirror" + (options.lineWrapping ? " CodeMirror-wrap" : "");
-        // This mess creates the base DOM structure for the editor.
+        // This mess creates the base DOM structure for the UEditor.
         wrapper.innerHTML =
             '<div style="overflow: hidden; position: relative; width: 3px; height: 0px;">' + // Wraps and hides input textarea
                 '<textarea style="position: absolute; padding: 0; width: 1px;" wrap="off" ' +
@@ -320,7 +320,7 @@ var CodeMirror = (function() {
                     if (start) setCursor(start.line, start.ch, true);
                     return;
             }
-            // For button 1, if it was clicked inside the editor
+            // For button 1, if it was clicked inside the UEditor
             // (posFromMouse returning non-null), we have to adjust the
             // selection.
             if (!start) {if (e_target(e) == scroller) e_preventDefault(e); return;}
@@ -838,7 +838,7 @@ var CodeMirror = (function() {
             // Position the mover div to align with the lines it's supposed
             // to be showing (which will cover the visible display)
             var different = from != showingFrom || to != showingTo || lastSizeC != scroller.clientHeight + th;
-            // This is just a bogus formula that detects when the editor is
+            // This is just a bogus formula that detects when the UEditor is
             // resized or the font size changes.
             if (different) lastSizeC = scroller.clientHeight + th;
             showingFrom = from; showingTo = to;

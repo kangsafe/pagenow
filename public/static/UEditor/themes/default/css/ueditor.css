@@ -185,13 +185,13 @@ div.edui-box {
     /*_position: static !important;*
 }
 
-.edui-default .edui-editor-iframeholder textarea {
+.edui-default .edui-UEditor-iframeholder textarea {
     font-family: consolas, "Courier New", "lucida console", monospace;
     font-size: 12px;
     line-height: 18px;
 }
 
-.edui-default .edui-editor-bottombar {
+.edui-default .edui-UEditor-bottombar {
     /*border-top: 1px solid #ccc;*/
     /*height: 20px;*/
     /*width: 40%;*/

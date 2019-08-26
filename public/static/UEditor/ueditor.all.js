@@ -1,12 +1,12 @@
 /*!
  * UEditor
  * version: ueditor
- * build: Wed Dec 26 2018 17:24:52 GMT+0800 (CST)
+ * build: Wed Aug 10 2016 11:06:16 GMT+0800 (CST)
  */
 
 (function(){
 
-// editor.js
+// UEditor.js
 UEDITOR_CONFIG = window.UEDITOR_CONFIG || {};
 
 var baidu = window.baidu || {};
@@ -1530,7 +1530,7 @@ utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Date']
  * @constructor
  * @example
  * ```javascript
- * UE.EventBase.call(editor);
+ * UE.EventBase.call(UEditor);
  * ```
  */
 var EventBase = UE.EventBase = function () {};
@@ -1545,10 +1545,10 @@ EventBase.prototype = {
      * @waining 事件被触发时，监听的函数假如返回的值恒等于true，回调函数的队列中后面的函数将不执行
      * @example
      * ```javascript
-     * editor.addListener('selectionchange',function(){
+     * UEditor.addListener('selectionchange',function(){
      *      console.log("选区已经变化！");
      * })
-     * editor.addListener('beforegetcontent aftergetcontent',function(type){
+     * UEditor.addListener('beforegetcontent aftergetcontent',function(type){
      *         if(type == 'beforegetcontent'){
      *             //do something
      *         }else{
@@ -1583,7 +1583,7 @@ EventBase.prototype = {
      * @example
      * ```javascript
      * //changeCallback为方法体
-     * editor.removeListener("selectionchange",changeCallback);
+     * UEditor.removeListener("selectionchange",changeCallback);
      * ```
      */
     removeListener:function (types, listener) {
@@ -1601,7 +1601,7 @@ EventBase.prototype = {
      * @return { * } 返回触发事件的队列中，最后执行的回调函数的返回值
      * @example
      * ```javascript
-     * editor.fireEvent("selectionchange");
+     * UEditor.fireEvent("selectionchange");
      * ```
      */
 
@@ -1614,7 +1614,7 @@ EventBase.prototype = {
      * @example
      * ```javascript
      *
-     * editor.addListener( "selectionchange", function ( type, arg1, arg2 ) {
+     * UEditor.addListener( "selectionchange", function ( type, arg1, arg2 ) {
      *
      *     console.log( arg1 + " " + arg2 );
      *
@@ -1622,7 +1622,7 @@ EventBase.prototype = {
      *
      * //触发selectionchange事件， 会执行上面的事件监听器
      * //output: Hello World
-     * editor.fireEvent("selectionchange", "Hello", "World");
+     * UEditor.fireEvent("selectionchange", "Hello", "World");
      * ```
      */
     fireEvent:function () {
@@ -1673,7 +1673,7 @@ function getListener(obj, type, force) {
 
 
 // core/dtd.js
-///import editor.js
+///import UEditor.js
 ///import core/dom/dom.js
 ///import core/utils.js
 /**
@@ -3935,10 +3935,6 @@ var domUtils = dom.domUtils = {
      * @return { Boolean } 是否是空元素
      */
     isEmptyBlock:function (node,reg) {
-        // HaoChuan9421
-        if(!node){
-            return;
-        }
         if(node.nodeType != 1)
             return 0;
         reg = reg || new RegExp('[ \xa0\t\r\n' + domUtils.fillChar + ']', 'g');
@@ -5965,11 +5961,11 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          *     </p>
          *
          *     <script>
-         *         var range = editor.selection.getRange();
+         *         var range = UEditor.selection.getRange();
          *         range.moveToAddress({startAddress:[0,1,0,0],endAddress:[0,1,0,4]});
          *         range.select();
          *         //output: 'bbbb'
-         *         console.log(editor.selection.getText());
+         *         console.log(UEditor.selection.getText());
          *     </script>
          * </body>
          * ```
@@ -6276,7 +6272,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Object } 获得selection对象
          * @example
          * ```javascript
-         * editor.selection.getNative();
+         * UEditor.selection.getNative();
          * ```
          */
         getNative:function () {
@@ -6294,7 +6290,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Object } 返回ie原生的Range
          * @example
          * ```javascript
-         * editor.selection.getIERange();
+         * UEditor.selection.getIERange();
          * ```
          */
         getIERange:function () {
@@ -6324,7 +6320,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Array } 返回父节点集合
          * @example
          * ```javascript
-         * editor.selection.getStartElementPath();
+         * UEditor.selection.getStartElementPath();
          * ```
          */
         getStartElementPath:function () {
@@ -6371,7 +6367,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Object } 得到Range对象
          * @example
          * ```javascript
-         * editor.selection.getRange();
+         * UEditor.selection.getRange();
          * ```
          */
         getRange:function () {
@@ -6435,7 +6431,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Element } 获得开始元素
          * @example
          * ```javascript
-         * editor.selection.getStart();
+         * UEditor.selection.getStart();
          * ```
          */
         getStart:function () {
@@ -6485,7 +6481,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { String } 选区中包含的文本
          * @example
          * ```javascript
-         * editor.selection.getText();
+         * UEditor.selection.getText();
          * ```
          */
         getText:function () {
@@ -6502,7 +6498,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method clearRange
          * @example
          * ```javascript
-         * editor.selection.clearRange();
+         * UEditor.selection.clearRange();
          * ```
          */
         clearRange : function(){
@@ -6598,8 +6594,8 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
      * @remind
      * @example
      * ```javascript
-     * editor.addListener( 'ready', function( editor ) {
-     *     editor.execCommand( 'focus' ); //编辑器家在完成后，让编辑器拿到焦点
+     * UEditor.addListener( 'ready', function( UEditor ) {
+     *     UEditor.execCommand( 'focus' ); //编辑器家在完成后，让编辑器拿到焦点
      * } );
      * ```
      */
@@ -6689,7 +6685,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
      * @warning 该事件的触发非常频繁，不建议在该事件的处理过程中做重量级的处理
      * @example
      * ```javascript
-     * editor.addListener( 'selectionchange', function( editor ) {
+     * UEditor.addListener( 'selectionchange', function( UEditor ) {
      *     console.log('选区发生改变');
      * }
      */
@@ -6721,8 +6717,8 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
      * @remind 通过 改构造方法实例化的编辑器,不带ui层.需要render到一个容器,编辑器实例才能正常渲染到页面
      * @example
      * ```javascript
-     * var editor = new UE.Editor();
-     * editor.execCommand('blod');
+     * var UEditor = new UE.Editor();
+     * UEditor.execCommand('blod');
      * ```
      * @see UE.Config
      */
@@ -6734,8 +6730,8 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
      * @param { Object } setting 创建编辑器的参数
      * @example
      * ```javascript
-     * var editor = new UE.Editor();
-     * editor.execCommand('blod');
+     * var UEditor = new UE.Editor();
+     * UEditor.execCommand('blod');
      * ```
      * @see UE.Config
      */
@@ -6786,8 +6782,8 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @remind 需要等待编辑器加载完成后才能执行的代码,可以使用该方法传入
          * @example
          * ```javascript
-         * editor.ready( function( editor ) {
-         *     editor.setContent('初始化完毕');
+         * UEditor.ready( function( UEditor ) {
+         *     UEditor.setContent('初始化完毕');
          * } );
          * ```
          * @see UE.Editor.event:ready
@@ -6808,7 +6804,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { * } val  该选项可接受的值
          * @example
          * ```javascript
-         * editor.setOpt( 'initContent', '欢迎使用编辑器' );
+         * UEditor.setOpt( 'initContent', '欢迎使用编辑器' );
          * ```
          */
 
@@ -6820,7 +6816,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { Object } options 将要设置的选项的键值对对象
          * @example
          * ```javascript
-         * editor.setOpt( {
+         * UEditor.setOpt( {
          *     'initContent': '欢迎使用编辑器'
          * } );
          * ```
@@ -6842,7 +6838,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method destroy
          * @example
          * ```javascript
-         * editor.destroy();
+         * UEditor.destroy();
          * ```
          */
         destroy: function () {
@@ -6931,7 +6927,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                     (options.initialStyle ? '<style>' + options.initialStyle + '</style>' : '') +
                     '</head><body class=\'view\' ></body>' +
                     '<script type=\'text/javascript\' ' + (ie ? 'defer=\'defer\'' : '' ) +' id=\'_initialScript\'>' +
-                    'setTimeout(function(){editor = window.parent.UE.instants[\'ueditorInstant' + me.uid + '\'];editor._setup(document);},0);' +
+                    'setTimeout(function(){UEditor = window.parent.UE.instants[\'ueditorInstant' + me.uid + '\'];UEditor._setup(document);},0);' +
                     'var _tmpScript = document.getElementById(\'_initialScript\');_tmpScript.parentNode.removeChild(_tmpScript);</script></html>';
                 container.appendChild(domUtils.createElement(document, 'iframe', {
                     id: 'ueditor_' + me.uid,
@@ -7097,7 +7093,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method sync
          * @example
          * ```javascript
-         * editor.sync();
+         * UEditor.sync();
          * form.sumbit(); //form变量已经指向了form元素
          * ```
          */
@@ -7124,7 +7120,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { Number } number 设置的高度值，纯数值，不带单位
          * @example
          * ```javascript
-         * editor.setHeight(number);
+         * UEditor.setHeight(number);
          * ```
          */
         setHeight: function (height,notSetHeight) {
@@ -7143,7 +7139,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { Object } keyset 命令名和快捷键键值对对象，多个按钮的快捷键用“＋”分隔
          * @example
          * ```javascript
-         * editor.addshortcutkey({
+         * UEditor.addshortcutkey({
          *     "Bold" : "ctrl+66",//^B
          *     "Italic" : "ctrl+73", //^I
          * });
@@ -7156,7 +7152,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { String } keys 快捷键的字符串，多个按钮用“＋”分隔
          * @example
          * ```javascript
-         * editor.addshortcutkey("Underline", "ctrl+85"); //^U
+         * UEditor.addshortcutkey("Underline", "ctrl+85"); //^U
          * ```
          */
         addshortcutkey: function (cmd, keys) {
@@ -7209,7 +7205,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @example
          * ```javascript
          * //编辑器html内容:<p>1<strong>2<em>34</em>5</strong>6</p>
-         * var content = editor.getContent(); //返回值:<p>1<strong>2<em>34</em>5</strong>6</p>
+         * var content = UEditor.getContent(); //返回值:<p>1<strong>2<em>34</em>5</strong>6</p>
          * ```
          */
 
@@ -7225,9 +7221,9 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { String } 编辑器的内容字符串
          * @example
          * ```javascript
-         * // editor 是一个编辑器的实例
-         * var content = editor.getContent( function ( editor ) {
-         *      return editor.body.innerHTML === '欢迎使用UEditor'; //返回空字符串
+         * // UEditor 是一个编辑器的实例
+         * var content = UEditor.getContent( function ( UEditor ) {
+         *      return UEditor.body.innerHTML === '欢迎使用UEditor'; //返回空字符串
          * } );
          * ```
          */
@@ -7253,7 +7249,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { String } 编辑器的内容html文档字符串
          * @eaxmple
          * ```javascript
-         * editor.getAllHtml(); //返回格式大致是: <html><head>...</head><body>...</body></html>
+         * UEditor.getAllHtml(); //返回格式大致是: <html><head>...</head><body>...</body></html>
          * ```
          */
         getAllHtml: function () {
@@ -7283,7 +7279,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @example
          * ```javascript
          * //编辑器html内容:<p><strong>1</strong></p><p><strong>2</strong></p>
-         * console.log(editor.getPlainTxt()); //输出:"1\n2\n
+         * console.log(UEditor.getPlainTxt()); //输出:"1\n2\n
          * ```
          */
         getPlainTxt: function () {
@@ -7306,7 +7302,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @example
          * ```javascript
          * //编辑器html内容:<p><strong>1</strong></p><p><strong>2</strong></p>
-         * console.log(editor.getPlainTxt()); //输出:"12
+         * console.log(UEditor.getPlainTxt()); //输出:"12
          * ```
          */
         getContentTxt: function () {
@@ -7323,7 +7319,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { String } html 要插入的html内容
          * @example
          * ```javascript
-         * editor.getContent('<p>test</p>');
+         * UEditor.getContent('<p>test</p>');
          * ```
          */
 
@@ -7337,7 +7333,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @example
          * ```javascript
          * //假设设置前的编辑器内容是 <p>old text</p>
-         * editor.setContent('<p>new text</p>', true); //插入的结果是<p>old text</p><p>new text</p>
+         * UEditor.setContent('<p>new text</p>', true); //插入的结果是<p>old text</p><p>new text</p>
          * ```
          */
         setContent: function (html, isAppendTo, notFireSelectionchange) {
@@ -7407,7 +7403,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method focus
          * @example
          * ```javascript
-         * editor.focus()
+         * UEditor.focus()
          * ```
          */
 
@@ -7417,7 +7413,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { Boolean } toEnd 默认focus到编辑器头部，toEnd为true时focus到内容尾部
          * @example
          * ```javascript
-         * editor.focus(true)
+         * UEditor.focus(true)
          * ```
          */
         focus: function (toEnd) {
@@ -7600,7 +7596,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { * } 返回命令函数运行的返回值
          * @example
          * ```javascript
-         * editor.execCommand(cmdName);
+         * UEditor.execCommand(cmdName);
          * ```
          */
         execCommand: function (cmdName) {
@@ -7639,7 +7635,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Number } number 返回放前命令的状态，返回值三种情况：(-1|0|1)
          * @example
          * ```javascript
-         * editor.queryCommandState(cmdName)  => (-1|0|1)
+         * UEditor.queryCommandState(cmdName)  => (-1|0|1)
          * ```
          * @see COMMAND.LIST
          */
@@ -7654,7 +7650,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @remind 具体命令的使用请参考<a href="#COMMAND.LIST">命令列表</a>
          * @remind 只有部分插件有此方法
          * @return { * } 返回每个命令特定的当前状态值
-         * @grammar editor.queryCommandValue(cmdName)  =>  {*}
+         * @grammar UEditor.queryCommandValue(cmdName)  =>  {*}
          * @see COMMAND.LIST
          */
         queryCommandValue: function (cmdName) {
@@ -7669,7 +7665,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Boolean } 检查有内容返回true，否则返回false
          * @example
          * ```javascript
-         * editor.hasContents()
+         * UEditor.hasContents()
          * ```
          */
 
@@ -7680,7 +7676,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Boolean } 若文档中包含tags数组里对应的tag，返回true，否则返回false
          * @example
          * ```javascript
-         * editor.hasContents(['span']);
+         * UEditor.hasContents(['span']);
          * ```
          */
         hasContents: function (tags) {
@@ -7713,7 +7709,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @remind 此方法会清空编辑器内容，清空回退列表，会触发reset事件
          * @example
          * ```javascript
-         * editor.reset()
+         * UEditor.reset()
          * ```
          */
         reset: function () {
@@ -7725,7 +7721,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method setEnabled
          * @example
          * ```javascript
-         * editor.setEnabled()
+         * UEditor.setEnabled()
          * ```
          */
         setEnabled: function () {
@@ -7766,7 +7762,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @remind 即使设置了disable，此处配置的例外命令仍然可以执行
          * @example
          * ```javascript
-         * editor.setDisabled('bold'); //禁用工具栏中除加粗之外的所有功能
+         * UEditor.setDisabled('bold'); //禁用工具栏中除加粗之外的所有功能
          * ```
          */
 
@@ -7776,7 +7772,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @remind 即使设置了disable，此处配置的例外命令仍然可以执行
          * @example
          * ```javascript
-         * editor.setDisabled(['bold','insertimage']); //禁用工具栏中除加粗和插入图片之外的所有功能
+         * UEditor.setDisabled(['bold','insertimage']); //禁用工具栏中除加粗和插入图片之外的所有功能
          * ```
          */
         setDisabled: function (except) {
@@ -7840,7 +7836,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method setShow
          * @example
          * ```javascript
-         * editor.setShow()
+         * UEditor.setShow()
          * ```
          */
         setShow: function () {
@@ -7869,7 +7865,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @method setHide
          * @example
          * ```javascript
-         * editor.setHide()
+         * UEditor.setHide()
          * ```
          */
         setHide: function () {
@@ -7890,14 +7886,10 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @return { Object | String } 根据路径返回语言资源的Json格式对象或者语言字符串
          * @example
          * ```javascript
-         * editor.getLang('contextMenu.delete'); //如果当前是中文，那返回是的是'删除'
+         * UEditor.getLang('contextMenu.delete'); //如果当前是中文，那返回是的是'删除'
          * ```
          */
         getLang: function (path) {
-            // HaoChuan9421
-            if(!this.options){
-                return '';
-            }
             var lang = UE.I18N[this.options.lang];
             if (!lang) {
                 throw Error("not import language file");
@@ -7917,7 +7909,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @example
          * ```javascript
          * //编辑器html内容<p><strong>132</strong></p>
-         * editor.getContentLength() //返回27
+         * UEditor.getContentLength() //返回27
          * ```
          */
         /**
@@ -7928,7 +7920,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @example
          * ```javascript
          * //编辑器html内容<p><strong>132</strong></p>
-         * editor.getContentLength() //返回3
+         * UEditor.getContentLength() //返回3
          * ```
          */
         getContentLength: function (ingoneHtml, tagNames) {
@@ -7949,7 +7941,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { Function } rule 要添加的过滤规则
          * @example
          * ```javascript
-         * editor.addInputRule(function(root){
+         * UEditor.addInputRule(function(root){
          *   $.each(root.getNodesByTagName('div'),function(i,node){
          *       node.tagName="p";
          *   });
@@ -7967,7 +7959,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @remind 执行editor.setContent方法和执行'inserthtml'命令后，会运行该过滤函数
          * @example
          * ```javascript
-         * editor.filterInputRule(editor.body);
+         * UEditor.filterInputRule(UEditor.body);
          * ```
          * @see UE.Editor:addInputRule
          */
@@ -7983,7 +7975,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { Function } rule 要添加的过滤规则
          * @example
          * ```javascript
-         * editor.addOutputRule(function(root){
+         * UEditor.addOutputRule(function(root){
          *   $.each(root.getNodesByTagName('p'),function(i,node){
          *       node.tagName="div";
          *   });
@@ -8001,7 +7993,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { UE.uNode } root 要过滤的uNode节点
          * @example
          * ```javascript
-         * editor.filterOutputRule(editor.body);
+         * UEditor.filterOutputRule(UEditor.body);
          * ```
          * @see UE.Editor:addOutputRule
          */
@@ -8018,10 +8010,10 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          * @param { String } action action名称
          * @example
          * ```javascript
-         * editor.getActionUrl('config'); //返回 "/ueditor/php/controller.php?action=config"
-         * editor.getActionUrl('image'); //返回 "/ueditor/php/controller.php?action=uplaodimage"
-         * editor.getActionUrl('scrawl'); //返回 "/ueditor/php/controller.php?action=uplaodscrawl"
-         * editor.getActionUrl('imageManager'); //返回 "/ueditor/php/controller.php?action=listimage"
+         * UEditor.getActionUrl('config'); //返回 "/ueditor/php/controller.php?action=config"
+         * UEditor.getActionUrl('image'); //返回 "/ueditor/php/controller.php?action=uplaodimage"
+         * UEditor.getActionUrl('scrawl'); //返回 "/ueditor/php/controller.php?action=uplaodscrawl"
+         * UEditor.getActionUrl('imageManager'); //返回 "/ueditor/php/controller.php?action=listimage"
          * ```
          */
         getActionUrl: function(action){
@@ -9581,7 +9573,7 @@ var htmlparser = UE.htmlparser = function (htmlstr,ignoreBlank) {
  * @param { Object } rules 过滤规则json对象
  * @example
  * ```javascript
- * UE.filterNode(root,editor.options.filterRules);
+ * UE.filterNode(root,UEditor.options.filterRules);
  * ```
  */
 var filterNode = UE.filterNode = function () {
@@ -10471,7 +10463,7 @@ UE.commands['inserthtml'] = {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'autotypeset' );
+ * UEditor.execCommand( 'autotypeset' );
  * ```
  */
 
@@ -10795,7 +10787,7 @@ UE.plugins['autotypeset'] = function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'autosubmit' );
+ * UEditor.execCommand( 'autosubmit' );
  * ```
  */
 
@@ -10948,7 +10940,7 @@ UE.plugin.register('background', function () {
  * @remaind center表示图片独占一行
  * @example
  * ```javascript
- * editor.execCommand( 'imagefloat', 'center' );
+ * UEditor.execCommand( 'imagefloat', 'center' );
  * ```
  */
 
@@ -10960,7 +10952,7 @@ UE.plugin.register('background', function () {
  * @return { String } 返回图片对齐方式
  * @example
  * ```javascript
- * editor.queryCommandValue( 'imagefloat' );
+ * UEditor.queryCommandValue( 'imagefloat' );
  * ```
  */
 
@@ -11094,7 +11086,7 @@ UE.commands['imagefloat'] = {
  * 此时数组的每一个元素都是一个Object类型的图片属性集合。
  * @example
  * ```javascript
- * editor.execCommand( 'insertimage', {
+ * UEditor.execCommand( 'insertimage', {
  *     src:'a/b/c.jpg',
  *     width:'100',
  *     height:'100'
@@ -11102,7 +11094,7 @@ UE.commands['imagefloat'] = {
  * ```
  * @example
  * ```javascript
- * editor.execCommand( 'insertimage', [{
+ * UEditor.execCommand( 'insertimage', [{
  *     src:'a/b/c.jpg',
  *     width:'100',
  *     height:'100'
@@ -11222,7 +11214,7 @@ UE.commands['insertimage'] = {
  * @param { String } align 对齐方式：left => 居左，right => 居右，center => 居中，justify => 两端对齐
  * @example
  * ```javascript
- * editor.execCommand( 'justify', 'center' );
+ * UEditor.execCommand( 'justify', 'center' );
  * ```
  */
 /**
@@ -11233,7 +11225,7 @@ UE.commands['insertimage'] = {
  * @return { String } 返回段落对齐方式
  * @example
  * ```javascript
- * editor.queryCommandValue( 'justify' );
+ * UEditor.queryCommandValue( 'justify' );
  * ```
  */
 
@@ -11339,7 +11331,7 @@ UE.plugins['justify']=function(){
  * @param { String } value 色值(必须十六进制)
  * @example
  * ```javascript
- * editor.execCommand( 'forecolor', '#000' );
+ * UEditor.execCommand( 'forecolor', '#000' );
  * ```
  */
 /**
@@ -11350,7 +11342,7 @@ UE.plugins['justify']=function(){
  * @return { String } 返回字体颜色
  * @example
  * ```javascript
- * editor.queryCommandValue( 'forecolor' );
+ * UEditor.queryCommandValue( 'forecolor' );
  * ```
  */
 
@@ -11362,7 +11354,7 @@ UE.plugins['justify']=function(){
  * @param { String } value 色值(必须十六进制)
  * @example
  * ```javascript
- * editor.execCommand( 'backcolor', '#000' );
+ * UEditor.execCommand( 'backcolor', '#000' );
  * ```
  */
 /**
@@ -11373,7 +11365,7 @@ UE.plugins['justify']=function(){
  * @return { String } 返回字体背景颜色
  * @example
  * ```javascript
- * editor.queryCommandValue( 'backcolor' );
+ * UEditor.queryCommandValue( 'backcolor' );
  * ```
  */
 
@@ -11385,7 +11377,7 @@ UE.plugins['justify']=function(){
  * @param { String } value 字体大小
  * @example
  * ```javascript
- * editor.execCommand( 'fontsize', '14px' );
+ * UEditor.execCommand( 'fontsize', '14px' );
  * ```
  */
 /**
@@ -11396,7 +11388,7 @@ UE.plugins['justify']=function(){
  * @return { String } 返回字体大小
  * @example
  * ```javascript
- * editor.queryCommandValue( 'fontsize' );
+ * UEditor.queryCommandValue( 'fontsize' );
  * ```
  */
 
@@ -11408,7 +11400,7 @@ UE.plugins['justify']=function(){
  * @param { String } value 字体样式
  * @example
  * ```javascript
- * editor.execCommand( 'fontfamily', '微软雅黑' );
+ * UEditor.execCommand( 'fontfamily', '微软雅黑' );
  * ```
  */
 /**
@@ -11419,7 +11411,7 @@ UE.plugins['justify']=function(){
  * @return { String } 返回字体样式
  * @example
  * ```javascript
- * editor.queryCommandValue( 'fontfamily' );
+ * UEditor.queryCommandValue( 'fontfamily' );
  * ```
  */
 
@@ -11430,7 +11422,7 @@ UE.plugins['justify']=function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'underline' );
+ * UEditor.execCommand( 'underline' );
  * ```
  */
 
@@ -11441,7 +11433,7 @@ UE.plugins['justify']=function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'strikethrough' );
+ * UEditor.execCommand( 'strikethrough' );
  * ```
  */
 
@@ -11452,7 +11444,7 @@ UE.plugins['justify']=function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'fontborder' );
+ * UEditor.execCommand( 'fontborder' );
  * ```
  */
 
@@ -11865,7 +11857,7 @@ UE.plugins['font'] = function () {
  * @param { Object } options   设置自定义属性，例如：url、title、target
  * @example
  * ```javascript
- * editor.execCommand( 'link', '{
+ * UEditor.execCommand( 'link', '{
  *     url:'ueditor.baidu.com',
  *     title:'ueditor',
  *     target:'_blank'
@@ -11880,7 +11872,7 @@ UE.plugins['font'] = function () {
  * @return { Element } 超链接节点
  * @example
  * ```javascript
- * editor.queryCommandValue( 'link' );
+ * UEditor.queryCommandValue( 'link' );
  * ```
  */
 
@@ -11891,7 +11883,7 @@ UE.plugins['font'] = function () {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'unlink');
+ * UEditor.execCommand( 'unlink');
  * ```
  */
 
@@ -12078,7 +12070,7 @@ UE.commands['scrawl'] = {
  * @param   {String}   attrs    属性如:width
  * @example
  * ```javascript
- * editor.execCommand( 'removeformat', 'strong','color','width' );
+ * UEditor.execCommand( 'removeformat', 'strong','color','width' );
  * ```
  */
 
@@ -12260,7 +12252,7 @@ UE.plugins['removeformat'] = function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'blockquote' );
+ * UEditor.execCommand( 'blockquote' );
  * ```
  */
 
@@ -12272,7 +12264,7 @@ UE.plugins['removeformat'] = function(){
  * @param { Object } attrs 节点属性
  * @example
  * ```javascript
- * editor.execCommand( 'blockquote',{
+ * UEditor.execCommand( 'blockquote',{
  *     style: "color: red;"
  * } );
  * ```
@@ -12435,7 +12427,7 @@ UE.plugins['blockquote'] = function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'touppercase' );
+ * UEditor.execCommand( 'touppercase' );
  * ```
  */
 
@@ -12446,7 +12438,7 @@ UE.plugins['blockquote'] = function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'tolowercase' );
+ * UEditor.execCommand( 'tolowercase' );
  * ```
  */
 UE.commands['touppercase'] =
@@ -12494,7 +12486,7 @@ UE.commands['tolowercase'] = {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'indent' );
+ * UEditor.execCommand( 'indent' );
  * ```
  */
 UE.commands['indent'] = {
@@ -12524,7 +12516,7 @@ UE.commands['indent'] = {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'print' );
+ * UEditor.execCommand( 'print' );
  * ```
  */
 UE.commands['print'] = {
@@ -12550,7 +12542,7 @@ UE.commands['print'] = {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'preview' );
+ * UEditor.execCommand( 'preview' );
  * ```
  */
 UE.commands['preview'] = {
@@ -12581,7 +12573,7 @@ UE.commands['preview'] = {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'selectall' );
+ * UEditor.execCommand( 'selectall' );
  * ```
  */
 UE.plugins['selectall'] = function(){
@@ -12628,7 +12620,7 @@ UE.plugins['selectall'] = function(){
  * @param {Object}   attrs               标签的属性
  * @example
  * ```javascript
- * editor.execCommand( 'Paragraph','h1','{
+ * UEditor.execCommand( 'Paragraph','h1','{
  *     class:'test'
  * }' );
  * ```
@@ -12642,7 +12634,7 @@ UE.plugins['selectall'] = function(){
  * @return { String } 节点标签名
  * @example
  * ```javascript
- * editor.queryCommandValue( 'Paragraph' );
+ * UEditor.queryCommandValue( 'Paragraph' );
  * ```
  */
 
@@ -12794,7 +12786,7 @@ UE.plugins['paragraph'] = function() {
 (function() {
     var block = domUtils.isBlockElm ,
         getObj = function(editor){
-//            var startNode = editor.selection.getStart(),
+//            var startNode = UEditor.selection.getStart(),
 //                parents;
 //            if ( startNode ) {
 //                //查找所有的是block的父亲节点
@@ -12868,7 +12860,7 @@ UE.plugins['paragraph'] = function() {
      * @param { String } forward 传入'ltr'表示从左向右输入，传入'rtl'表示从右向左输入
      * @example
      * ```javascript
-     * editor.execCommand( 'directionality', 'ltr');
+     * UEditor.execCommand( 'directionality', 'ltr');
      * ```
      */
 
@@ -12880,7 +12872,7 @@ UE.plugins['paragraph'] = function() {
      * @return { String } 返回'ltr'表示从左向右输入，返回'rtl'表示从右向左输入
      * @example
      * ```javascript
-     * editor.queryCommandValue( 'directionality');
+     * UEditor.queryCommandValue( 'directionality');
      * ```
      */
     UE.commands['directionality'] = {
@@ -12923,7 +12915,7 @@ UE.plugins['paragraph'] = function() {
  * @param { String } cmdName 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'horizontal' );
+ * UEditor.execCommand( 'horizontal' );
  * ```
  */
 UE.plugins['horizontal'] = function(){
@@ -13030,7 +13022,7 @@ UE.plugins['horizontal'] = function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'time');
+ * UEditor.execCommand( 'time');
  * ```
  */
 
@@ -13041,7 +13033,7 @@ UE.plugins['horizontal'] = function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'date');
+ * UEditor.execCommand( 'date');
  * ```
  */
 UE.commands['time'] = UE.commands["date"] = {
@@ -13085,7 +13077,7 @@ UE.commands['time'] = UE.commands["date"] = {
  * @param { String } dir 间距位置，top或bottom，分别表示段前和段后
  * @example
  * ```javascript
- * editor.execCommand( 'rowspacing', '10', 'top' );
+ * UEditor.execCommand( 'rowspacing', '10', 'top' );
  * ```
  */
 
@@ -13136,7 +13128,7 @@ UE.plugins['lineheight'] = function(){
      * @param { String } value 传入的行高值， 该值是当前字体的倍数， 例如： 1.5, 1.75
      * @example
      * ```javascript
-     * editor.execCommand( 'lineheight', 1.5);
+     * UEditor.execCommand( 'lineheight', 1.5);
      * ```
      */
     /**
@@ -13147,7 +13139,7 @@ UE.plugins['lineheight'] = function(){
      * @return { String } 返回当前行高大小
      * @example
      * ```javascript
-     * editor.queryCommandValue( 'lineheight' );
+     * UEditor.queryCommandValue( 'lineheight' );
      * ```
      */
 
@@ -13217,7 +13209,7 @@ UE.plugins['insertcode'] = function() {
      * @param { String } lang 插入代码的语言
      * @example
      * ```javascript
-     * editor.execCommand( 'insertcode', 'javascript' );
+     * UEditor.execCommand( 'insertcode', 'javascript' );
      * ```
      */
 
@@ -13229,7 +13221,7 @@ UE.plugins['insertcode'] = function() {
      * @return { String } 返回代码的语言
      * @example
      * ```javascript
-     * editor.queryCommandValue( 'insertcode' );
+     * UEditor.queryCommandValue( 'insertcode' );
      * ```
      */
 
@@ -13726,8 +13718,8 @@ UE.plugins['insertcode'] = function() {
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * //editor 是编辑器实例
- * editor.execCommand('cleardoc');
+ * //UEditor 是编辑器实例
+ * UEditor.execCommand('cleardoc');
  * ```
  */
 
@@ -13807,8 +13799,8 @@ UE.plugin.register('anchor', function (){
             * @param { String } name 锚点名称字符串
             * @example
             * ```javascript
-            * //editor 是编辑器实例
-            * editor.execCommand('anchor', 'anchor1');
+            * //UEditor 是编辑器实例
+            * UEditor.execCommand('anchor', 'anchor1');
             * ```
             */
            'anchor':{
@@ -13937,7 +13929,7 @@ UE.plugins['pagebreak'] = function () {
      *          以便于提交数据到服务器端后处理分页。
      * @example
      * ```javascript
-     * editor.execCommand( 'pagebreak'); //插入一个hr标签，带有样式类名pagebreak
+     * UEditor.execCommand( 'pagebreak'); //插入一个hr标签，带有样式类名pagebreak
      * ```
      */
 
@@ -14166,7 +14158,7 @@ UE.plugins['dragdrop'] = function (){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'undo' );
+ * UEditor.execCommand( 'undo' );
  * ```
  */
 
@@ -14177,7 +14169,7 @@ UE.plugins['dragdrop'] = function (){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'redo' );
+ * UEditor.execCommand( 'redo' );
  * ```
  */
 
@@ -14907,7 +14899,7 @@ UE.plugins['pasteplain'] = function(){
      * @param { String } cmd 命令字符串
      * @example
      * ```javascript
-     * editor.queryCommandState( 'pasteplain' );
+     * UEditor.queryCommandState( 'pasteplain' );
      * ```
      */
 
@@ -14919,7 +14911,7 @@ UE.plugins['pasteplain'] = function(){
      * @return { int } 如果处于纯文本模式，返回1，否则，返回0
      * @example
      * ```javascript
-     * editor.queryCommandState( 'pasteplain' );
+     * UEditor.queryCommandState( 'pasteplain' );
      * ```
      */
     me.commands['pasteplain'] = {
@@ -15825,7 +15817,7 @@ UE.plugins['list'] = function () {
      * @param { String } style 插入的有序列表类型，值为：decimal,lower-alpha,lower-roman,upper-alpha,upper-roman,cn,cn1,cn2,num,num1,num2
      * @example
      * ```javascript
-     * editor.execCommand( 'insertorderedlist','decimal');
+     * UEditor.execCommand( 'insertorderedlist','decimal');
      * ```
      */
     /**
@@ -15836,7 +15828,7 @@ UE.plugins['list'] = function () {
      * @return { int } 如果当前选区是有序列表返回1，否则返回0
      * @example
      * ```javascript
-     * editor.queryCommandState( 'insertorderedlist' );
+     * UEditor.queryCommandState( 'insertorderedlist' );
      * ```
      */
     /**
@@ -15847,7 +15839,7 @@ UE.plugins['list'] = function () {
      * @return { String } 返回当前有序列表的类型，值为null或decimal,lower-alpha,lower-roman,upper-alpha,upper-roman,cn,cn1,cn2,num,num1,num2
      * @example
      * ```javascript
-     * editor.queryCommandValue( 'insertorderedlist' );
+     * UEditor.queryCommandValue( 'insertorderedlist' );
      * ```
      */
 
@@ -15859,7 +15851,7 @@ UE.plugins['list'] = function () {
      * @param { String } style 插入的无序列表类型，值为：circle,disc,square,dash,dot
      * @example
      * ```javascript
-     * editor.execCommand( 'insertunorderedlist','circle');
+     * UEditor.execCommand( 'insertunorderedlist','circle');
      * ```
      */
     /**
@@ -15870,7 +15862,7 @@ UE.plugins['list'] = function () {
      * @return { int } 如果当前选区是无序列表返回1，否则返回0
      * @example
      * ```javascript
-     * editor.queryCommandState( 'insertunorderedlist' );
+     * UEditor.queryCommandState( 'insertunorderedlist' );
      * ```
      */
     /**
@@ -15881,7 +15873,7 @@ UE.plugins['list'] = function () {
      * @return { String } 返回当前无序列表的类型，值为null或circle,disc,square,dash,dot
      * @example
      * ```javascript
-     * editor.queryCommandValue( 'insertunorderedlist' );
+     * UEditor.queryCommandValue( 'insertunorderedlist' );
      * ```
      */
 
@@ -16293,7 +16285,7 @@ UE.plugins['list'] = function () {
          * @param { String } cmd 命令字符串
          * @example
          * ```javascript
-         * editor.execCommand( 'source');
+         * UEditor.execCommand( 'source');
          * ```
          */
 
@@ -16305,7 +16297,7 @@ UE.plugins['list'] = function () {
          * @return { int } 如果当前是源码编辑模式，返回1，否则返回0
          * @example
          * ```javascript
-         * editor.queryCommandState( 'source' );
+         * UEditor.queryCommandState( 'source' );
          * ```
          */
 
@@ -16928,10 +16920,10 @@ UE.plugins['fiximgclick'] = (function () {
                 });
 
                 for (i = 0; i < 8; i++) {
-                    hands.push('<span class="edui-editor-imagescale-hand' + i + '"></span>');
+                    hands.push('<span class="edui-UEditor-imagescale-hand' + i + '"></span>');
                 }
                 resizer.id = me.editor.ui.id + '_imagescale';
-                resizer.className = 'edui-editor-imagescale';
+                resizer.className = 'edui-UEditor-imagescale';
                 resizer.innerHTML = hands.join('');
                 resizer.style.cssText += ';display:none;border:1px solid #3b77ff;z-index:' + (me.editor.options.zIndex) + ';';
 
@@ -16942,16 +16934,16 @@ UE.plugins['fiximgclick'] = (function () {
                 me.initEvents();
             },
             initStyle: function () {
-                utils.cssRule('imagescale', '.edui-editor-imagescale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}' +
-                    '.edui-editor-imagescale span{position:absolute;width:6px;height:6px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}'
-                    + '.edui-editor-imagescale .edui-editor-imagescale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
+                utils.cssRule('imagescale', '.edui-UEditor-imagescale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}' +
+                    '.edui-UEditor-imagescale span{position:absolute;width:6px;height:6px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}'
+                    + '.edui-UEditor-imagescale .edui-UEditor-imagescale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
             },
             initEvents: function () {
                 var me = this;
@@ -16964,7 +16956,7 @@ UE.plugins['fiximgclick'] = (function () {
                 switch (e.type) {
                     case 'mousedown':
                         var hand = e.target || e.srcElement, hand;
-                        if (hand.className.indexOf('edui-editor-imagescale-hand') != -1 && me.dragId == -1) {
+                        if (hand.className.indexOf('edui-UEditor-imagescale-hand') != -1 && me.dragId == -1) {
                             me.dragId = hand.className.slice(-1);
                             me.startPos.x = me.prePos.x = e.clientX;
                             me.startPos.y = me.prePos.y = e.clientY;
@@ -17137,7 +17129,7 @@ UE.plugins['fiximgclick'] = (function () {
                             if(imageScale.target) me.selection.getRange().selectNode(imageScale.target).select();
                         }, _mouseDownHandler = function (e) {
                             var ele = e.target || e.srcElement;
-                            if (ele && (ele.className===undefined || ele.className.indexOf('edui-editor-imagescale') == -1)) {
+                            if (ele && (ele.className===undefined || ele.className.indexOf('edui-UEditor-imagescale') == -1)) {
                                 _keyDownHandler(e);
                             }
                         }, timer;
@@ -17163,7 +17155,7 @@ UE.plugins['fiximgclick'] = (function () {
                         domUtils.on(imageScale.resizer, 'mousedown', function (e) {
                             me.selection.getNative().removeAllRanges();
                             var ele = e.target || e.srcElement;
-                            if (ele && ele.className.indexOf('edui-editor-imagescale-hand') == -1) {
+                            if (ele && ele.className.indexOf('edui-UEditor-imagescale-hand') == -1) {
                                 timer = setTimeout(function () {
                                     imageScale.hide();
                                     if(imageScale.target) me.selection.getRange().selectNode(ele).select();
@@ -17172,7 +17164,7 @@ UE.plugins['fiximgclick'] = (function () {
                         });
                         domUtils.on(imageScale.resizer, 'mouseup', function (e) {
                             var ele = e.target || e.srcElement;
-                            if (ele && ele.className.indexOf('edui-editor-imagescale-hand') == -1) {
+                            if (ele && ele.className.indexOf('edui-UEditor-imagescale-hand') == -1) {
                                 clearTimeout(timer);
                             }
                         });
@@ -17653,7 +17645,7 @@ UE.plugins['video'] = function (){
 
         url = utils.unhtmlForUrl(url);
         align = utils.unhtml(align);
-        classname = utils.unhtml(classname).trim();
+        classname = utils.unhtml(classname);
 
         width = parseInt(width, 10) || 0;
         height = parseInt(height, 10) || 0;
@@ -17718,9 +17710,9 @@ UE.plugins['video'] = function (){
      *      height: 100
      * };
      *
-     * //editor 是编辑器实例
+     * //UEditor 是编辑器实例
      * //向编辑器插入单个视频
-     * editor.execCommand( 'insertvideo', videoAttr );
+     * UEditor.execCommand( 'insertvideo', videoAttr );
      * ```
      */
 
@@ -17748,9 +17740,9 @@ UE.plugins['video'] = function (){
      *      height: 100
      * }
      *
-     * //editor 是编辑器实例
+     * //UEditor 是编辑器实例
      * //该方法将会向编辑器内插入两个视频
-     * editor.execCommand( 'insertvideo', [ videoAttr1, videoAttr2 ] );
+     * UEditor.execCommand( 'insertvideo', [ videoAttr1, videoAttr2 ] );
      * ```
      */
 
@@ -17763,8 +17755,8 @@ UE.plugins['video'] = function (){
      * @example
      * ```javascript
      *
-     * //editor 是编辑器实例
-     * editor.queryCommandState( 'insertvideo' );
+     * //UEditor 是编辑器实例
+     * UEditor.queryCommandState( 'insertvideo' );
      * ```
      */
     me.commands["insertvideo"] = {
@@ -22522,10 +22514,10 @@ UE.plugins['basestyle'] = function(){
      * //editor是编辑器实例
      * //对当前选中的文本内容执行加粗操作
      * //第一次执行， 文本内容加粗
-     * editor.execCommand( 'bold' );
+     * UEditor.execCommand( 'bold' );
      *
      * //第二次执行， 文本内容取消加粗
-     * editor.execCommand( 'bold' );
+     * UEditor.execCommand( 'bold' );
      * ```
      */
 
@@ -22541,10 +22533,10 @@ UE.plugins['basestyle'] = function(){
      * //editor是编辑器实例
      * //对当前选中的文本内容执行斜体操作
      * //第一次操作， 文本内容将变成斜体
-     * editor.execCommand( 'italic' );
+     * UEditor.execCommand( 'italic' );
      *
      * //再次对同一文本内容执行， 则文本内容将恢复正常
-     * editor.execCommand( 'italic' );
+     * UEditor.execCommand( 'italic' );
      * ```
      */
 
@@ -22559,10 +22551,10 @@ UE.plugins['basestyle'] = function(){
      * //editor是编辑器实例
      * //对当前选中的文本内容执行下标操作
      * //第一次操作， 文本内容将变成下标文本
-     * editor.execCommand( 'subscript' );
+     * UEditor.execCommand( 'subscript' );
      *
      * //再次对同一文本内容执行， 则文本内容将恢复正常
-     * editor.execCommand( 'subscript' );
+     * UEditor.execCommand( 'subscript' );
      * ```
      */
 
@@ -22577,10 +22569,10 @@ UE.plugins['basestyle'] = function(){
      * //editor是编辑器实例
      * //对当前选中的文本内容执行上标操作
      * //第一次操作， 文本内容将变成上标文本
-     * editor.execCommand( 'superscript' );
+     * UEditor.execCommand( 'superscript' );
      *
      * //再次对同一文本内容执行， 则文本内容将恢复正常
-     * editor.execCommand( 'superscript' );
+     * UEditor.execCommand( 'superscript' );
      * ```
      */
     var basestyles = {
@@ -22716,7 +22708,7 @@ UE.plugins['elementpath'] = function(){
  * ```javascript
  * //editor是编辑器实例
  * //获取格式刷
- * editor.execCommand( 'formatmatch' );
+ * UEditor.execCommand( 'formatmatch' );
  * ```
  */
 UE.plugins['formatmatch'] = function(){
@@ -23048,7 +23040,7 @@ UE.plugin.register('searchreplace',function(){
  * @param { String } cmd 命令字符串
  * @example
  * ```javascript
- * editor.execCommand( 'customstyle' );
+ * UEditor.execCommand( 'customstyle' );
  * ```
  */
 UE.plugins['customstyle'] = function() {
@@ -23333,7 +23325,7 @@ UE.plugin.register('snapscreen', function (){
              * @param { String } cmd 命令字符串
              * @example
              * ```javascript
-             * editor.execCommand('snapscreen');
+             * UEditor.execCommand('snapscreen');
              * ```
              */
             'snapscreen':{
@@ -23410,7 +23402,7 @@ UE.plugin.register('snapscreen', function (){
  * @example
  * ```javascript
  * //editor是编辑器实例
- * editor.execCommand( 'insertparagraph' );
+ * UEditor.execCommand( 'insertparagraph' );
  * ```
  */
 
@@ -23461,7 +23453,7 @@ UE.commands['insertparagraph'] = {
  * ```javascript
  * //editor是编辑器实例
  * //在编辑器里插入一个“植物大战僵尸”的APP
- * editor.execCommand( 'webapp' , {
+ * UEditor.execCommand( 'webapp' , {
  *     title: '植物大战僵尸',
  *     width: 560,
  *     height: 465,
@@ -23581,7 +23573,7 @@ UE.plugin.register('webapp', function (){
              * ```javascript
              * //editor是编辑器实例
              * //在编辑器里插入一个“植物大战僵尸”的APP
-             * editor.execCommand( 'webapp' , {
+             * UEditor.execCommand( 'webapp' , {
              *     title: '植物大战僵尸',
              *     width: 560,
              *     height: 465,
@@ -23708,7 +23700,7 @@ UE.plugin.register('music', function (){
              * ```javascript
              * //editor是编辑器实例
              * //在编辑器里插入一个“植物大战僵尸”的APP
-             * editor.execCommand( 'music' , {
+             * UEditor.execCommand( 'music' , {
              *     width: 400,
              *     height: 95,
              *     align: "center",
@@ -23962,8 +23954,7 @@ UE.plugin.register('autosave', function (){
     return {
         defaultOptions: {
             //默认间隔时间
-            saveInterval: 500,
-            enableAutoSave: true // HaoChuan9421
+            saveInterval: 500
         },
         bindEvents:{
             'ready':function(){
@@ -23983,10 +23974,6 @@ UE.plugin.register('autosave', function (){
             },
 
             'contentchange': function () {
-                // HaoChuan9421
-                if (!me.getOpt('enableAutoSave')) {
-                    return;
-                }
 
                 if ( !saveKey ) {
                     return;
@@ -24468,136 +24455,175 @@ UE.plugin.register('section', function (){
 // plugins/simpleupload.js
 /**
  * @description
- * 简单上传:点击按钮,直接选择文件上传。
- * 原 UEditor 作者使用了 form 表单 + iframe 的方式上传
- * 但由于同源策略的限制，父页面无法访问跨域的 iframe 内容
- * 导致无法获取接口返回的数据，使得单图上传无法在跨域的情况下使用
- * 这里改为普通的XHR上传，兼容到IE10+
- * @author HaoChuan9421 <hc199421@gmail.com>
- * @date 2018-12-20
+ * 简单上传:点击按钮,直接选择文件上传
+ * @author Jinqn
+ * @date 2014-03-31
  */
-UE.plugin.register('simpleupload', function() {
-  var me = this,
-    containerBtn,
-    timestrap = (+new Date()).toString(36);
+UE.plugin.register('simpleupload', function (){
+    var me = this,
+        isLoaded = false,
+        containerBtn;
 
-  function initUploadBtn() {
-    var w = containerBtn.offsetWidth || 20,
-      h = containerBtn.offsetHeight || 20,
-      btnStyle = 'display:block;width:' + w + 'px;height:' + h + 'px;overflow:hidden;border:0;margin:0;padding:0;position:absolute;top:0;left:0;filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity: 0;opacity: 0;cursor:pointer;';
+    function initUploadBtn(){
+        var w = containerBtn.offsetWidth || 20,
+            h = containerBtn.offsetHeight || 20,
+            btnIframe = document.createElement('iframe'),
+            btnStyle = 'display:block;width:' + w + 'px;height:' + h + 'px;overflow:hidden;border:0;margin:0;padding:0;position:absolute;top:0;left:0;filter:alpha(opacity=0);-moz-opacity:0;-khtml-opacity: 0;opacity: 0;cursor:pointer;';
 
-    var form = document.createElement('form');
-    var input = document.createElement('input');
-    form.id = 'edui_form_' + timestrap;
-    form.enctype = 'multipart/form-data';
-    form.style = btnStyle;
-    input.id = 'edui_input_' + timestrap;
-    input.type = 'file'
-    input.accept = 'image/*';
-    input.name = me.options.imageFieldName;
-    input.style = btnStyle;
-    form.appendChild(input);
-    containerBtn.appendChild(form);
+        domUtils.on(btnIframe, 'load', function(){
 
-    input.addEventListener('change', function(event) {
-      if (!input.value) return;
-      var loadingId = 'loading_' + (+new Date()).toString(36);
-      var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
-      var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
-      var action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?' : '&') + params);
-      var allowFiles = me.getOpt('imageAllowFiles');
-      me.focus();
-      me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme + '/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
+            var timestrap = (+new Date()).toString(36),
+                wrapper,
+                btnIframeDoc,
+                btnIframeBody;
 
-      function showErrorLoader(title) {
-        if (loadingId) {
-          var loader = me.document.getElementById(loadingId);
-          loader && domUtils.remove(loader);
-          me.fireEvent('showmessage', {
-            'id': loadingId,
-            'content': title,
-            'type': 'error',
-            'timeout': 4000
-          });
-        }
-      }
-      /* 判断后端配置是否没有加载成功 */
-      if (!me.getOpt('imageActionName')) {
-        showErrorLoader(me.getLang('autoupload.errorLoadConfig'));
-        return;
-      }
-      // 判断文件格式是否错误
-      var filename = input.value,
-        fileext = filename ? filename.substr(filename.lastIndexOf('.')) : '';
-      if (!fileext || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() + '.') == -1)) {
-        showErrorLoader(me.getLang('simpleupload.exceedTypeError'));
-        return;
-      }
+            btnIframeDoc = (btnIframe.contentDocument || btnIframe.contentWindow.document);
+            btnIframeBody = btnIframeDoc.body;
+            wrapper = btnIframeDoc.createElement('div');
 
-      var xhr = new XMLHttpRequest()
-      xhr.open('post', action, true)
-      if (me.options.headers && Object.prototype.toString.apply(me.options.headers) === "[object Object]") {
-        for (var key in me.options.headers) {
-          xhr.setRequestHeader(key, me.options.headers[key])
-        }
-      }
-      xhr.onload = function() {
-        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-          var res = JSON.parse(xhr.responseText)
-          var link = me.options.imageUrlPrefix + res.url;
+            wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + me.getOpt('serverUrl') + '" ' +
+            'style="' + btnStyle + '">' +
+            '<input id="edui_input_' + timestrap + '" type="file" accept="image/*" name="' + me.options.imageFieldName + '" ' +
+            'style="' + btnStyle + '">' +
+            '</form>' +
+            '<iframe id="edui_iframe_' + timestrap + '" name="edui_iframe_' + timestrap + '" style="display:none;width:0;height:0;border:0;margin:0;padding:0;position:absolute;"></iframe>';
 
-          if (res.state == 'SUCCESS' && res.url) {
-            loader = me.document.getElementById(loadingId);
-            loader.setAttribute('src', link);
-            loader.setAttribute('_src', link);
-            loader.setAttribute('title', res.title || '');
-            loader.setAttribute('alt', res.original || '');
-            loader.removeAttribute('id');
-            domUtils.removeClasses(loader, 'loadingclass');
-            me.fireEvent("contentchange");
-          } else {
-            showErrorLoader(res.state);
-          }
-        } else {
-          showErrorLoader(me.getLang('simpleupload.loadError'));
-        }
-      };
-      xhr.onerror = function() {
-        showErrorLoader(me.getLang('simpleupload.loadError'));
-      };
-      xhr.send(new FormData(form));
-      form.reset();
-    })
-  }
+            wrapper.className = 'edui-' + me.options.theme;
+            wrapper.id = me.ui.id + '_iframeupload';
+            btnIframeBody.style.cssText = btnStyle;
+            btnIframeBody.style.width = w + 'px';
+            btnIframeBody.style.height = h + 'px';
+            btnIframeBody.appendChild(wrapper);
 
-  return {
-    bindEvents: {
-      'ready': function() {
-        //设置loading的样式
-        utils.cssRule('loading',
-          '.loadingclass{display:inline-block;cursor:default;background: url(\'' +
-          this.options.themePath +
-          this.options.theme + '/images/loading.gif\') no-repeat center center transparent;border:1px solid #cccccc;margin-right:1px;height: 22px;width: 22px;}\n' +
-          '.loaderrorclass{display:inline-block;cursor:default;background: url(\'' +
-          this.options.themePath +
-          this.options.theme + '/images/loaderror.png\') no-repeat center center transparent;border:1px solid #cccccc;margin-right:1px;height: 22px;width: 22px;' +
-          '}',
-          this.document);
-      },
-      /* 初始化简单上传按钮 */
-      'simpleuploadbtnready': function(type, container) {
-        containerBtn = container;
-        me.afterConfigReady(initUploadBtn);
-      }
-    },
-    outputRule: function(root) {
-      utils.each(root.getNodesByTagName('img'), function(n) {
-        if (/\b(loaderrorclass)|(bloaderrorclass)\b/.test(n.getAttr('class'))) {
-          n.parentNode.removeChild(n);
-        }
-      });
+            if (btnIframeBody.parentNode) {
+                btnIframeBody.parentNode.style.width = w + 'px';
+                btnIframeBody.parentNode.style.height = w + 'px';
+            }
+
+            var form = btnIframeDoc.getElementById('edui_form_' + timestrap);
+            var input = btnIframeDoc.getElementById('edui_input_' + timestrap);
+            var iframe = btnIframeDoc.getElementById('edui_iframe_' + timestrap);
+
+            domUtils.on(input, 'change', function(){
+                if(!input.value) return;
+                var loadingId = 'loading_' + (+new Date()).toString(36);
+                var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
+
+                var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
+                var allowFiles = me.getOpt('imageAllowFiles');
+
+                me.focus();
+                me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
+
+                function callback(){
+                    try{
+                        var link, json, loader,
+                            body = (iframe.contentDocument || iframe.contentWindow.document).body,
+                            result = body.innerText || body.textContent || '';
+                        json = (new Function("return " + result))();
+                        link = me.options.imageUrlPrefix + json.url;
+                        if(json.state == 'SUCCESS' && json.url) {
+                            loader = me.document.getElementById(loadingId);
+                            loader.setAttribute('src', link);
+                            loader.setAttribute('_src', link);
+                            loader.setAttribute('title', json.title || '');
+                            loader.setAttribute('alt', json.original || '');
+                            loader.removeAttribute('id');
+                            domUtils.removeClasses(loader, 'loadingclass');
+                        } else {
+                            showErrorLoader && showErrorLoader(json.state);
+                        }
+                    }catch(er){
+                        showErrorLoader && showErrorLoader(me.getLang('simpleupload.loadError'));
+                    }
+                    form.reset();
+                    domUtils.un(iframe, 'load', callback);
+                }
+                function showErrorLoader(title){
+                    if(loadingId) {
+                        var loader = me.document.getElementById(loadingId);
+                        loader && domUtils.remove(loader);
+                        me.fireEvent('showmessage', {
+                            'id': loadingId,
+                            'content': title,
+                            'type': 'error',
+                            'timeout': 4000
+                        });
+                    }
+                }
+
+                /* 判断后端配置是否没有加载成功 */
+                if (!me.getOpt('imageActionName')) {
+                    errorHandler(me.getLang('autoupload.errorLoadConfig'));
+                    return;
+                }
+                // 判断文件格式是否错误
+                var filename = input.value,
+                    fileext = filename ? filename.substr(filename.lastIndexOf('.')):'';
+                if (!fileext || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() + '.') == -1)) {
+                    showErrorLoader(me.getLang('simpleupload.exceedTypeError'));
+                    return;
+                }
+
+                domUtils.on(iframe, 'load', callback);
+                form.action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params);
+                form.submit();
+            });
+
+            var stateTimer;
+            me.addListener('selectionchange', function () {
+                clearTimeout(stateTimer);
+                stateTimer = setTimeout(function() {
+                    var state = me.queryCommandState('simpleupload');
+                    if (state == -1) {
+                        input.disabled = 'disabled';
+                    } else {
+                        input.disabled = false;
+                    }
+                }, 400);
+            });
+            isLoaded = true;
+        });
+
+        btnIframe.style.cssText = btnStyle;
+        containerBtn.appendChild(btnIframe);
     }
-  }
+
+    return {
+        bindEvents:{
+            'ready': function() {
+                //设置loading的样式
+                utils.cssRule('loading',
+                    '.loadingclass{display:inline-block;cursor:default;background: url(\''
+                    + this.options.themePath
+                    + this.options.theme +'/images/loading.gif\') no-repeat center center transparent;border:1px solid #cccccc;margin-right:1px;height: 22px;width: 22px;}\n' +
+                    '.loaderrorclass{display:inline-block;cursor:default;background: url(\''
+                    + this.options.themePath
+                    + this.options.theme +'/images/loaderror.png\') no-repeat center center transparent;border:1px solid #cccccc;margin-right:1px;height: 22px;width: 22px;' +
+                    '}',
+                    this.document);
+            },
+            /* 初始化简单上传按钮 */
+            'simpleuploadbtnready': function(type, container) {
+                containerBtn = container;
+                me.afterConfigReady(initUploadBtn);
+            }
+        },
+        outputRule: function(root){
+            utils.each(root.getNodesByTagName('img'),function(n){
+                if (/\b(loaderrorclass)|(bloaderrorclass)\b/.test(n.getAttr('class'))) {
+                    n.parentNode.removeChild(n);
+                }
+            });
+        },
+        commands: {
+            'simpleupload': {
+                queryCommandState: function () {
+                    return isLoaded ? 0:-1;
+                }
+            }
+        }
+    }
 });
 
 // plugins/serverparam.js
@@ -24620,8 +24646,8 @@ UE.plugin.register('serverparam', function (){
              * @param { String } cmd 命令字符串
              * @example
              * ```javascript
-             * editor.execCommand('serverparam');
-             * editor.queryCommandValue('serverparam'); //返回空
+             * UEditor.execCommand('serverparam');
+             * UEditor.queryCommandValue('serverparam'); //返回空
              * ```
              */
             /**
@@ -24632,7 +24658,7 @@ UE.plugin.register('serverparam', function (){
              * @param { String } key 要清除的属性
              * @example
              * ```javascript
-             * editor.execCommand('serverparam', 'name'); //删除属性name
+             * UEditor.execCommand('serverparam', 'name'); //删除属性name
              * ```
              */
             /**
@@ -24644,8 +24670,8 @@ UE.plugin.register('serverparam', function (){
              * @param { String } value 要添加属性的值
              * @example
              * ```javascript
-             * editor.execCommand('serverparam', 'name', 'hello');
-             * editor.queryCommandValue('serverparam'); //返回对象 {'name': 'hello'}
+             * UEditor.execCommand('serverparam', 'name', 'hello');
+             * UEditor.queryCommandValue('serverparam'); //返回对象 {'name': 'hello'}
              * ```
              */
             /**
@@ -24656,8 +24682,8 @@ UE.plugin.register('serverparam', function (){
              * @param { Object } key 传入的键值对对象
              * @example
              * ```javascript
-             * editor.execCommand('serverparam', {'name': 'hello'});
-             * editor.queryCommandValue('serverparam'); //返回对象 {'name': 'hello'}
+             * UEditor.execCommand('serverparam', {'name': 'hello'});
+             * UEditor.queryCommandValue('serverparam'); //返回对象 {'name': 'hello'}
              * ```
              */
             /**
@@ -24668,10 +24694,10 @@ UE.plugin.register('serverparam', function (){
              * @param { Function } key 自定义获取参数的函数
              * @example
              * ```javascript
-             * editor.execCommand('serverparam', function(editor){
+             * UEditor.execCommand('serverparam', function(UEditor){
              *     return {'key': 'value'};
              * });
-             * editor.queryCommandValue('serverparam'); //返回对象 {'key': 'value'}
+             * UEditor.queryCommandValue('serverparam'); //返回对象 {'key': 'value'}
              * ```
              */
 
@@ -24682,7 +24708,7 @@ UE.plugin.register('serverparam', function (){
              * @param { String } cmd 命令字符串
              * @example
              * ```javascript
-             * editor.queryCommandValue( 'serverparam' ); //返回对象 {'key': 'value'}
+             * UEditor.queryCommandValue( 'serverparam' ); //返回对象 {'key': 'value'}
              * ```
              */
             'serverparam':{
@@ -25491,7 +25517,7 @@ UE.ui = baidu.editor.ui = {};
             popEl.className += ' ' + ANCHOR_CLASSES[(sideUp ? 1 : 0) * 2 + (sideLeft ? 1 : 0)];
             if(this.editor){
                 popEl.style.zIndex = this.editor.container.style.zIndex * 1 + 10;
-                baidu.editor.ui.uiUtils.getFixedLayer().style.zIndex = popEl.style.zIndex - 1;
+                baidu.editor.ui.uiUtils.getFixedLayer().style.zIndex = '3000';
             }
             this.getDom().style.visibility = 'visible';
 
@@ -27020,7 +27046,7 @@ UE.ui = baidu.editor.ui = {};
         },
         fitSize: function (){
             var popBodyEl = this.getDom('body');
-//            if (!(baidu.editor.browser.ie && baidu.editor.browser.version == 7)) {
+//            if (!(baidu.UEditor.browser.ie && baidu.UEditor.browser.version == 7)) {
 //                uiUtils.removeStyle(popBodyEl, 'width');
 //                uiUtils.removeStyle(popBodyEl, 'height');
 //            }
@@ -27251,7 +27277,7 @@ UE.ui = baidu.editor.ui = {};
                 this.editor.container.style.zIndex && (this.getDom().style.zIndex = this.editor.container.style.zIndex * 1 + 10);
                 this._hidden = false;
                 this.fireEvent('show');
-                baidu.editor.ui.uiUtils.getFixedLayer().style.zIndex = this.getDom().style.zIndex - 4;
+                baidu.editor.ui.uiUtils.getFixedLayer().style.zIndex = '3000';
             }
         },
         isHidden: function (){
@@ -27742,7 +27768,7 @@ UE.ui = baidu.editor.ui = {};
 // adapter/editorui.js
 //ui跟编辑器的适配層
 //那个按钮弹出是dialog，是下拉筐等都是在这个js中配置
-//自己写的ui也要在这里配置，放到baidu.editor.ui下边，当编辑器实例化的时候会根据ueditor.config中的toolbars找到相应的进行实例化
+//自己写的ui也要在这里配置，放到baidu.UEditor.ui下边，当编辑器实例化的时候会根据ueditor.config中的toolbars找到相应的进行实例化
 (function () {
     var utils = baidu.editor.utils;
     var editorui = baidu.editor.ui;
@@ -28596,7 +28622,7 @@ UE.ui = baidu.editor.ui = {};
 })();
 
 
-// adapter/editor.js
+// adapter/UEditor.js
 ///import core
 ///commands 全屏
 ///commandsName FullScreen
@@ -28638,7 +28664,7 @@ UE.ui = baidu.editor.ui = {};
 
                 //display bottom-bar label based on config
                 if (editor.options.elementPathEnabled) {
-                    editor.ui.getDom('elementpath').innerHTML = '<div class="edui-editor-breadcrumb">' + editor.getLang("elementPathTip") + ':</div>';
+                    editor.ui.getDom('elementpath').innerHTML = '<div class="edui-UEditor-breadcrumb">' + editor.getLang("elementPathTip") + ':</div>';
                 }
                 if (editor.options.wordCount) {
                     function countFn() {
@@ -28968,38 +28994,22 @@ UE.ui = baidu.editor.ui = {};
                 toolbarUis[i] = toolbarUi;
             }
 
-            //接受外部定制的UI（修复因 utils.each 无法准确的循环出对象的全部元素而导致的自定义 UI 不符合预期的 BUG by HaoChuan9421）
+            //接受外部定制的UI
 
-            // utils.each(UE._customizeUI,function(obj,key){
-            //     var itemUI,index;
-            //     if(obj.id && obj.id != editor.key){
-            //        return false;
-            //     }
-            //     itemUI = obj.execFn.call(editor,editor,key);
-            //     if(itemUI){
-            //         index = obj.index;
-            //         if(index === undefined){
-            //             index = toolbarUi.items.length;
-            //         }
-            //         toolbarUi.add(itemUI,index)
-            //     }
-            // });
-
-            
-            for(var key in UE._customizeUI){
-                var obj = UE._customizeUI[key]
+            utils.each(UE._customizeUI,function(obj,key){
                 var itemUI,index;
-                if(!obj.id || obj.id == editor.key){
-                    itemUI = obj.execFn.call(editor,editor,key);
-                    if(itemUI){
-                        index = obj.index;
-                        if(index === undefined){
-                            index = toolbarUi.items.length;
-                        }
-                        toolbarUi.add(itemUI,index)
-                    }
+                if(obj.id && obj.id != editor.key){
+                   return false;
                 }
-            }
+                itemUI = obj.execFn.call(editor,editor,key);
+                if(itemUI){
+                    index = obj.index;
+                    if(index === undefined){
+                        index = toolbarUi.items.length;
+                    }
+                    toolbarUi.add(itemUI,index)
+                }
+            });
 
             this.toolbars = toolbarUis;
         },
@@ -29139,9 +29149,9 @@ UE.ui = baidu.editor.ui = {};
 
                 var buff = [];
                 for (var i = 0, ci; ci = list[i]; i++) {
-                    buff[i] = this.formatHtml('<span unselectable="on" onclick="$$.editor.execCommand(&quot;elementpath&quot;, &quot;' + i + '&quot;);">' + ci + '</span>');
+                    buff[i] = this.formatHtml('<span unselectable="on" onclick="$$.UEditor.execCommand(&quot;elementpath&quot;, &quot;' + i + '&quot;);">' + ci + '</span>');
                 }
-                bottom.innerHTML = '<div class="edui-editor-breadcrumb" onmousedown="return false;">' + this.editor.getLang("elementPathTip") + ': ' + buff.join(' &gt; ') + '</div>';
+                bottom.innerHTML = '<div class="edui-UEditor-breadcrumb" onmousedown="return false;">' + this.editor.getLang("elementPathTip") + ': ' + buff.join(' &gt; ') + '</div>';
 
             } else {
                 bottom.style.display = 'none'
@@ -29484,10 +29494,9 @@ UE.registerUI('message', function(editor) {
     me.addListener('ready', function(){
         holder = document.getElementById(me.ui.id + '_message_holder');
         updateHolderPos();
-        // HaoChuan9421
-        // setTimeout(function(){
-        //     updateHolderPos();
-        // }, 500);
+        setTimeout(function(){
+            updateHolderPos();
+        }, 500);
     });
 
     me.addListener('showmessage', function(type, opt){
