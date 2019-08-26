@@ -58,33 +58,125 @@
     mounted() {
 
       this.registerDragAndResizable();
-      this.registerCtrlKeyDownAndUp();
+      this.registerKeyDownAndUp();
     },
     methods: {
 
       /**
-       * 注册监听键盘按下事件，这里注册ctrl按键
+       * 注册监听键盘按键
        */
-      registerCtrlKeyDownAndUp () {
+      registerKeyDownAndUp () {
         let _this = this;
+
+        $(document).unbind('keydown');
+        $(document).unbind('keyup');
+
         $(document).bind("keydown", function(e) {
           if(_this.$PnUtil.isMac()) {
-            if(e.keyCode == 91) {
+            if(e.keyCode == 91) { // Command键
               _this.keepCtrl = true;
             }
           }else if(_this.$PnUtil.isWindows()) {
-            if(e.keyCode == 17) {
+            if(e.keyCode == 17) { // Ctrl键
               _this.keepCtrl = true;
             }
+          }
+
+
+          if (e.keyCode == 37) { // 方向左键
+            if(_this.$store.state.designer.currentSelectLayoutItemIds.length > 0) {
+              _this.$store.state.designer.currentSelectLayoutItemIds.forEach((id)=>{
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: id,
+                    left: ($('#'+id).position().left - 1) + 'px',
+                    top: $('#'+id).position().top + 'px'
+                  });
+              })
+            }else {
+              if(_this.$store.state.designer.currentSelectLayoutItemId) {
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: _this.$store.state.designer.currentSelectLayoutItemId,
+                    left: ($('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().left - 1) + 'px',
+                    top: $('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().top + 'px'
+                  });
+              }
+            }
+            e.preventDefault()
+          }else if(e.keyCode == 38) { // 方向上键
+            if(_this.$store.state.designer.currentSelectLayoutItemIds.length > 0) {
+              _this.$store.state.designer.currentSelectLayoutItemIds.forEach((id)=>{
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: id,
+                    left: $('#'+id).position().left + 'px',
+                    top: ($('#'+id).position().top - 1) + 'px'
+                  });
+              })
+            }else {
+              if(_this.$store.state.designer.currentSelectLayoutItemId) {
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: _this.$store.state.designer.currentSelectLayoutItemId,
+                    left: $('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().left + 'px',
+                    top: ($('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().top - 1) + 'px'
+                  });
+              }
+            }
+            e.preventDefault()
+          }else if(e.keyCode == 39) { // 方向右键
+            if(_this.$store.state.designer.currentSelectLayoutItemIds.length > 0) {
+              _this.$store.state.designer.currentSelectLayoutItemIds.forEach((id)=>{
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: id,
+                    left: ($('#'+id).position().left + 1) + 'px',
+                    top: $('#'+id).position().top + 'px'
+                  });
+              })
+            }else {
+              if(_this.$store.state.designer.currentSelectLayoutItemId) {
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: _this.$store.state.designer.currentSelectLayoutItemId,
+                    left: ($('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().left + 1) + 'px',
+                    top: $('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().top + 'px'
+                  });
+              }
+            }
+            e.preventDefault()
+          }else if(e.keyCode == 40) { // 方向下键
+            if(_this.$store.state.designer.currentSelectLayoutItemIds.length > 0) {
+              _this.$store.state.designer.currentSelectLayoutItemIds.forEach((id)=>{
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: id,
+                    left: $('#'+id).position().left + 'px',
+                    top: ($('#'+id).position().top + 1) + 'px'
+                  });
+              })
+            }else {
+              if(_this.$store.state.designer.currentSelectLayoutItemId) {
+                _this.$store.commit('designer/setLayoutItemLeftAndTop',
+                  {
+                    id: _this.$store.state.designer.currentSelectLayoutItemId,
+                    left: $('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().left + 'px',
+                    top: ($('#'+_this.$store.state.designer.currentSelectLayoutItemId).position().top + 1) + 'px'
+                  });
+              }
+            }
+
+            e.preventDefault()
           }
         });
         $(document).bind("keyup", function(e) {
           if(_this.$PnUtil.isMac()) {
-            if(e.keyCode == 91) {
+            if(e.keyCode == 91) { // Command键
               _this.keepCtrl = false;
             }
           }else if(_this.$PnUtil.isWindows()) {
-            if(e.keyCode == 17) {
+            if(e.keyCode == 17) { // Ctrl键
               _this.keepCtrl = false;
             }
           }
@@ -123,7 +215,7 @@
               }
             },
             drag: function (e, b) {
-              _this.$store.commit('designer/setLayoutItemLeftAndTop', {id: $(this).attr('data-id'), left: $(this).position().left + 'px', top: $(this).position().top + 'px'})
+              _this.$store.commit('designer/setLayoutItemLeftAndTop', {id: $(this).attr('data-id'), left: $(this).position().left + 'px', top: $(this).position().top + 'px'});
 
               let currentSelectLayoutItemIds = _this.$store.state.designer.currentSelectLayoutItemIds;
               if(currentSelectLayoutItemIds.length > 0) {
