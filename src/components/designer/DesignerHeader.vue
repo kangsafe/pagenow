@@ -111,6 +111,9 @@
         });
       },
 
+      /**
+       * 清除多选
+       */
       clearMultiSelect () {
         this.$store.commit('designer/setCurrentSelectLayoutItemIds', []);
         this.$Message.success('已清除多选数据')
