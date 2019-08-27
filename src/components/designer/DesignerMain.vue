@@ -463,7 +463,8 @@
       },
 
       locationTargetLayoutItem (row) {
-        this.$store.commit('designer/setCurrentSelectLayoutItemId', row.layoutItemId)
+        this.$store.commit('designer/setCurrentSelectLayoutItemId', row.layoutItemId);
+        this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
       }
 
     },
