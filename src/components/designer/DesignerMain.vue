@@ -128,33 +128,42 @@
                  overflow: 'auto',
                  zIndex: 2
                }" @click.stop.native="clearKeyDownAndUp">
-          <Collapse simple v-model="collapseDefaultName">
-            <Panel name="page_config">
-              页面信息
-              <p slot="content">
-                <component :is="this.$store.state.designer.rightSidebarPageConfigFormName"></component>
-              </p>
-            </Panel>
-            <Panel name="canvas_config">
-              画布配置
-              <p slot="content">
-                <component :is="canvasConfigCompName"></component>
-              </p>
-            </Panel>
-            <Panel name="layoutItem_config">
-              布局块配置
-              <p slot="content">
-                <component :is="this.$store.state.designer.rightSidebarLayoutItemConfigFormName"></component>
-              </p>
-            </Panel>
-            <Panel name="comp_config">
-              组件配置
-              <p slot="content">
-                <component :is="this.$store.state.designer.rightSidebarFuncCompConfigFormName"></component>
-              </p>
+          <Tabs size="small" value="setting_tab">
+            <TabPane label="配置管理" name="setting_tab" :style="{padding: '0px'}">
+              <Collapse simple v-model="collapseDefaultName" :style="{marginTop: '-17px'}">
+                <Panel name="page_config">
+                  页面信息
+                  <p slot="content">
+                    <component :is="this.$store.state.designer.rightSidebarPageConfigFormName"></component>
+                  </p>
+                </Panel>
+                <Panel name="canvas_config">
+                  画布配置
+                  <p slot="content">
+                    <component :is="canvasConfigCompName"></component>
+                  </p>
+                </Panel>
+                <Panel name="layoutItem_config">
+                  布局块配置
+                  <p slot="content">
+                    <component :is="this.$store.state.designer.rightSidebarLayoutItemConfigFormName"></component>
+                  </p>
+                </Panel>
+                <Panel name="comp_config">
+                  组件配置
+                  <p slot="content">
+                    <component :is="this.$store.state.designer.rightSidebarFuncCompConfigFormName"></component>
+                  </p>
 
-            </Panel>
-          </Collapse>
+                </Panel>
+              </Collapse>
+            </TabPane>
+            <TabPane label="结构树" name="structure_tree_tab" :style="{padding: '0px'}">
+              <Table highlight-row size="small" :style="{marginTop: '-17px'}"
+                     :columns="structureTreeColumns" :data="structureTreeData"></Table>
+            </TabPane>
+          </Tabs>
+
         </Sider>
 
         <DesignerFooter></DesignerFooter>
@@ -165,6 +174,7 @@
 </template>
 
 <script>
+  import StructureTreeTableExpand from './StructureTreeTableExpand'
 
   import { createHelpers } from 'vuex-map-fields';
 
@@ -181,10 +191,72 @@
         collapseDefaultName: ['page_config', 'canvas_config', 'layoutItem_config', 'comp_config'],
 
         createPageDrawerVisible: false,
-        // 页面信息树
-        pageTreeData: [],
 
+        pageTreeData: [], // 左侧边栏页面信息树
         currentSelectPageId: '', // 当前选中页面的ID
+
+        structureTreeColumns: [ // 结构树表头数据
+          {
+            type: 'expand',
+            width: 30,
+            render: (h, params) => {
+              return h(StructureTreeTableExpand, {
+                props: {
+                  row: params.row
+                }
+              })
+            }
+          },
+          {
+            title: '名称',
+            key: 'layoutItemId',
+            render: (h, params) => {
+              return h('span', {}, '布局块('+params.row.layoutItemId.substring(0, 5)+'..)')
+            }
+          },
+          {
+            title: '操作',
+            key: 'action',
+            align: 'center',
+            width: 120,
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'default',
+                    size: 'small',
+                    icon: 'md-eye'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+
+                    }
+                  }
+                }),h('Button', {
+                  props: {
+                    type: 'default',
+                    size: 'small',
+                    icon: 'md-locate'
+                  },
+                  attrs: {
+                    title: '定位布局块'
+                  },
+                  style: {
+
+                  },
+                  on: {
+                    click: () => {
+                      this.locationTargetLayoutItem(params.row)
+                    }
+                  }
+                })
+              ]);
+            }
+          }
+        ]
 
       }
     },
@@ -203,7 +275,6 @@
 
     },
     methods: {
-
 
       /**
        * 注销键盘监听
@@ -305,7 +376,6 @@
         })
       },
 
-
       submitPageForm () {
         this.$refs.pageForm.$refs.form.validate((valid) => {
           if (valid) {
@@ -373,10 +443,34 @@
 
       },
 
+      /****************结构树表格相关操作****************/
+      structureTreeTableRowClick (row, index) {
+        // 如果当前点击的布局块没有关联组件，那么就清空rightSidebarFuncCompConfigFormName状态
+        if (!row.componentId) {
+          this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
+        }else {
+          this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', row.componentName + 'Form');
+        }
+
+        if(this.pageMetadata.developCanvas == 'AbsoluteLayoutCanvas') {
+
+          this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'AbsoluteLayoutItemForm');
+        }else if(this.pageMetadata.developCanvas == 'ReactiveLayoutCanvas') {
+
+          this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'ReactiveLayoutItemForm');
+        }
+        this.$store.commit('designer/setCurrentSelectLayoutItemId', row.layoutItemId)
+      },
+
+      locationTargetLayoutItem (row) {
+        this.$store.commit('designer/setCurrentSelectLayoutItemId', row.layoutItemId)
+      }
+
     },
     computed: {
       ...mapFields({
-        pageMetadata: 'pageMetadata'
+        pageMetadata: 'pageMetadata',
+        currentSelectLayoutItemId: 'currentSelectLayoutItemId'
       }),
       // 根据developCanvas返回不同的画布配置表单
       canvasConfigCompName () {
@@ -386,6 +480,26 @@
           return 'AbsoluteLayoutConfigDataForm'
         }
         return ''
+      },
+      structureTreeData () {
+        let layoutItems = [];
+        this.pageMetadata.layout.layoutItems.forEach((item)=>{
+          let layoutItem = {
+            layoutItemId: item.id,
+            componentId: item.component.id,
+            componentName: item.component.name,
+            _expanded: true
+          };
+
+          // if(this.currentSelectLayoutItemId == item.id) {
+          //   layoutItem._highlight = true
+          // }else {
+          //   layoutItem._highlight = false
+          // }
+
+          layoutItems.push(layoutItem)
+        });
+        return layoutItems;
       }
     },
     watch: {
@@ -400,6 +514,10 @@
 
   .ivu-divider-horizontal {
     margin: 10px 0px;
+  }
+
+  >>> td.ivu-table-expanded-cell {
+    padding: 10px;
   }
 
   .comp-card {
