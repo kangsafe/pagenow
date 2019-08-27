@@ -22,6 +22,9 @@ import echarts from 'echarts'
 // 引入UEditor组件
 import VueUeditorWrap from 'vue-ueditor-wrap'
 
+// 引入代码编辑器相关依赖库（注意，这段引入不能写在 import './components/index.js' 下面，否则会出现编辑器无法使用的情况）
+import ace from 'ace-builds'
+
 // 自动扫描组件
 import './components/index.js'
 
@@ -46,6 +49,7 @@ Vue.use(iView, {
 
 });
 Vue.use(AxiosPlugin);
+Vue.use(ace);
 
 Vue.config.productionTip = false;
 

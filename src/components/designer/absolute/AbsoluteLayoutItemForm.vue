@@ -78,7 +78,7 @@
         :mask="true"
         :z-index="3">
       <Alert type="info">提示：自定义样式会与预设样式进行浅合并，如果存在相同属性配置，自定义样式会覆盖预设样式</Alert>
-      <vue-json-editor v-model="customStyleCode" :show-btns="false" :mode="'code'"></vue-json-editor>
+      <JsonEditor v-model="customStyleCode" :mode="'code'"></JsonEditor>
       <div slot="footer">
         <Button type="default" @click="customStyleCodeModalVisible = false">关闭</Button>
       </div>
@@ -88,8 +88,6 @@
 </template>
 
 <script>
-  import vueJsonEditor from 'vue-json-editor'
-
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({
@@ -99,9 +97,6 @@
 
   export default {
     name: 'AbsoluteLayoutItemForm',
-    components: {
-      vueJsonEditor
-    },
     data() {
       return {
         customStyleCodeModalVisible: false

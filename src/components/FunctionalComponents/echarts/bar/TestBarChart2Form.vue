@@ -24,7 +24,7 @@
         width="650"
         :mask="true"
         :z-index="3">
-      <vue-json-editor v-model="chartOption" :show-btns="false" ></vue-json-editor>
+      <JsonEditor v-model="chartOption"></JsonEditor>
       <div slot="footer">
         <Button type="default" @click="visible = false">关闭</Button>
       </div>
@@ -34,8 +34,6 @@
 </template>
 
 <script>
-  import vueJsonEditor from 'vue-json-editor'
-
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({
@@ -45,9 +43,6 @@
 
   export default {
     name: 'TestBarChart2Form',
-    components: {
-      vueJsonEditor
-    },
     data() {
       return {
         visible: false
