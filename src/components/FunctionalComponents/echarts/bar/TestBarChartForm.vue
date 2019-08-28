@@ -44,7 +44,7 @@
           <Input v-model="apiPath"/>
         </FormItem>
       </Form>
-      <JsonEditor v-model="interfaceResultData" :mode="'code'"></JsonEditor>
+      <PnJsonEditor v-model="interfaceResultData" :mode="'code'"></PnJsonEditor>
       <div slot="footer">
         <Button type="default" @click="interfaceTestModalVisible = false">关闭</Button>
       </div>
@@ -72,7 +72,7 @@
         width="650"
         :mask="true"
         :z-index="3">
-      <JsonEditor v-model="chartOption"></JsonEditor>
+      <PnJsonEditor v-model="chartOption"></PnJsonEditor>
       <div slot="footer">
         <Button type="default" @click="visible = false">关闭</Button>
       </div>

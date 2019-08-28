@@ -24,7 +24,7 @@
         width="650"
         :mask="true"
         :z-index="3">
-      <JsonEditor v-model="chartOption"></JsonEditor>
+      <PnJsonEditor v-model="chartOption"></PnJsonEditor>
       <div slot="footer">
         <Button type="default" @click="visible = false">关闭</Button>
       </div>

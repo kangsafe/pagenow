@@ -30,7 +30,7 @@
         :mask="true"
         :z-index="3">
       <Alert type="info">提示：自定义样式会与预设样式进行浅合并，如果存在相同属性配置，自定义样式会覆盖预设样式</Alert>
-      <JsonEditor v-model="customStyleCode" :mode="'code'"></JsonEditor>
+      <PnJsonEditor v-model="customStyleCode" :mode="'code'"></PnJsonEditor>
       <div slot="footer">
         <Button type="default" @click="customStyleCodeModalVisible = false">关闭</Button>
       </div>

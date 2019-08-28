@@ -28,7 +28,7 @@
         :z-index="3"
         :transfer="true">
       <Alert type="error">请谨慎编辑源数据！（非特殊情况不要在此编辑源数据）</Alert>
-      <JsonEditor v-model="layout"></JsonEditor>
+      <PnJsonEditor v-model="layout"></PnJsonEditor>
       <div slot="footer">
         <Button type="default" @click="visible = false">关闭</Button>
       </div>
