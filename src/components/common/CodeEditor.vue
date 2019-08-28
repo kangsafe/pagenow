@@ -1,6 +1,6 @@
 <template>
   <div class="ace-container">
-    <div class="ace-editor" ref="ace" :style="{height: '450px'}"></div>
+    <div class="ace-editor" ref="ace"></div>
 
     <!--<div class="config-panel" v-show="toggle">
       <div>
@@ -129,8 +129,8 @@
   }
 </script>
 
-<style lang="less" scoped>
-  .ace-container {
+<style scoped>
+  /*.ace-container {
     position: relative;
 
     .config-panel {
@@ -169,5 +169,5 @@
       border-color: lightblue gray gray rgb(206, 173, 230);
       border-image: initial;
     }
-  }
+  }*/
 </style>

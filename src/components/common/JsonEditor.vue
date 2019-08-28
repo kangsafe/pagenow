@@ -11,7 +11,6 @@
   import VanillaPicker from 'vanilla-picker'
 
   export default {
-    // props: ['value', 'showBtns', 'mode', 'modes', 'lang'],
     props: {
       value: [String, Number, Object, Array],
       mode: {
@@ -23,26 +22,20 @@
         default: function () {
           return ['tree', 'code', 'form', 'text', 'view']
         }
-      },
-      lang: {
-        type: String,
-        default: 'en'
       }
     },
     watch: {
       value: {
         immediate: true,
-        handler (val)
-        {
-          if (!this.internalChange)
-          {
+        handler(val) {
+          if (!this.internalChange) {
             this.setEditor(val)
           }
         },
         deep: true
       }
     },
-    data () {
+    data() {
       return {
         editor: null,
         error: false,
@@ -50,8 +43,7 @@
         internalChange: false,
       }
     },
-    mounted ()
-    {
+    mounted() {
       let self = this;
 
       let options = {
@@ -66,7 +58,7 @@
             }
           }).show();
         },
-        onChange () {
+        onChange() {
           try {
             let json = self.editor.get();
             self.json = json;
@@ -86,9 +78,8 @@
     },
     methods: {
 
-      setEditor(value)
-      {
-        if(this.editor)
+      setEditor(value) {
+        if (this.editor)
           this.editor.set(value)
       }
     }
