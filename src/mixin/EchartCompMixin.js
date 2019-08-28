@@ -67,6 +67,9 @@ const EchartCompMixin = {
             }else {
               this.implant();
               this.implantLoadSourceDataAfter();
+              if(this.component.compConfigData.customJsCode) {
+                eval(this.component.compConfigData.customJsCode)
+              }
             }
 
           });
@@ -80,6 +83,9 @@ const EchartCompMixin = {
           }
         }else {
           this.implant();
+          if(this.component.compConfigData.customJsCode) {
+            eval(this.component.compConfigData.customJsCode)
+          }
         }
       }
 
