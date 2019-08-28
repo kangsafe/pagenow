@@ -87,7 +87,7 @@
         maxLines: 20,
         minLines: 10,
         fontSize: 14,
-        value: this.value ? this.value : '',
+        value: this.currentValue ? this.currentValue : '',
         theme: this.themePath,
         mode: this.modePath,
         wrap: this.wrap,
@@ -101,8 +101,14 @@
       });
       this.aceEditor.getSession().on('change', this.change)
     },
+    beforeDestroy () {
+      this.aceEditor.destroy();
+      this.aceEditor.container.remove();
+    },
     data () {
       return {
+        currentValue: this.value,
+        contentBackup: '',
         aceEditor: null,
         toggle: false,
         wrap: true,
@@ -117,13 +123,23 @@
         this.toggle = !this.toggle
       },
       change () {
-        this.$emit('input', this.aceEditor.getSession().getValue())
+        let content = this.aceEditor.getSession().getValue();
+        this.$emit('input', content);
+        this.contentBackup = content;
       },
       handleModelPathChange (modelPath) {
         this.aceEditor.getSession().setMode(modelPath)
       },
       handleWrapChange (wrap) {
         this.aceEditor.getSession().setUseWrapMode(wrap)
+      }
+    },
+    watch: {
+      value (val) {
+        if(this.contentBackup !== val) {
+          this.aceEditor.session.setValue(val,1);
+          this.contentBackup = val;
+        }
       }
     }
   }

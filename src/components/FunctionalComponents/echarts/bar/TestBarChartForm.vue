@@ -117,6 +117,7 @@
     },
     computed: {
       ...mapFields({
+        id: 'component.id',
         apiPath: 'component.compConfigData.apiPath',
         useApiPath: 'component.compConfigData.useApiPath',
         useUrlParam: 'component.compConfigData.useUrlParam',
