@@ -62,34 +62,26 @@
     },
     data() {
       return {
-        //chart: null
+
       }
     },
     mounted() {
-      this.drawChart();
+
     },
     methods: {
+      implant () {
 
-      drawChart () {
-        let chartOption = this.component.compConfigData.chartOption;
-        this.chart.setOption(chartOption);
-
-        this.loadData();
       },
-      loadData () {
-        if(this.component.compConfigData.apiPath) {
-          this.$PnApi.getData(this.buildApiPath(this.component.compConfigData.apiPath, this.component.compConfigData.useUrlParam)).then(result => {
-            this.chart.setOption({
-              series: [
-                {
-                  data: result.data.data
-                }
-              ]
-            })
-          });
-        }
-
+      implantLoadSourceDataAfter () {
+        this.chart.setOption({
+          series: [
+            {
+              data: this.sourceData
+            }
+          ]
+        });
       }
+
     },
     computed: {}
   }

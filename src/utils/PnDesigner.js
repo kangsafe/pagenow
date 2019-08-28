@@ -87,8 +87,11 @@ const buildReactiveLayoutItemConfigData = function (payload) {
  */
 const buildEchartConfigDataTemp = function () {
   let configDataTemp = {
-    useUrlParam: false, // 使用URL参数
-    apiPath: '' // 接口地址
+    useUrlParam: false,           // 使用URL参数
+    apiPath: '',                  // 接口地址
+    useApiPath: false,            // 是否调用接口获取数据
+    customJsCode: '',             // 自定义JS代码
+    onlyUseCustomJsCode: false,   // 只使用自定义JS代码逻辑
   };
   return configDataTemp
 };
