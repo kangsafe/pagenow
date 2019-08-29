@@ -37,6 +37,8 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
       borderBottomRightRadius: '0px',
 
       backgroundColor: 'yellow',
+      mouseenterBackgroundColor: '',
+      mouseleaveBackgroundColor: '',
       zIndex: 1,
       padding: '0px',
       display: 'block',

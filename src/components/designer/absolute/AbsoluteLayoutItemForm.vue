@@ -48,6 +48,12 @@
       <FormItem label="背景颜色">
         <ColorPicker size="small" v-model="backgroundColor" alpha/>
       </FormItem>
+      <FormItem label="滑入背景色">
+        <ColorPicker size="small" v-model="mouseenterBackgroundColor" alpha/>
+      </FormItem>
+      <FormItem label="滑出背景色">
+        <ColorPicker size="small" v-model="mouseleaveBackgroundColor" alpha/>
+      </FormItem>
       <FormItem label="层级">
         <InputNumber size="small" :max="1000" :min="1" v-model="zIndex"></InputNumber>
       </FormItem>
@@ -195,6 +201,9 @@
         borderBottomRightRadius: 'layoutItemConfigData.borderBottomRightRadius',
 
         backgroundColor: 'layoutItemConfigData.backgroundColor',
+        mouseenterBackgroundColor: 'layoutItemConfigData.mouseenterBackgroundColor',
+        mouseleaveBackgroundColor: 'layoutItemConfigData.mouseleaveBackgroundColor',
+
         zIndex: 'layoutItemConfigData.zIndex',
         padding: 'layoutItemConfigData.padding',
         display: 'layoutItemConfigData.display',

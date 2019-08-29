@@ -29,7 +29,9 @@
            display: layoutItem.layoutItemConfigData.display,
            padding: layoutItem.layoutItemConfigData.padding
          }, layoutItem.layoutItemConfigData.customStyleCode)"
-         @click.stop="layoutItemClick(layoutItem, $event)">
+         @click.stop="layoutItemClick(layoutItem, $event)"
+         @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
+         @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
       <FuncCompContainer :location="layoutItem.id">
         <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
       </FuncCompContainer>
@@ -358,6 +360,19 @@
         }
 
         return ''
+      },
+
+      layoutItemMouseenterHandle (layoutItem, e) {
+        if(layoutItem.layoutItemConfigData.mouseenterBackgroundColor) {
+          e.target.style.backgroundColor = layoutItem.layoutItemConfigData.mouseenterBackgroundColor;
+        }
+      },
+      layoutItemMouseleaveHandle (layoutItem, e) {
+        if(layoutItem.layoutItemConfigData.mouseleaveBackgroundColor) {
+          e.target.style.backgroundColor = layoutItem.layoutItemConfigData.mouseleaveBackgroundColor
+        }else {
+          e.target.style.backgroundColor = layoutItem.layoutItemConfigData.backgroundColor
+        }
       }
     },
     computed: {

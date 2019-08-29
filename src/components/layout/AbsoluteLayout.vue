@@ -28,7 +28,9 @@
            zIndex: layoutItem.layoutItemConfigData.zIndex,
            display: layoutItem.layoutItemConfigData.display,
            padding: layoutItem.layoutItemConfigData.padding
-         }, layoutItem.layoutItemConfigData.customStyleCode)">
+         }, layoutItem.layoutItemConfigData.customStyleCode)"
+         @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
+         @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
       <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
     </div>
 
@@ -74,7 +76,18 @@
 
     },
     methods: {
-
+      layoutItemMouseenterHandle (layoutItem, e) {
+        if(layoutItem.layoutItemConfigData.mouseenterBackgroundColor) {
+          e.target.style.backgroundColor = layoutItem.layoutItemConfigData.mouseenterBackgroundColor;
+        }
+      },
+      layoutItemMouseleaveHandle (layoutItem, e) {
+        if(layoutItem.layoutItemConfigData.mouseleaveBackgroundColor) {
+          e.target.style.backgroundColor = layoutItem.layoutItemConfigData.mouseleaveBackgroundColor
+        }else {
+          e.target.style.backgroundColor = layoutItem.layoutItemConfigData.backgroundColor
+        }
+      }
     },
     computed: {}
   }
