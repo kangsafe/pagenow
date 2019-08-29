@@ -2,7 +2,7 @@
 
 <template>
   <div class="absolute-layout-item-form">
-    <Form :label-width="80">
+    <Form :label-width="85">
       <FormItem label="ID">
         <Input size="small" v-model="id" disabled/>
       </FormItem>
@@ -60,6 +60,12 @@
       <FormItem label="内边距">
         <Input size="small" v-model="padding"/>
       </FormItem>
+      <FormItem label="鼠标悬停样式">
+        <Select size="small" v-model="cursor">
+          <Option v-for="item in $PnDict.cursor" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
+
       <FormItem label="是否显示">
         <Select size="small" v-model="display">
           <Option v-for="item in $PnDict.display" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -206,6 +212,7 @@
 
         zIndex: 'layoutItemConfigData.zIndex',
         padding: 'layoutItemConfigData.padding',
+        cursor: 'layoutItemConfigData.cursor',
         display: 'layoutItemConfigData.display',
         compVisible: 'layoutItemConfigData.compVisible',
         customStyleCode: 'layoutItemConfigData.customStyleCode',

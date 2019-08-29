@@ -40,8 +40,20 @@ const layoutSchemes = [
   }
 ];
 
+const cursor = [
+  {
+    label: '默认',
+    value: 'default'
+  },
+  {
+    label: '指针',
+    value: 'pointer'
+  }
+];
+
 export default {
   borderStyles,
   display,
-  layoutSchemes
+  layoutSchemes,
+  cursor
 }

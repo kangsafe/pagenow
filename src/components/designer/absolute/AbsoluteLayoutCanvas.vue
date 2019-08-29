@@ -26,8 +26,9 @@
            borderBottomRightRadius: layoutItem.layoutItemConfigData.borderBottomRightRadius,
            backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
            zIndex: layoutItem.layoutItemConfigData.zIndex,
-           display: layoutItem.layoutItemConfigData.display,
-           padding: layoutItem.layoutItemConfigData.padding
+           padding: layoutItem.layoutItemConfigData.padding,
+           cursor: layoutItem.layoutItemConfigData.cursor,
+           display: layoutItem.layoutItemConfigData.display
          }, layoutItem.layoutItemConfigData.customStyleCode)"
          @click.stop="layoutItemClick(layoutItem, $event)"
          @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"

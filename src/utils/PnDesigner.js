@@ -41,6 +41,8 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
       mouseleaveBackgroundColor: '',
       zIndex: 1,
       padding: '0px',
+      cursor: 'default',
+
       display: 'block',
 
       customStyleCode: {}
