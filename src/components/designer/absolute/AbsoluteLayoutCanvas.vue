@@ -20,14 +20,18 @@
            borderWidth: layoutItem.layoutItemConfigData.borderWidth,
            borderStyle: layoutItem.layoutItemConfigData.borderStyle,
            borderColor: layoutItem.layoutItemConfigData.borderColor,
+           borderTopLeftRadius: layoutItem.layoutItemConfigData.borderTopLeftRadius,
+           borderTopRightRadius: layoutItem.layoutItemConfigData.borderTopRightRadius,
+           borderBottomLeftRadius: layoutItem.layoutItemConfigData.borderBottomLeftRadius,
+           borderBottomRightRadius: layoutItem.layoutItemConfigData.borderBottomRightRadius,
            backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
            zIndex: layoutItem.layoutItemConfigData.zIndex,
-           display: layoutItem.layoutItemConfigData.display
+           display: layoutItem.layoutItemConfigData.display,
+           padding: layoutItem.layoutItemConfigData.padding
          }, layoutItem.layoutItemConfigData.customStyleCode)"
          @click.stop="layoutItemClick(layoutItem, $event)">
       <FuncCompContainer :location="layoutItem.id">
-        <component :is="layoutItem.component.name" :location="layoutItem.id"
-                   v-show="layoutItem.layoutItemConfigData.compVisible"></component>
+        <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
       </FuncCompContainer>
     </div>
 

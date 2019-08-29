@@ -20,11 +20,11 @@ const borderStyles = [
 
 const display = [
   {
-    label: 'block',
+    label: '显示',
     value: 'block'
   },
   {
-    label: 'none',
+    label: '隐藏',
     value: 'none'
   }
 ];

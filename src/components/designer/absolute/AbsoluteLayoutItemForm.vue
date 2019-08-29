@@ -29,22 +29,35 @@
       <FormItem label="边框颜色">
         <ColorPicker size="small" v-model="borderColor" alpha/>
       </FormItem>
+
+      <Divider :style="{fontSize: '13px'}" dashed>边框圆角</Divider>
+        <FormItem label="上左">
+          <Input size="small" v-model="borderTopLeftRadius"/>
+        </FormItem>
+        <FormItem label="上右">
+          <Input size="small" v-model="borderTopRightRadius"/>
+        </FormItem>
+        <FormItem label="下右">
+          <Input size="small" v-model="borderBottomLeftRadius"/>
+        </FormItem>
+        <FormItem label="下左">
+          <Input size="small" v-model="borderBottomRightRadius"/>
+        </FormItem>
+      <Divider dashed/>
+
       <FormItem label="背景颜色">
         <ColorPicker size="small" v-model="backgroundColor" alpha/>
       </FormItem>
       <FormItem label="层级">
-        <Input size="small" v-model="zIndex"/>
+        <InputNumber size="small" :max="1000" :min="1" v-model="zIndex"></InputNumber>
       </FormItem>
-      <FormItem label="显示">
+      <FormItem label="内边距">
+        <Input size="small" v-model="padding"/>
+      </FormItem>
+      <FormItem label="是否显示">
         <Select size="small" v-model="display">
           <Option v-for="item in $PnDict.display" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
-      </FormItem>
-      <FormItem label="显示组件">
-        <i-switch v-model="compVisible">
-          <span slot="open"></span>
-          <span slot="close"></span>
-        </i-switch>
       </FormItem>
       <FormItem label="关联组件">
         <Input size="small" v-model="componentName" disabled/>
@@ -175,8 +188,15 @@
         borderWidth: 'layoutItemConfigData.borderWidth',
         borderStyle: 'layoutItemConfigData.borderStyle',
         borderColor: 'layoutItemConfigData.borderColor',
+
+        borderTopLeftRadius: 'layoutItemConfigData.borderTopLeftRadius',
+        borderTopRightRadius: 'layoutItemConfigData.borderTopRightRadius',
+        borderBottomLeftRadius: 'layoutItemConfigData.borderBottomLeftRadius',
+        borderBottomRightRadius: 'layoutItemConfigData.borderBottomRightRadius',
+
         backgroundColor: 'layoutItemConfigData.backgroundColor',
         zIndex: 'layoutItemConfigData.zIndex',
+        padding: 'layoutItemConfigData.padding',
         display: 'layoutItemConfigData.display',
         compVisible: 'layoutItemConfigData.compVisible',
         customStyleCode: 'layoutItemConfigData.customStyleCode',
@@ -195,5 +215,8 @@
 <style scoped>
   .ivu-form-item {
     margin-bottom: 0px;
+  }
+  .ivu-divider-horizontal {
+    margin: 10px 0px 10px 0px;
   }
 </style>

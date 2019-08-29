@@ -30,10 +30,17 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
       borderWidth: '1px',
       borderStyle: 'solid',
       borderColor: '#000',
+
+      borderTopLeftRadius: '0px',
+      borderTopRightRadius: '0px',
+      borderBottomLeftRadius: '0px',
+      borderBottomRightRadius: '0px',
+
       backgroundColor: 'yellow',
-      zIndex: '1',
+      zIndex: 1,
+      padding: '0px',
       display: 'block',
-      compVisible: true,
+
       customStyleCode: {}
     },
     component: {
