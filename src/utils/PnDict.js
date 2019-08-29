@@ -1,19 +1,19 @@
 
 const borderStyles = [
   {
-    label: 'solid',
+    label: '实线',
     value: 'solid'
   },
   {
-    label: 'dashed',
+    label: '虚线',
     value: 'dashed'
   },
   {
-    label: 'dotted',
+    label: '点线',
     value: 'dotted'
   },
   {
-    label: 'none',
+    label: '空',
     value: 'none'
   },
 ];

@@ -27,7 +27,7 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
       height: '250px',
       left: '0px',
       top: '0px',
-      borderWidth: '1px',
+      borderWidth: '0px',
       borderStyle: 'solid',
       borderColor: '#000',
 
