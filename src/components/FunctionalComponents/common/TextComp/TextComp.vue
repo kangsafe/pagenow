@@ -1,9 +1,19 @@
 <template>
-  <div class="" :style="Object.assign({
-      fontSize: component.compConfigData.fontSize,
-      color: component.compConfigData.color,
-      lineHeight: component.compConfigData.lineHeight,
-    }, component.compConfigData.customStyleCode)" v-html="component.compConfigData.text">
+  <div class="text-comp" ref="textContainer"
+       :style="Object.assign({
+          width: component.compConfigData.width,
+          height: component.compConfigData.height,
+          backgroundColor: component.compConfigData.backgroundColor,
+
+          fontSize: component.compConfigData.fontSize,
+          color: component.compConfigData.color,
+          lineHeight: component.compConfigData.lineHeight
+       }, component.compConfigData.customStyleCode)"
+       :title="component.compConfigData.title"
+       v-html="component.compConfigData.text"
+       @click.stop="textContainerClickHandle"
+       @mouseenter="textContainerMouseenterHandle"
+       @mouseleave="textContainerMouseleaveHandle">
 
   </div>
 </template>
@@ -17,33 +27,46 @@
     mixins: [FuncCompMixin],
     attr: {
       configDataTemp: {
-        text: '我是一段文本我是一段文本我是一段文本我是一段文本我是一段文本我是一段文本',
+
+        text: '我是一段文本内容',
+        title: '',
+
+        width: '',
+        height: '',
+        backgroundColor: '',
 
         fontSize: '14px',
         color: '#000000',
-
         lineHeight: '',
 
-        customStyleCode: {}
+        customStyleCode: {},
+        customClickJsCode: ''
       }
     },
     data() {
-      return {
-
-      }
+      return {}
     },
     mounted() {
 
     },
     methods: {
-
+      textContainerClickHandle() {
+        let _this = this;
+        if (this.component.compConfigData.customClickJsCode) {
+          eval(this.component.compConfigData.customClickJsCode)
+        }
+      },
+      textContainerMouseenterHandle () {
+        // this.$refs.textContainer.style.color = 'red'
+      },
+      textContainerMouseleaveHandle () {
+        // this.$refs.textContainer.style.color = this.component.compConfigData.color
+      }
     },
-    computed: {
-
-    }
+    computed: {}
   }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 
 </style>
