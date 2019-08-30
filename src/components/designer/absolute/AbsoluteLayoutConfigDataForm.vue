@@ -1,7 +1,7 @@
 <!--绝对布局画布配置表单-->
 <template>
   <div class="absolute-layout-data-form">
-    <Form :label-width="80">
+    <Form :label-width="105">
       <FormItem label="画布宽度">
         <Input size="small" v-model="width"/>
       </FormItem>

@@ -1,6 +1,6 @@
 <template>
   <div class="reactive-layout-config-data-form">
-    <Form :label-width="80">
+    <Form :label-width="105">
       <FormItem label="画布宽度">
         <Input size="small" v-model="width"/>
       </FormItem>

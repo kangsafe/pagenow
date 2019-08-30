@@ -11,6 +11,8 @@ import store from './store/index'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 
+import 'animate.css'
+
 // JQuery
 import $ from 'jquery'
 require('webpack-jquery-ui');
@@ -38,7 +40,6 @@ import PnDesigner from './utils/PnDesigner'
 import EventBus from './utils/EventBus'
 
 import PnApi from './api/PnApi'
-
 
 
 // 引入自定义指令

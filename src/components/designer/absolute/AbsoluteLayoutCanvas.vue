@@ -6,37 +6,42 @@
          backgroundColor: layout.layoutConfigData.backgroundColor
        }, layout.layoutConfigData.customStyleCode)" @click.stop="layoutCanvasClick">
 
-    <div class="absolute-layout-item"
-         :class="buildLayoutItemClassObj(layoutItem)"
-         :id="layoutItem.id"
-         :data-id="layoutItem.id"
-         v-for="layoutItem in layout.layoutItems"
-         :key="layoutItem.id"
-         :style="Object.assign({
-           width: layoutItem.layoutItemConfigData.width,
-           height: layoutItem.layoutItemConfigData.height,
-           left: layoutItem.layoutItemConfigData.left,
-           top: layoutItem.layoutItemConfigData.top,
-           borderWidth: layoutItem.layoutItemConfigData.borderWidth,
-           borderStyle: layoutItem.layoutItemConfigData.borderStyle,
-           borderColor: layoutItem.layoutItemConfigData.borderColor,
-           borderTopLeftRadius: layoutItem.layoutItemConfigData.borderTopLeftRadius,
-           borderTopRightRadius: layoutItem.layoutItemConfigData.borderTopRightRadius,
-           borderBottomLeftRadius: layoutItem.layoutItemConfigData.borderBottomLeftRadius,
-           borderBottomRightRadius: layoutItem.layoutItemConfigData.borderBottomRightRadius,
-           backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
-           zIndex: layoutItem.layoutItemConfigData.zIndex,
-           padding: layoutItem.layoutItemConfigData.padding,
-           cursor: layoutItem.layoutItemConfigData.cursor,
-           display: layoutItem.layoutItemConfigData.display
-         }, layoutItem.layoutItemConfigData.customStyleCode)"
-         @click.stop="layoutItemClick(layoutItem, $event)"
-         @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
-         @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
-      <FuncCompContainer :location="layoutItem.id">
-        <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
-      </FuncCompContainer>
-    </div>
+    <transition
+        appear
+        :enter-active-class="buildEnterActiveClass(layoutItem)"
+        :leave-active-class="buildLeaveActiveClass(layoutItem)"
+        v-for="layoutItem in layout.layoutItems"
+        :key="layoutItem.id">
+      <div class="absolute-layout-item"
+           :class="buildLayoutItemClassObj(layoutItem)"
+           :id="layoutItem.id"
+           :data-id="layoutItem.id"
+           :style="Object.assign({
+             width: layoutItem.layoutItemConfigData.width,
+             height: layoutItem.layoutItemConfigData.height,
+             left: layoutItem.layoutItemConfigData.left,
+             top: layoutItem.layoutItemConfigData.top,
+             borderWidth: layoutItem.layoutItemConfigData.borderWidth,
+             borderStyle: layoutItem.layoutItemConfigData.borderStyle,
+             borderColor: layoutItem.layoutItemConfigData.borderColor,
+             borderTopLeftRadius: layoutItem.layoutItemConfigData.borderTopLeftRadius,
+             borderTopRightRadius: layoutItem.layoutItemConfigData.borderTopRightRadius,
+             borderBottomLeftRadius: layoutItem.layoutItemConfigData.borderBottomLeftRadius,
+             borderBottomRightRadius: layoutItem.layoutItemConfigData.borderBottomRightRadius,
+             backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
+             zIndex: layoutItem.layoutItemConfigData.zIndex,
+             padding: layoutItem.layoutItemConfigData.padding,
+             cursor: layoutItem.layoutItemConfigData.cursor,
+             display: layoutItem.layoutItemConfigData.display
+           }, layoutItem.layoutItemConfigData.customStyleCode)"
+           @click.stop="layoutItemClick(layoutItem, $event)"
+           @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
+           @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
+        <FuncCompContainer :location="layoutItem.id">
+          <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
+        </FuncCompContainer>
+      </div>
+    </transition>
 
     <!--<div style="position: absolute; right: 0px; top: 0px;">
       {{layout}}
@@ -45,7 +50,6 @@
 </template>
 
 <script>
-
   import { createHelpers } from 'vuex-map-fields';
 
   const { mapFields } = createHelpers({
@@ -373,6 +377,21 @@
           e.target.style.backgroundColor = layoutItem.layoutItemConfigData.mouseleaveBackgroundColor
         }else {
           e.target.style.backgroundColor = layoutItem.layoutItemConfigData.backgroundColor
+        }
+      },
+
+      buildEnterActiveClass (layoutItem) {
+        if(layoutItem.layoutItemConfigData.animationVisible) {
+          return 'animated ' + layoutItem.layoutItemConfigData.inAnimation + ' ' + layoutItem.layoutItemConfigData.animationDelay;
+        }else {
+          return ''
+        }
+      },
+      buildLeaveActiveClass (layoutItem) {
+        if(layoutItem.layoutItemConfigData.animationVisible) {
+          return 'animated ' + layoutItem.layoutItemConfigData.outAnimation + ' ' + layoutItem.layoutItemConfigData.animationDelay;
+        }else {
+          return ''
         }
       }
     },

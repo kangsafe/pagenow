@@ -2,7 +2,7 @@
 
 <template>
   <div class="page-form-for-designer">
-    <Form :label-width="80">
+    <Form :label-width="105">
       <FormItem label="ID">
         <Input size="small" v-model="id" disabled/>
       </FormItem>

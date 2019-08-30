@@ -11,8 +11,8 @@
         zIndex: '1',
         paddingTop: '0px',
         paddingBottom: '0px',
-        paddingLeft: '310px',
-        paddingRight: '310px'
+        paddingLeft: '340px',
+        paddingRight: '340px'
       }">
     <div :style="{float: 'right'}">
       <Button size="small" type="primary" @click="visible = !visible">源数据</Button>

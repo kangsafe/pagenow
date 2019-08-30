@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <Form :label-width="80">
+    <Form :label-width="105">
       <FormItem label="操作">
         <Upload :action="uploadAction"
                 name="files" :on-success="imageUploadSuccessHandle" :show-upload-list="true">

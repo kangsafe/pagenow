@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <Form :label-width="100">
+    <Form :label-width="105">
 
       <FormItem label="ID">
         <Input size="small" v-model="id" disabled/>

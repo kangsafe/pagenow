@@ -8,10 +8,14 @@
          backgroundColor: layout.layoutConfigData.backgroundColor
        }, layout.layoutConfigData.customStyleCode)">
 
+    <transition
+        appear
+        :enter-active-class="buildEnterActiveClass(layoutItem)"
+        :leave-active-class="buildLeaveActiveClass(layoutItem)"
+        v-for="layoutItem in layout.layoutItems"
+        :key="layoutItem.id">
     <div class="absolute-layout-item"
          :data-id="layoutItem.id"
-         v-for="layoutItem in layout.layoutItems"
-         :key="layoutItem.id"
          :style="Object.assign({
            width: layoutItem.layoutItemConfigData.width,
            height: layoutItem.layoutItemConfigData.height,
@@ -34,6 +38,7 @@
          @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
       <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
     </div>
+    </transition>
 
   </div>
 </template>
@@ -87,6 +92,20 @@
           e.target.style.backgroundColor = layoutItem.layoutItemConfigData.mouseleaveBackgroundColor
         }else {
           e.target.style.backgroundColor = layoutItem.layoutItemConfigData.backgroundColor
+        }
+      },
+      buildEnterActiveClass (layoutItem) {
+        if(layoutItem.layoutItemConfigData.animationVisible) {
+          return 'animated ' + layoutItem.layoutItemConfigData.inAnimation + ' ' + layoutItem.layoutItemConfigData.animationDelay;
+        }else {
+          return ''
+        }
+      },
+      buildLeaveActiveClass (layoutItem) {
+        if(layoutItem.layoutItemConfigData.animationVisible) {
+          return 'animated ' + layoutItem.layoutItemConfigData.outAnimation + ' ' + layoutItem.layoutItemConfigData.animationDelay;
+        }else {
+          return ''
         }
       }
     },

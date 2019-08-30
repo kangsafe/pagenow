@@ -99,7 +99,7 @@
         <!--中间内容区-->
         <Content
             :style="{
-              marginRight: '300px',
+              marginRight: '330px',
               marginLeft: '300px',
               padding: '10px',
               backgroundColor: '#B0B0B0'
@@ -118,7 +118,7 @@
 
 
         <!--右侧边栏，固定布局-->
-        <Sider :width="300"
+        <Sider :width="330"
                :style="{
                  backgroundColor: '#FFF',
                  borderLeft: '1px solid #999',

@@ -43,6 +43,11 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
       padding: '0px',
       cursor: 'default',
 
+      animationVisible: false,
+      animationDelay: '',
+      inAnimation: '',
+      outAnimation: '',
+
       display: 'block',
 
       customStyleCode: {}

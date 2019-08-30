@@ -1,6 +1,6 @@
 <template>
   <div class="reactive-layout-item-form">
-    <Form :label-width="80">
+    <Form :label-width="105">
       <FormItem label="ID">
         <Input size="small" v-model="id" disabled/>
       </FormItem>
