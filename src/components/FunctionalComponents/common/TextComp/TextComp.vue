@@ -11,7 +11,7 @@
        }, component.compConfigData.customStyleCode)"
        :title="component.compConfigData.title"
        v-html="component.compConfigData.text"
-       @click.stop="textContainerClickHandle"
+       @click="textContainerClickHandle"
        @mouseenter="textContainerMouseenterHandle"
        @mouseleave="textContainerMouseleaveHandle">
 
