@@ -9,7 +9,7 @@
         <Input size="small" v-model="height"/>
       </FormItem>
       <FormItem label="背景色">
-        <ColorPicker size="small" v-model="backgroundColor" />
+        <ColorPicker size="small" v-model="backgroundColor" alpha/>
       </FormItem>
       <FormItem label="操作">
         <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>

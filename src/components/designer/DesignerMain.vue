@@ -51,19 +51,29 @@
                      position: 'relative'}">
 
               <Collapse simple :style="{marginTop: '-17px'}" v-model="leftCollapseDefaultName">
-                <Panel name="common_comps">
-                  通用组件
+                <Panel :name="lib.name" v-for="lib in componentLibrary" :key="lib.id">
+                  {{lib.aliasName}}
                   <div slot="content">
                     <Row :gutter="5">
-                      <i-col span="8">
-                        <div class="comp-card" data-component="Hello">
-                          <p>Hello</p>
-                        </div>
+                      <i-col span="8" v-for="compinfo in lib.compinfos" :key="compinfo.id">
+                        <Poptip :transfer="true" :word-wrap="true" title="组件信息" placement="right-start">
+                          <div title="单击可以显示组件信息" class="comp-card" :data-component="compinfo.name">
+                            <p>{{compinfo.aliasName}}</p>
+                          </div>
+                          <div class="api" slot="content">
+                            <span>{{compinfo.remark}}</span>
+                          </div>
+                        </Poptip>
                       </i-col>
-                      <i-col span="8">
-                        <div class="comp-card" data-component="TestBarChart">
-                          <p>柱状图1</p>
-                        </div>
+                      <!--<i-col span="8">
+                        <Poptip :transfer="true" :word-wrap="true" title="组件信息" placement="right-start">
+                          <div title="单击可以显示组件信息" class="comp-card" data-component="TestBarChart">
+                            <p>柱状图1</p>
+                          </div>
+                          <div class="api" slot="content">
+                            <span>我是一段描述文本我是一段描述文本</span>
+                          </div>
+                        </Poptip>
                       </i-col>
                       <i-col span="8">
                         <div class="comp-card" data-component="TestBarChart2">
@@ -89,7 +99,7 @@
                         <div class="comp-card" data-component="TextComp">
                           <p>文本</p>
                         </div>
-                      </i-col>
+                      </i-col>-->
 
                     </Row>
                   </div>
@@ -199,6 +209,63 @@
 
         createPageDrawerVisible: false,
 
+        componentLibrary: [
+          {
+            id: '1',
+            name: 'common_comps',
+            aliasName: '通用组件',
+            compinfos: [
+              {
+                id: '1',
+                name: 'Hello',
+                aliasName: 'Hello',
+                remark: '我是一段描述'
+              },
+              {
+                id: '2',
+                name: 'TestBarChart',
+                aliasName: '柱状图1',
+                remark: '我是一段描述212122121'
+              },
+              {
+                id: '3',
+                name: 'TestBarChart2',
+                aliasName: '柱状图2',
+                remark: ''
+              },
+              {
+                id: '4',
+                name: 'TestChinaMapChart',
+                aliasName: '地图',
+                remark: ''
+              },
+              {
+                id: '5',
+                name: 'ImageComp',
+                aliasName: '图片',
+                remark: ''
+              },
+              {
+                id: '6',
+                name: 'AComp',
+                aliasName: '超链接',
+                remark: ''
+              },
+              {
+                id: '7',
+                name: 'TextComp',
+                aliasName: '文本',
+                remark: ''
+              },
+            ]
+          },
+          {
+            id: '2',
+            name: 'custom_comps',
+            aliasName: '自定义组件',
+          }
+        ],
+
         pageTreeData: [], // 左侧边栏页面信息树
         currentSelectPageId: '', // 当前选中页面的ID
 
@@ -282,8 +349,12 @@
         $(document).unbind('keyup');
       },
 
+
       leftTabsClickHandle () {
-        $(".comp-card").draggable({
+        if($('.comp-card').draggable()) {
+          $('.comp-card').draggable('destroy');
+        }
+        $('.comp-card').draggable({
           zIndex: 999,
           revert: "invalid",
           helper: 'clone',
@@ -538,7 +609,7 @@
     cursor: move;
     word-break: break-all;*/
     width: 85px;
-    height: 60px;
+    height: 50px;
     background-color: #BBBBBB;
     border-radius: 4px;
     padding: 10px;
