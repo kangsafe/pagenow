@@ -65,41 +65,6 @@
                           </div>
                         </Poptip>
                       </i-col>
-                      <!--<i-col span="8">
-                        <Poptip :transfer="true" :word-wrap="true" title="组件信息" placement="right-start">
-                          <div title="单击可以显示组件信息" class="comp-card" data-component="TestBarChart">
-                            <p>柱状图1</p>
-                          </div>
-                          <div class="api" slot="content">
-                            <span>我是一段描述文本我是一段描述文本</span>
-                          </div>
-                        </Poptip>
-                      </i-col>
-                      <i-col span="8">
-                        <div class="comp-card" data-component="TestBarChart2">
-                          <p>柱状图2</p>
-                        </div>
-                      </i-col>
-                      <i-col span="8">
-                        <div class="comp-card" data-component="TestChinaMapChart">
-                          <p>地图</p>
-                        </div>
-                      </i-col>
-                      <i-col span="8">
-                        <div class="comp-card" data-component="ImageComp">
-                          <p>图片</p>
-                        </div>
-                      </i-col>
-                      <i-col span="8">
-                        <div class="comp-card" data-component="AComp">
-                          <p>超链接</p>
-                        </div>
-                      </i-col>
-                      <i-col span="8">
-                        <div class="comp-card" data-component="TextComp">
-                          <p>文本</p>
-                        </div>
-                      </i-col>-->
 
                     </Row>
                   </div>
