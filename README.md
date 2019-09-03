@@ -1,4 +1,4 @@
-# pagenow
+# PageNow（可视化页面配置平台）
 
 #### 介绍
 {**以下是码云平台说明，您可以替换此简介**
@@ -6,7 +6,12 @@
 无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
 
 #### 软件架构
-软件架构说明
+- 前端架构
+    Vue+iView
+- 后端架构
+    SpringBoot
+- 数据库
+    Mysql
 
 
 #### 安装教程
