@@ -255,7 +255,7 @@
             drop: (e, ui) => {
 
               let layoutItemId = e.target.attributes['data-id'].nodeValue;
-              let compName = ui.draggable[0].innerText;
+              let compName = ui.draggable[0].attributes['data-component'].nodeValue;
               let component = {
                 id: this.$PnUtil.uuid(),
                 name: compName,

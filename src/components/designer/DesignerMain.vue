@@ -19,7 +19,7 @@
                  overflow: 'auto',
                  zIndex: 2
                }" @click.stop.native="clearKeyDownAndUp">
-          <Tabs size="small" value="project_tab">
+          <Tabs size="small" value="project_tab" @on-click="leftTabsClickHandle">
             <TabPane label="工程信息" name="project_tab" :style="{padding: '0px 10px 0px 10px'}">
 
               <div>
@@ -45,51 +45,57 @@
             </TabPane>
             <TabPane label="组件库" name="comp_tab"
                      :style="{
-                     padding: '10px',
+                     padding: '0px',
                      width: '100%',
                      height: '100%',
                      position: 'relative'}">
 
-              <!--<Collapse simple :style="{marginTop: '-17px'}">
-                <Panel name="1">
-                  功能组件
+              <Collapse simple :style="{marginTop: '-17px'}" v-model="leftCollapseDefaultName">
+                <Panel name="common_comps">
+                  通用组件
                   <div slot="content">
-                    <div class="comp-card">
-                      <p>Hello</p>
-                    </div>
+                    <Row :gutter="5">
+                      <i-col span="8">
+                        <div class="comp-card" data-component="Hello">
+                          <p>Hello</p>
+                        </div>
+                      </i-col>
+                      <i-col span="8">
+                        <div class="comp-card" data-component="TestBarChart">
+                          <p>柱状图1</p>
+                        </div>
+                      </i-col>
+                      <i-col span="8">
+                        <div class="comp-card" data-component="TestBarChart2">
+                          <p>柱状图2</p>
+                        </div>
+                      </i-col>
+                      <i-col span="8">
+                        <div class="comp-card" data-component="TestChinaMapChart">
+                          <p>地图</p>
+                        </div>
+                      </i-col>
+                      <i-col span="8">
+                        <div class="comp-card" data-component="ImageComp">
+                          <p>图片</p>
+                        </div>
+                      </i-col>
+                      <i-col span="8">
+                        <div class="comp-card" data-component="AComp">
+                          <p>超链接</p>
+                        </div>
+                      </i-col>
+                      <i-col span="8">
+                        <div class="comp-card" data-component="TextComp">
+                          <p>文本</p>
+                        </div>
+                      </i-col>
+
+                    </Row>
                   </div>
                 </Panel>
 
-              </Collapse>-->
-
-              <div style="margin-top: -16px;">
-                <div class="comp-card">
-                  <p>Hello</p>
-                </div>
-                <div class="comp-card" >
-                  <p>TestBarChart</p>
-                </div>
-                <div class="comp-card" >
-                  <p>TestBarChart2</p>
-                </div>
-                <div class="comp-card" >
-                  <p>TestChinaMapChart</p>
-                </div>
-                <div class="comp-card" >
-                  <p>ImageComp</p>
-                </div>
-                <div class="comp-card" >
-                  <p>AComp</p>
-                </div>
-                <div class="comp-card" >
-                  <p>HelloWorld</p>
-                </div>
-                <div class="comp-card" >
-                  <p>TextComp</p>
-                </div>
-              </div>
-
-
+              </Collapse>
 
             </TabPane>
           </Tabs>
@@ -130,7 +136,7 @@
                }" @click.stop.native="clearKeyDownAndUp">
           <Tabs size="small" value="setting_tab">
             <TabPane label="配置管理" name="setting_tab" :style="{padding: '0px'}">
-              <Collapse simple v-model="collapseDefaultName" :style="{marginTop: '-17px'}">
+              <Collapse simple v-model="rightCollapseDefaultName" :style="{marginTop: '-17px'}">
                 <Panel name="page_config">
                   <span style="font-weight: bold; color: #33CC66;">页面信息</span>
                   <p slot="content">
@@ -188,7 +194,8 @@
     data() {
       return {
 
-        collapseDefaultName: ['page_config', 'canvas_config', 'layoutItem_config', 'comp_config'],
+        leftCollapseDefaultName: 'common_comps',
+        rightCollapseDefaultName: ['page_config', 'canvas_config', 'layoutItem_config', 'comp_config'],
 
         createPageDrawerVisible: false,
 
@@ -264,15 +271,6 @@
 
       this.initPageTreeData();
 
-      $(".comp-card").draggable({
-        zIndex: 999,
-        revert: "invalid",
-        helper: 'clone',
-        containment: 'body',
-        appendTo: 'body',
-        scope: 'layoutItemScope'
-      });
-
     },
     methods: {
 
@@ -282,6 +280,17 @@
       clearKeyDownAndUp () {
         $(document).unbind('keydown');
         $(document).unbind('keyup');
+      },
+
+      leftTabsClickHandle () {
+        $(".comp-card").draggable({
+          zIndex: 999,
+          revert: "invalid",
+          helper: 'clone',
+          containment: 'body',
+          appendTo: 'body',
+          scope: 'layoutItemScope'
+        });
       },
 
       /**
@@ -522,12 +531,20 @@
   }
 
   .comp-card {
-    width: 60px;
+    /*width: 60px;
     height: 60px;
     background-color: red;
     float: left;
     cursor: move;
-    word-break: break-all;
+    word-break: break-all;*/
+    width: 85px;
+    height: 60px;
+    background-color: #BBBBBB;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: move;
+    word-break:break-all;
+    margin-bottom: 5px;
   }
 
   .designer-main {

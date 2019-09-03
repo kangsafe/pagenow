@@ -13,6 +13,9 @@ import 'iview/dist/styles/iview.css';
 
 import 'animate.css'
 
+// 引入全局样式表
+import './assets/css/pnStyle.css'
+
 // JQuery
 import $ from 'jquery'
 require('webpack-jquery-ui');
