@@ -78,7 +78,7 @@
           <FormItem label="关联组件">
             <Input size="small" v-model="componentName" disabled/>
           </FormItem>
-          <FormItem label="操作">
+          <FormItem label="">
             <Dropdown :transfer="true" trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
               <Button type="primary" size="small">
                 操作
@@ -88,6 +88,7 @@
                 <DropdownItem name="customStyle">自定义样式</DropdownItem>
                 <DropdownItem divided name="deleteLayoutItem">删除布局块</DropdownItem>
                 <DropdownItem name="deleteComponent">解除关联组件</DropdownItem>
+                <DropdownItem divided name="copyLayoutItem">复制</DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </FormItem>
@@ -174,6 +175,9 @@
         if (name == 'deleteLayoutItem') {
           this.deleteLayoutItem()
         }
+        if (name == 'copyLayoutItem') {
+          this.copyLayoutItem()
+        }
       },
 
       deleteComponent () {
@@ -198,6 +202,29 @@
             this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
           }
         });
+      },
+
+      copyLayoutItem () {
+
+        let newLayoutItemConfigData = Object.assign({}, this.layoutItemConfigData);
+        newLayoutItemConfigData.left = '0px';
+        newLayoutItemConfigData.top = '0px';
+        let newLayoutItem = {
+          id: this.$PnUtil.uuid(),
+          layoutItemConfigData: newLayoutItemConfigData,
+          component: {
+            id: '',
+            name: '',
+            compConfigData: {}
+          }
+        };
+        if(this.componentId) {
+          let newComponent = Object.assign({}, this.component);
+          newComponent.id = this.$PnUtil.uuid();
+          newLayoutItem.component = newComponent
+        }
+
+        this.$store.commit('designer/addLayoutItem', newLayoutItem)
       },
 
       /**
@@ -225,6 +252,7 @@
     computed: {
       ...mapFields({
         id: 'id',
+        layoutItemConfigData: 'layoutItemConfigData',
         width: 'layoutItemConfigData.width',
         height: 'layoutItemConfigData.height',
         left: 'layoutItemConfigData.left',
@@ -254,6 +282,7 @@
         display: 'layoutItemConfigData.display',
         customStyleCode: 'layoutItemConfigData.customStyleCode',
 
+        component: 'component',
         componentId: 'component.id',
         componentName: 'component.name',
         componentConfigData: 'component.compConfigData'
