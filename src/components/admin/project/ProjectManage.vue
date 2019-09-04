@@ -3,7 +3,7 @@
 <template>
   <div class="project-manage">
 
-    <Button type="primary" @click="createProjectDrawerVisible = !createProjectDrawerVisible">新建工程</Button>&nbsp
+    <Button type="primary" @click="createProjectDrawerVisible = !createProjectDrawerVisible">新建工程</Button>
     <Divider />
     <Table ref="table" :columns="columns" :data="data"></Table>
 
