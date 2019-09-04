@@ -9,12 +9,14 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: resolve => require(['@/views/Home'], resolve)
+      redirect: '/admin/project_manage'
+      // name: 'home',
+      // component: resolve => require(['@/views/Home'], resolve)
     },
     {
       path: '/admin',
       name: 'admin',
+      component: () => import('./views/Admin.vue'),
       children: [
         {
           path: 'project_manage',
@@ -27,7 +29,6 @@ const router = new Router({
           component: () => import('./components/admin/compinfo/CompinfoManage.vue')
         }
       ],
-      component: () => import('./views/Admin.vue')
     },
     {
       path: '/designer',
