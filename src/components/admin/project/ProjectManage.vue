@@ -16,7 +16,7 @@
       <ProjectForm ref="projectForm"></ProjectForm>
       <DrawerFooter>
         <Button style="margin-right: 8px" @click="createProjectDrawerVisible = false">关闭</Button>
-        <Button type="primary" @click="submitProjectForm">提交</Button>
+        <Button type="primary" @click="submitForm">提交</Button>
       </DrawerFooter>
     </Drawer>
 
@@ -90,7 +90,7 @@
         })
       },
 
-      submitProjectForm () {
+      submitForm () {
         this.$refs.projectForm.$refs.form.validate((valid) => {
           if (valid) {
             this.$PnApi.ProjectApi.saveProject(this.$refs.projectForm.formData).then(result => {
@@ -99,7 +99,7 @@
                 this.$refs.projectForm.$refs.form.resetFields();
                 this.loadProjects()
               }else {
-                this.$message.error(result.data.msg)
+                this.$Message.error(result.data.msg)
               }
             })
           }

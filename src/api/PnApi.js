@@ -3,6 +3,7 @@ import {Axios} from "../utils/AxiosPlugin";
 import ProjectApi from './ProjectApi'
 import PageApi from './PageApi'
 import TestApi from './TestApi'
+import CompinfoApi from './CompinfoApi'
 
 /**
  *
@@ -19,5 +20,6 @@ export default {
   getData,
   ProjectApi,
   PageApi,
-  TestApi
+  TestApi,
+  CompinfoApi
 }

@@ -50,9 +50,9 @@
                      height: '100%',
                      position: 'relative'}">
 
-              <Collapse simple :style="{marginTop: '-17px'}" v-model="leftCollapseDefaultName">
-                <Panel :name="lib.name" v-for="lib in componentLibrary" :key="lib.id">
-                  {{lib.aliasName}}
+              <Collapse simple :style="{marginTop: '-17px'}">
+                <Panel v-for="lib in componentLibrary" :key="lib.id">
+                  {{lib.name}}
                   <div slot="content">
                     <Row :gutter="5">
                       <i-col span="8" v-for="compinfo in lib.compinfos" :key="compinfo.id">
@@ -169,67 +169,11 @@
     data() {
       return {
 
-        leftCollapseDefaultName: 'common_comps',
         rightCollapseDefaultName: ['page_config', 'canvas_config', 'layoutItem_config', 'comp_config'],
 
         createPageDrawerVisible: false,
 
-        componentLibrary: [
-          {
-            id: '1',
-            name: 'common_comps',
-            aliasName: '通用组件',
-            compinfos: [
-              {
-                id: '1',
-                name: 'Hello',
-                aliasName: 'Hello',
-                remark: '我是一段描述'
-              },
-              {
-                id: '2',
-                name: 'TestBarChart',
-                aliasName: '柱状图1',
-                remark: '我是一段描述212122121'
-              },
-              {
-                id: '3',
-                name: 'TestBarChart2',
-                aliasName: '柱状图2',
-                remark: ''
-              },
-              {
-                id: '4',
-                name: 'TestChinaMapChart',
-                aliasName: '地图',
-                remark: ''
-              },
-              {
-                id: '5',
-                name: 'ImageComp',
-                aliasName: '图片',
-                remark: ''
-              },
-              {
-                id: '6',
-                name: 'AComp',
-                aliasName: '超链接',
-                remark: ''
-              },
-              {
-                id: '7',
-                name: 'TextComp',
-                aliasName: '文本',
-                remark: ''
-              },
-            ]
-          },
-          {
-            id: '2',
-            name: 'custom_comps',
-            aliasName: '自定义组件',
-          }
-        ],
+        componentLibrary: [],
 
         pageTreeData: [], // 左侧边栏页面信息树
         currentSelectPageId: '', // 当前选中页面的ID
@@ -302,6 +246,7 @@
     mounted() {
 
       this.initPageTreeData();
+      this.loadComponentLibrary();
 
     },
     methods: {
@@ -327,6 +272,12 @@
           appendTo: 'body',
           scope: 'layoutItemScope'
         });
+      },
+
+      loadComponentLibrary () {
+        this.$PnApi.CompinfoApi.buildComponentLibrary().then(result=>{
+          this.componentLibrary = result.data.data;
+        })
       },
 
       /**

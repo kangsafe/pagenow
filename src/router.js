@@ -22,9 +22,9 @@ const router = new Router({
           component: () => import('./components/admin/project/ProjectManage.vue')
         },
         {
-          path: 'about',
-          name: 'about',
-          component: () => import('./views/About.vue')
+          path: 'compinfo_manage',
+          name: 'CompinfoManage',
+          component: () => import('./components/admin/compinfo/CompinfoManage.vue')
         }
       ],
       component: () => import('./views/Admin.vue')

@@ -3,22 +3,20 @@
     <Layout :style="{height: '100%'}">
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
-          <div class="layout-logo"></div>
-
+          <h2 class="color-white">PageNow</h2>
         </Menu>
       </Header>
 
       <Layout>
         <Sider hide-trigger :style="{background: '#fff'}">
-          <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
+          <Menu :active-name="menuActiveName" theme="light" width="auto" :open-names="['1']">
             <Submenu name="1">
               <template slot="title">
-                <Icon type="ios-navigate"></Icon>
+                <Icon type="ios-cog" size="28"/>
                 管理
               </template>
-              <MenuItem name="1-1"><router-link to="/admin/project_manage">工程管理</router-link></MenuItem>
-              <MenuItem name="1-2"><router-link to="/admin/page_info_manage">页面管理</router-link></MenuItem>
-              <MenuItem name="1-3"><router-link to="/admin/about">About</router-link></MenuItem>
+              <MenuItem name="ProjectManage" to="/admin/project_manage">工程管理</MenuItem>
+              <MenuItem name="CompinfoManage" to="/admin/compinfo_manage">组件库管理</MenuItem>
             </Submenu>
 
           </Menu>
@@ -31,47 +29,7 @@
       </Layout>
     </Layout>
   </div>
-  <!--<a-layout id="components-layout-demo-custom-trigger">
-    <a-layout-sider
-        :trigger="null"
-        collapsible
-        v-model="collapsed">
-      <div class="logo">
 
-      </div>
-      <a-menu theme="dark" mode="inline" :defaultSelectedKeys="['1']">
-        <a-menu-item key="1">
-          <router-link to="/admin/page_info_manage">
-            <a-icon type="laptop" />
-            <span>页面管理</span>
-          </router-link>
-        </a-menu-item>
-
-        <a-menu-item key="2">
-          <router-link to="/admin/about">
-            <a-icon type="video-camera"/>
-            <span>About</span>
-          </router-link>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload"/>
-          <span>布局方案管理</span>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-sider>
-    <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <a-icon
-            class="trigger"
-            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-            @click="()=> collapsed = !collapsed"
-        />
-      </a-layout-header>
-      <a-layout-content :style="{ margin: '15px 15px', padding: '15px', background: '#fff', minHeight: '280px' }">
-        <router-view/>
-      </a-layout-content>
-    </a-layout>
-  </a-layout>-->
 </template>
 
 <script>
@@ -79,11 +37,11 @@
     name: 'Admin',
     data() {
       return {
-        collapsed: false,
+        menuActiveName: ''
       }
     },
     mounted() {
-
+      this.menuActiveName = this.$route.name;
     },
     methods: {},
     computed: {}

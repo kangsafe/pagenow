@@ -61,11 +61,22 @@ const isWindows = function () {
   return /windows|win32/i.test(navigator.userAgent);
 };
 
+const deleteTableRowUselessField = function (obj) {
+  if(obj) {
+    let newObj = Object.assign({}, obj);
+    delete newObj._index;
+    delete newObj._rowKey;
+    return newObj
+  }
+  return null
+};
+
 export default {
   uuid,
   getTimestamp,
   openPageToBlank,
   getContrastYIQ,
   isMac,
-  isWindows
+  isWindows,
+  deleteTableRowUselessField
 }
