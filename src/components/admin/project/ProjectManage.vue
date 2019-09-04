@@ -3,8 +3,7 @@
 <template>
   <div class="project-manage">
 
-    <Button type="primary" @click="createProjectDrawerVisible = !createProjectDrawerVisible">新建工程</Button>&nbsp;
-    <Button type="error" @click="deleteProjects">删除</Button>
+    <Button type="primary" @click="createProjectDrawerVisible = !createProjectDrawerVisible">新建工程</Button>&nbsp
     <Divider />
     <Table ref="table" :columns="columns" :data="data"></Table>
 
@@ -24,6 +23,8 @@
 </template>
 
 <script>
+  import ProjectTableExpand from './ProjectTableExpand'
+
   export default {
     name: 'ProjectManage',
     data() {
@@ -32,10 +33,21 @@
         createProjectDrawerVisible: false,
 
         columns: [
-          {
+          /*{
             type: 'selection',
             width: 60,
             align: 'center'
+          },*/
+          {
+            type: 'expand',
+            width: 50,
+            render: (h, params) => {
+              return h(ProjectTableExpand, {
+                props: {
+                  projectId: params.row.id
+                }
+              })
+            }
           },
           {
             title: '工程名称',
@@ -59,17 +71,41 @@
                 h('Button', {
                   props: {
                     type: 'primary',
-                    size: 'small'
+                    size: 'small',
+                    icon: 'md-build'
                   },
-                  style: {
-                    marginRight: '5px'
+                  'class': {
+                    'm-r-5px': true
                   },
                   on: {
                     click: () => {
                       this.openProject(params.row)
                     }
                   }
-                }, '编辑')
+                }),
+                h('Poptip', {
+                  props: {
+                    confirm: true,
+                    transfer: true,
+                    title: '您确定要删除此项吗？'
+                  },
+                  style: {
+
+                  },
+                  on: {
+                    'on-ok': () => {
+                      this.deleteProject(params.row.id)
+                    }
+                  }
+                }, [
+                  h('Button', {
+                    props: {
+                      size: 'small',
+                      type: 'error',
+                      icon: 'md-trash'
+                    }
+                  },)
+                ])
               ]);
             }
           }
@@ -106,28 +142,13 @@
         });
       },
 
-      deleteProjects () {
-        if(this.$refs.table.getSelection().length > 0) {
-          this.$Modal.confirm({
-            title: '提醒',
-            content: '确认删除选中项吗？',
-            onOk: () => {
-              let arr = this.$refs.table.getSelection();
-              arr.forEach((item)=>{
-                this.$PnApi.ProjectApi.deleteProject(item.id).then(result => {
-                  if(result.data.code != 1) {
-                    this.$Message.error(result.data.msg)
-                  }
-                });
-              });
-              setTimeout(()=>{
-                this.loadProjects()
-              },100)
-            }
-          });
-        }else {
-          this.$Message.error('请勾选需要操作的数据')
-        }
+      deleteProject (projectId) {
+        this.$PnApi.ProjectApi.deleteProject(projectId).then(result => {
+          if(result.data.code != 1) {
+            this.$Message.error(result.data.msg)
+          }
+          this.loadProjects()
+        });
       },
 
 
@@ -145,5 +166,7 @@
 </script>
 
 <style scoped>
-
+  >>> td.ivu-table-expanded-cell {
+    padding: 10px 20px 10px 20px;
+  }
 </style>

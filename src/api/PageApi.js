@@ -30,6 +30,10 @@ const getAllPage = async function () {
   return await Axios.get('/page/getAllPage');
 };
 
+const getAllPageByProjectId = async function (projectId) {
+  return await Axios.get('/page/getAllPageByProjectId', {params: {projectId: projectId}});
+};
+
 export default {
   savePage,
   getPagesByProjectId,
@@ -37,5 +41,6 @@ export default {
   updatePageLayout,
   deletePage,
   getPageById,
-  getAllPage
+  getAllPage,
+  getAllPageByProjectId
 }
