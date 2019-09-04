@@ -25,7 +25,8 @@
         scrollable
         title="行列数据编辑"
         width="650"
-        :transfer="false">
+        :z-index="3"
+        :transfer="true">
       <ReactiveRowColForm></ReactiveRowColForm>
       <div slot="footer">
         <Button type="default" @click="rowColFormModalVisible = false">关闭</Button>
