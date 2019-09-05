@@ -283,8 +283,8 @@
           // 注册布局块可变尺寸
           $(".absolute-layout-item").resizable({
             delay: 100,
-            resize: function (e) {
-              _this.$store.commit('designer/setLayoutItemWidthAndHeight', {id: $(this).attr('data-id'), width: $(this).width() + 'px', height: $(this).height() + 'px'})
+            resize: function (event, ui) {
+              _this.$store.commit('designer/setLayoutItemWidthAndHeight', {id: $(this).attr('data-id'), width: ui.size.width + 'px', height: ui.size.height + 'px'})
             }
           });
         }, 100);
