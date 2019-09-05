@@ -116,15 +116,27 @@
           if (valid) {
             let formData = Object.assign({}, this.$refs.compinfoForm.formData);
             formData.type_id = this.compinfoTypeId;
-            this.$PnApi.CompinfoApi.saveCompinfo(formData).then(result => {
-              if (result.data.code == 1) {
-                this.createCompinfoDrawerVisible = !this.createCompinfoDrawerVisible;
-                this.$refs.compinfoForm.$refs.form.resetFields();
-                this.loadCompinfos();
-              }else {
-                this.$Message.error(result.data.msg)
-              }
-            })
+            if(formData.id) {
+              this.$PnApi.CompinfoApi.updateCompinfo(formData).then(result => {
+                if (result.data.code == 1) {
+                  this.createCompinfoDrawerVisible = !this.createCompinfoDrawerVisible;
+                  this.$refs.compinfoForm.$refs.form.resetFields();
+                  this.loadCompinfos();
+                }else {
+                  this.$Message.error(result.data.msg)
+                }
+              })
+            }else {
+              this.$PnApi.CompinfoApi.saveCompinfo(formData).then(result => {
+                if (result.data.code == 1) {
+                  this.createCompinfoDrawerVisible = !this.createCompinfoDrawerVisible;
+                  this.$refs.compinfoForm.$refs.form.resetFields();
+                  this.loadCompinfos();
+                }else {
+                  this.$Message.error(result.data.msg)
+                }
+              })
+            }
           }
         });
       },

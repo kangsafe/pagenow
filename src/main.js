@@ -21,6 +21,10 @@ import $ from 'jquery'
 require('webpack-jquery-ui');
 require('webpack-jquery-ui/css');
 
+// 引入vue-draggable-resizable
+import VueDraggableResizable from 'vue-draggable-resizable'
+import 'vue-draggable-resizable/dist/VueDraggableResizable.css'
+
 // 引入Echart4.x组件
 import echarts from 'echarts'
 
@@ -58,6 +62,7 @@ Vue.use(ace);
 Vue.config.productionTip = false;
 
 Vue.component('vue-ueditor-wrap', VueUeditorWrap);
+Vue.component('vue-draggable-resizable', VueDraggableResizable);
 
 // 注册全局变量
 Vue.prototype.$PnUtil = PnUtil;

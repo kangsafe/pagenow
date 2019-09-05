@@ -12,6 +12,10 @@ const saveCompinfo = async function (data) {
   return await Axios.post('/compinfo/saveCompinfo', {data: JSON.stringify(data)});
 };
 
+const updateCompinfo = async function (data) {
+  return await Axios.post('/compinfo/updateCompinfo', {data: JSON.stringify(data)});
+};
+
 const getAllCompinfoByTypeId = async function (typeId) {
   return await Axios.get('/compinfo/getAllCompinfoByTypeId', {params: {typeId: typeId}});
 };
@@ -28,6 +32,7 @@ export default {
   saveCompinfoType,
   getAllCompinfoType,
   saveCompinfo,
+  updateCompinfo,
   getAllCompinfoByTypeId,
   deleteCompinfo,
   buildComponentLibrary
