@@ -3,8 +3,8 @@
 <template>
   <div class="absolute-layout"
        :style="Object.assign({
-         width: layout.layoutConfigData.width,
-         height: layout.layoutConfigData.height,
+         width: layout.layoutConfigData.width + layout.layoutConfigData.widthPixelUnit,
+         height: layout.layoutConfigData.height + layout.layoutConfigData.heightPixelUnit,
          backgroundColor: layout.layoutConfigData.backgroundColor
        }, layout.layoutConfigData.customStyleCode)">
 
@@ -17,20 +17,20 @@
     <div class="absolute-layout-item"
          :data-id="layoutItem.id"
          :style="Object.assign({
-           width: layoutItem.layoutItemConfigData.width,
-           height: layoutItem.layoutItemConfigData.height,
-           left: layoutItem.layoutItemConfigData.left,
-           top: layoutItem.layoutItemConfigData.top,
-           borderWidth: layoutItem.layoutItemConfigData.borderWidth,
+           width: layoutItem.layoutItemConfigData.width + 'px',
+           height: layoutItem.layoutItemConfigData.height + 'px',
+           left: layoutItem.layoutItemConfigData.left + 'px',
+           top: layoutItem.layoutItemConfigData.top + 'px',
+           borderWidth: layoutItem.layoutItemConfigData.borderWidth + 'px',
            borderStyle: layoutItem.layoutItemConfigData.borderStyle,
            borderColor: layoutItem.layoutItemConfigData.borderColor,
-           borderTopLeftRadius: layoutItem.layoutItemConfigData.borderTopLeftRadius,
-           borderTopRightRadius: layoutItem.layoutItemConfigData.borderTopRightRadius,
-           borderBottomLeftRadius: layoutItem.layoutItemConfigData.borderBottomLeftRadius,
-           borderBottomRightRadius: layoutItem.layoutItemConfigData.borderBottomRightRadius,
+           borderTopLeftRadius: layoutItem.layoutItemConfigData.borderTopLeftRadius + 'px',
+           borderTopRightRadius: layoutItem.layoutItemConfigData.borderTopRightRadius + 'px',
+           borderBottomLeftRadius: layoutItem.layoutItemConfigData.borderBottomLeftRadius + 'px',
+           borderBottomRightRadius: layoutItem.layoutItemConfigData.borderBottomRightRadius + 'px',
            backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
            zIndex: layoutItem.layoutItemConfigData.zIndex,
-           padding: layoutItem.layoutItemConfigData.padding,
+           padding: layoutItem.layoutItemConfigData.padding + 'px',
            cursor: layoutItem.layoutItemConfigData.cursor,
            display: layoutItem.layoutItemConfigData.display
          }, layoutItem.layoutItemConfigData.customStyleCode)"

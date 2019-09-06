@@ -2,15 +2,36 @@
 <template>
   <div class="absolute-layout-data-form">
     <Form :label-width="105">
-      <FormItem label="画布宽度">
-        <Input size="small" v-model="width"/>
-      </FormItem>
-      <FormItem label="画布高度">
-        <Input size="small" v-model="height"/>
-      </FormItem>
       <FormItem label="背景色">
         <ColorPicker size="small" v-model="backgroundColor" alpha/>
       </FormItem>
+      <FormItem label="画布宽度">
+        <InputNumber class="m-r-5px" size="small" :max="10000" :min="0" :step="1" v-model="width"></InputNumber>
+        <Select size="small" v-model="widthPixelUnit" :style="{width: '60px'}">
+          <Option v-for="item in $PnDict.pixelUnits" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
+      <FormItem label="画布高度">
+        <InputNumber class="m-r-5px" size="small" :max="10000" :min="0" :step="1" v-model="height"></InputNumber>
+        <Select size="small" v-model="heightPixelUnit" :style="{width: '60px'}">
+          <Option v-for="item in $PnDict.pixelUnits" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
+      <FormItem label="显示辅助网格">
+        <i-switch v-model="showGrid">
+          <span slot="open"></span>
+          <span slot="close"></span>
+        </i-switch>
+      </FormItem>
+      <FormItem label="网格像素">
+        <Select transfer size="small" v-model="canvasGridClass">
+          <Option v-for="item in $PnDict.canvasGridClass" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
+      <FormItem label="拖拽单位像素">
+        <InputNumber size="small" :max="10000" :min="0" :step="5" v-model="dragPixel"></InputNumber> px
+      </FormItem>
+
       <FormItem label="操作">
         <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
         <Dropdown trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
@@ -19,7 +40,7 @@
             <Icon type="ios-arrow-down"></Icon>
           </Button>
           <DropdownMenu slot="list">
-            <DropdownItem name="lockDragAndResizable">{{lockDragAndResizableVisible ? '解锁拖拽':'锁定拖拽'}}</DropdownItem>
+
             <DropdownItem name="customStyle">自定义样式</DropdownItem>
           </DropdownMenu>
         </Dropdown>
@@ -56,7 +77,6 @@
     name: 'AbsoluteLayoutConfigDataForm',
     data() {
       return {
-        lockDragAndResizableVisible: false,
         customStyleCodeModalVisible: false
       }
     },
@@ -72,16 +92,7 @@
       },
 
       dropdownClickHandle (name) {
-        if (name == 'lockDragAndResizable') {
-          if(this.lockDragAndResizableVisible) {
-            $('.absolute-layout-item').draggable('enable');
-            $('.absolute-layout-item').resizable('enable');
-          }else {
-            $('.absolute-layout-item').draggable('disable');
-            $('.absolute-layout-item').resizable('disable');
-          }
-          this.lockDragAndResizableVisible = !this.lockDragAndResizableVisible
-        }
+
         if (name == 'customStyle') {
           this.customStyleCodeModalVisible = !this.customStyleCodeModalVisible
         }
@@ -90,7 +101,12 @@
     computed: {
       ...mapFields({
         width: 'pageMetadata.layout.layoutConfigData.width',
+        widthPixelUnit: 'pageMetadata.layout.layoutConfigData.widthPixelUnit',
         height: 'pageMetadata.layout.layoutConfigData.height',
+        heightPixelUnit: 'pageMetadata.layout.layoutConfigData.heightPixelUnit',
+        showGrid: 'pageMetadata.layout.layoutConfigData.showGrid',
+        canvasGridClass: 'pageMetadata.layout.layoutConfigData.canvasGridClass',
+        dragPixel: 'pageMetadata.layout.layoutConfigData.dragPixel',
         backgroundColor: 'pageMetadata.layout.layoutConfigData.backgroundColor',
         customStyleCode: 'pageMetadata.layout.layoutConfigData.customStyleCode'
       })

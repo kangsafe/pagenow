@@ -9,20 +9,36 @@
           <FormItem label="ID">
             <Input size="small" v-model="id" disabled/>
           </FormItem>
+          <FormItem label="允许拖拽">
+            <i-switch v-model="draggableEnabled">
+              <span slot="open"></span>
+              <span slot="close"></span>
+            </i-switch>
+          </FormItem>
+          <FormItem label="允许调整大小">
+            <i-switch v-model="resizableEnabled">
+              <span slot="open"></span>
+              <span slot="close"></span>
+            </i-switch>
+          </FormItem>
           <FormItem label="宽度">
-            <Input size="small" v-model="width"/>
+            <!--<Input size="small" v-model="width"/>-->
+            <InputNumber size="small" :max="10000" :min="10" v-model="width"></InputNumber> px
           </FormItem>
           <FormItem label="高度">
-            <Input size="small" v-model="height"/>
+            <!--<Input size="small" v-model="height"/>-->
+            <InputNumber size="small" :max="10000" :min="10" v-model="height"></InputNumber> px
           </FormItem>
           <FormItem label="左偏移">
-            <Input size="small" v-model="left"/>
+            <!--<Input size="small" v-model="left"/>-->
+            <InputNumber size="small" :max="10000" :min="0" :step="10" v-model="left"></InputNumber> px
           </FormItem>
           <FormItem label="上偏移">
-            <Input size="small" v-model="top"/>
+            <!--<Input size="small" v-model="top"/>-->
+            <InputNumber size="small" :max="10000" :min="0" :step="10" v-model="top"></InputNumber> px
           </FormItem>
           <FormItem label="边框宽度">
-            <Input size="small" v-model="borderWidth"/>
+            <InputNumber size="small" :max="10000" :min="0" :step="1" v-model="borderWidth"></InputNumber> px
           </FormItem>
           <FormItem label="边框类型">
             <Select size="small" v-model="borderStyle">
@@ -45,16 +61,16 @@
 
           <Divider :style="{fontSize: '13px'}" dashed>边框圆角</Divider>
           <FormItem label="上左">
-            <Input size="small" v-model="borderTopLeftRadius"/>
+            <InputNumber size="small" :max="10000" :min="0" :step="1" v-model="borderTopLeftRadius"></InputNumber> px
           </FormItem>
           <FormItem label="上右">
-            <Input size="small" v-model="borderTopRightRadius"/>
+            <InputNumber size="small" :max="10000" :min="0" :step="1" v-model="borderTopRightRadius"></InputNumber> px
           </FormItem>
           <FormItem label="下右">
-            <Input size="small" v-model="borderBottomLeftRadius"/>
+            <InputNumber size="small" :max="10000" :min="0" :step="1" v-model="borderBottomLeftRadius"></InputNumber> px
           </FormItem>
           <FormItem label="下左">
-            <Input size="small" v-model="borderBottomRightRadius"/>
+            <InputNumber size="small" :max="10000" :min="0" :step="1" v-model="borderBottomRightRadius"></InputNumber> px
           </FormItem>
           <Divider dashed/>
 
@@ -62,7 +78,7 @@
             <InputNumber size="small" :max="1000" :min="1" v-model="zIndex"></InputNumber>
           </FormItem>
           <FormItem label="内边距">
-            <Input size="small" v-model="padding"/>
+            <InputNumber size="small" :max="10000" :min="0" :step="1" v-model="padding"></InputNumber> px
           </FormItem>
           <FormItem label="鼠标悬停样式">
             <Select :transfer="true" size="small" v-model="cursor">
@@ -253,6 +269,8 @@
       ...mapFields({
         id: 'id',
         layoutItemConfigData: 'layoutItemConfigData',
+        draggableEnabled: 'layoutItemConfigData.draggableEnabled',
+        resizableEnabled: 'layoutItemConfigData.resizableEnabled',
         width: 'layoutItemConfigData.width',
         height: 'layoutItemConfigData.height',
         left: 'layoutItemConfigData.left',

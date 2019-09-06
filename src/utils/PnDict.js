@@ -304,6 +304,52 @@ const outAnimations = [
   }
 ];
 
+const canvasGridClass = [
+  {
+    label: '5px * 5px 白色',
+    value: 'canvas-grid-white-5px5px'
+  },
+  {
+    label: '5px * 5px 黑色',
+    value: 'canvas-grid-black-5px5px'
+  },
+  {
+    label: '10px * 10px 白色',
+    value: 'canvas-grid-white-10px10px'
+  },
+  {
+    label: '10px * 10px 黑色',
+    value: 'canvas-grid-black-10px10px'
+  },
+  {
+    label: '20px * 20px 白色',
+    value: 'canvas-grid-white-20px20px'
+  },
+  {
+    label: '20px * 20px 黑色',
+    value: 'canvas-grid-black-20px20px'
+  }
+];
+
+const pixelUnits = [
+  {
+    label: 'px',
+    value: 'px'
+  },
+  {
+    label: '%',
+    value: '%'
+  },
+  {
+    label: 'em',
+    value: 'em'
+  },
+  {
+    label: 'rem',
+    value: 'rem'
+  },
+];
+
 export default {
   borderStyles,
   display,
@@ -311,5 +357,7 @@ export default {
   cursor,
   animationDelayClass,
   inAnimations,
-  outAnimations
+  outAnimations,
+  canvasGridClass,
+  pixelUnits
 }

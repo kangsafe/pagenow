@@ -8,9 +8,14 @@ import PnUtil from './PnUtil'
  */
 const buildAbsoluteLayoutConfigData = function () {
   let layoutConfigData = { // 绝对布局默认配置
-    width: '1440px',
-    height: '900px',
+    width: 1024,
+    widthPixelUnit: 'px',
+    height: 768,
+    heightPixelUnit: 'px',
     backgroundColor: '#999999',
+    showGrid: true,
+    canvasGridClass: 'canvas-grid-white-10px10px',
+    dragPixel: 10,  // 拖拽单位像素
     customStyleCode: {}
   };
   return layoutConfigData
@@ -25,24 +30,30 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
   let layoutItemConfigData = {
     id: PnUtil.uuid(),
     layoutItemConfigData: {
-      width: '250px',
+      /*width: '250px',
       height: '250px',
       left: '0px',
-      top: '0px',
-      borderWidth: '0px',
+      top: '0px',*/
+      draggableEnabled: true,
+      resizableEnabled: true,
+      width: 250,
+      height: 250,
+      left: 0,
+      top: 0,
+      borderWidth: 0,
       borderStyle: 'solid',
       borderColor: '#000',
 
-      borderTopLeftRadius: '0px',
-      borderTopRightRadius: '0px',
-      borderBottomLeftRadius: '0px',
-      borderBottomRightRadius: '0px',
+      borderTopLeftRadius: 0,
+      borderTopRightRadius: 0,
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
 
       backgroundColor: 'yellow',
       mouseenterBackgroundColor: '',
       mouseleaveBackgroundColor: '',
       zIndex: 1,
-      padding: '0px',
+      padding: 0,
       cursor: 'default',
 
       animationVisible: false,
