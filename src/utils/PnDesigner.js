@@ -1,3 +1,5 @@
+// 此工具类用于构建设计器所使用的源数据的对象模板
+
 import PnUtil from './PnUtil'
 
 /**
