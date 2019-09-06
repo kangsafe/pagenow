@@ -500,8 +500,24 @@
       }
     },
     watch: {
-      'pageMetadata.id': function () { // 监听页面源数据的ID是否改变，改变了说明切换编辑的页面
-        //localStorage.removeItem('layoutCache'); // 清空草稿
+      'pageMetadata.layout': {
+        // 监听源数据layout对象是否发生改变，发生改变将记录存储在本地源数据布局存储中，以便提供给撤回操作的原始数据
+        handler: function (val, oldVal) {
+          //localStorage.removeItem('layoutCache'); // 清空草稿（暂时弃用）
+
+          // 将布局信息存储在本地存储中，变量数组中只存两个对象，新进后出原则，再撤回操作中，永远只读第0个元素对象即为上一步操作
+          if(!localStorage.getItem('PageMetadataLayoutLocalRecord')) {
+            localStorage.setItem('PageMetadataLayoutLocalRecord', JSON.stringify([]))
+          }else {
+            let PageMetadataLayoutLocalRecord = JSON.parse(localStorage.getItem('PageMetadataLayoutLocalRecord'));
+            if (PageMetadataLayoutLocalRecord.length >= 2) {
+              PageMetadataLayoutLocalRecord = PageMetadataLayoutLocalRecord.slice(1)
+            }
+            PageMetadataLayoutLocalRecord.push(val);
+            localStorage.setItem('PageMetadataLayoutLocalRecord', JSON.stringify(PageMetadataLayoutLocalRecord))
+          }
+        },
+        deep: true
       }
     }
   }
@@ -518,12 +534,6 @@
   }
 
   .comp-card {
-    /*width: 60px;
-    height: 60px;
-    background-color: red;
-    float: left;
-    cursor: move;
-    word-break: break-all;*/
     width: 85px;
     height: 50px;
     background-color: #BBBBBB;

@@ -33,6 +33,10 @@
             @click="clearMultiSelect">清除多选</Button>
     <Button size="small" type="primary"
             style="margin-right: 5px;"
+            :disabled="!pageMetadata.id"
+            @click="stepBackward">撤回</Button>
+    <Button size="small" type="primary"
+            style="margin-right: 5px;"
             :disabled="!$store.state.designer.pageMetadata.id"
             @click="previewPage">预览</Button>
 
@@ -117,6 +121,16 @@
       clearMultiSelect () {
         this.$store.commit('designer/setCurrentSelectLayoutItemIds', []);
         this.$Message.success('已清除多选数据')
+      },
+
+      /**
+       * 后退一步
+       */
+      stepBackward () {
+        if(localStorage.getItem('PageMetadataLayoutLocalRecord')) {
+          let PageMetadataLayoutLocalRecord = JSON.parse(localStorage.getItem('PageMetadataLayoutLocalRecord'));
+          this.$store.commit('designer/setLayout', PageMetadataLayoutLocalRecord[0])
+        }
       },
 
       previewPage () {
