@@ -113,25 +113,25 @@
             <TabPane label="配置管理" name="setting_tab" :style="{padding: '0px'}">
               <Collapse simple v-model="rightCollapseDefaultName" :style="{marginTop: '-17px'}">
                 <Panel name="page_config">
-                  <span style="font-weight: bold; color: #33CC66;">页面信息</span>
+                  <span style="font-weight: bold; color: #33CC66;">---页面信息---</span>
                   <p slot="content">
                     <component :is="this.$store.state.designer.rightSidebarPageConfigFormName"></component>
                   </p>
                 </Panel>
                 <Panel name="canvas_config">
-                  <span style="font-weight: bold; color: #33CC66;">画布配置</span>
+                  <span style="font-weight: bold; color: #33CC66;">---画布配置---</span>
                   <p slot="content">
                     <component :is="canvasConfigCompName"></component>
                   </p>
                 </Panel>
                 <Panel name="layoutItem_config">
-                  <span style="font-weight: bold; color: #33CC66;">布局块配置</span>
+                  <span style="font-weight: bold; color: #33CC66;">---布局块配置---</span>
                   <p slot="content">
                     <component :is="this.$store.state.designer.rightSidebarLayoutItemConfigFormName"></component>
                   </p>
                 </Panel>
                 <Panel name="comp_config">
-                  <span style="font-weight: bold; color: #33CC66;">组件配置</span>
+                  <span style="font-weight: bold; color: #33CC66;">---组件配置---</span>
                   <p slot="content">
                     <component :is="this.$store.state.designer.rightSidebarFuncCompConfigFormName"></component>
                   </p>
