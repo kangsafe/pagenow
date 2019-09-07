@@ -9,7 +9,12 @@
       <Layout :style="{paddingTop: '48px'}">
 
         <!--左侧边栏-->
-        <Sider :width="300"
+        <Sider ref="leftSidebar"
+               :width="300"
+               hide-trigger
+               collapsible
+               collapsed-width="1"
+               v-model="leftSidebarCollapsed"
                :style="{
                  backgroundColor: '#FFF',
                  borderRight: '1px solid #999',
@@ -19,6 +24,10 @@
                  overflow: 'auto',
                  zIndex: 2
                }" @click.stop.native="clearKeyDownAndUp">
+          <div title="收展侧边栏" class="left-sidebar-collapse-btn" :class="{active: leftSidebarCollapsed}" @click.stop="collapsedLeftSidebar">
+            <Icon :type="leftSidebarCollapsed ? 'md-arrow-dropright': 'md-arrow-dropleft'" />
+          </div>
+
           <Tabs size="small" value="project_tab" @on-click="leftTabsClickHandle">
             <TabPane label="工程信息" name="project_tab" :style="{padding: '0px 10px 0px 10px'}">
 
@@ -81,7 +90,7 @@
         <Content
             :style="{
               marginRight: '330px',
-              marginLeft: '300px',
+              marginLeft: contentMarginLeft,
               padding: '10px',
               backgroundColor: '#B0B0B0'
             }">
@@ -168,6 +177,8 @@
     name: 'DesignerMain',
     data() {
       return {
+        leftSidebarCollapsed: false,
+        contentMarginLeft: '300px',
 
         rightCollapseDefaultName: ['page_config', 'canvas_config', 'layoutItem_config', 'comp_config'],
 
@@ -250,6 +261,15 @@
 
     },
     methods: {
+
+      collapsedLeftSidebar () {
+        this.$refs.leftSidebar.toggleCollapse();
+        if(this.leftSidebarCollapsed) {
+          this.contentMarginLeft = '0px'
+        }else {
+          this.contentMarginLeft = '300px'
+        }
+      },
 
       /**
        * 注销键盘监听
@@ -524,6 +544,36 @@
 </script>
 
 <style scoped>
+
+  .left-sidebar-collapse-btn {
+    position: fixed;
+    width: 10px;
+    height: 80px;
+    background-color: #CCCCCC;
+    border-top: 1px solid rgb(153, 153, 153);
+    border-right: 1px solid rgb(153, 153, 153);
+    border-bottom: 1px solid rgb(153, 153, 153);
+    left: 300px;
+    top: 50%;
+    margin-top: -40px;
+    cursor: pointer;
+  }
+
+  .left-sidebar-collapse-btn i {
+    font-size: 17px;
+    margin-left: -5px;
+    top: 50%;
+    position: absolute;
+    margin-top: -10px;
+  }
+
+  .left-sidebar-collapse-btn:hover {
+    background-color: #BBBBBB;
+  }
+
+  .left-sidebar-collapse-btn.active {
+    left: 0px;
+  }
 
   .ivu-divider-horizontal {
     margin: 10px 0px;
