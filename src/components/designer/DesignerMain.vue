@@ -8,6 +8,43 @@
 
       <Layout :style="{paddingTop: '48px'}">
 
+        <!--组件库模态窗，收起左侧边栏时弹出-->
+        <Modal title="组件库"
+               draggable
+               footer-hide
+               width="340"
+               :z-index="3"
+               v-model="leftSidebarCollapsed"
+               @on-cancel="collapsedLeftSidebar">
+          <p slot="header">
+            <span>组件库</span>
+          </p>
+          <div style="margin: -16px;">
+            <Collapse simple :style="{marginTop: '-17px', borderRadius: '4px'}">
+              <Panel v-for="lib in componentLibrary" :key="lib.id">
+                {{lib.name}}
+                <div slot="content">
+                  <Row :gutter="5">
+                    <i-col span="8" v-for="compinfo in lib.compinfos" :key="compinfo.id">
+                      <Poptip :transfer="true" :word-wrap="true" title="组件信息" placement="right-start">
+                        <div title="单击可以显示组件信息" class="comp-card" :data-component="compinfo.name">
+                          <p>{{compinfo.aliasName}}</p>
+                        </div>
+                        <div class="api" slot="content">
+                          <span>{{compinfo.remark}}</span>
+                        </div>
+                      </Poptip>
+                    </i-col>
+
+                  </Row>
+                </div>
+              </Panel>
+
+            </Collapse>
+          </div>
+
+        </Modal>
+
         <!--左侧边栏-->
         <Sider ref="leftSidebar"
                :width="300"
@@ -28,7 +65,7 @@
             <Icon :type="leftSidebarCollapsed ? 'md-arrow-dropright': 'md-arrow-dropleft'" />
           </div>
 
-          <Tabs size="small" value="project_tab" @on-click="leftTabsClickHandle">
+          <Tabs size="small" value="project_tab" @on-click="registerComponentLibraryDrag">
             <TabPane label="工程信息" name="project_tab" :style="{padding: '0px 10px 0px 10px'}">
 
               <div>
@@ -265,7 +302,8 @@
       collapsedLeftSidebar () {
         this.$refs.leftSidebar.toggleCollapse();
         if(this.leftSidebarCollapsed) {
-          this.contentMarginLeft = '0px'
+          this.contentMarginLeft = '0px';
+          this.registerComponentLibraryDrag()
         }else {
           this.contentMarginLeft = '300px'
         }
@@ -279,8 +317,10 @@
         $(document).unbind('keyup');
       },
 
-
-      leftTabsClickHandle () {
+      /**
+       * 注册组件库拖拽事件
+       */
+      registerComponentLibraryDrag () {
         if($('.comp-card').draggable()) {
           $('.comp-card').draggable('destroy');
         }
