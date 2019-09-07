@@ -6,7 +6,7 @@
          width: layout.layoutConfigData.width + layout.layoutConfigData.widthPixelUnit,
          height: layout.layoutConfigData.height + layout.layoutConfigData.heightPixelUnit,
          backgroundColor: layout.layoutConfigData.backgroundColor
-       }, layout.layoutConfigData.customStyleCode)" @click.stop="layoutCanvasClick">
+       }, $PnUtil.cssToVueStyleObj(layout.layoutConfigData.customStyleCode))" @click.stop="layoutCanvasClick">
 
     <transition
         appear
@@ -35,7 +35,7 @@
              :class="buildLayoutItemClassObj(layoutItem)"
              :id="layoutItem.id"
              :data-id="layoutItem.id"
-             :style="{
+             :style="Object.assign({
                borderWidth: layoutItem.layoutItemConfigData.borderWidth + 'px',
                borderStyle: layoutItem.layoutItemConfigData.borderStyle,
                borderColor: layoutItem.layoutItemConfigData.borderColor,
@@ -46,7 +46,7 @@
                backgroundColor: layoutItem.layoutItemConfigData.backgroundColor,
                padding: layoutItem.layoutItemConfigData.padding + 'px',
                cursor: layoutItem.layoutItemConfigData.cursor,
-             }"
+             }, $PnUtil.cssToVueStyleObj(layoutItem.layoutItemConfigData.customStyleCode))"
              @click.stop="layoutItemClick(layoutItem, $event)"
              @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
              @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">

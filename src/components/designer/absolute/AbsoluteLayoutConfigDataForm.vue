@@ -33,8 +33,9 @@
       </FormItem>
 
       <FormItem label="操作">
-        <Button size="small" type="primary" @click="addLayoutItem" style="margin-right: 5px;">添加布局块</Button>
-        <Dropdown trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
+        <Button class="m-r-5px" size="small" type="primary" @click="addLayoutItem">添加布局块</Button>
+        <Button size="small" type="primary" @click="customStyleCodeModalVisible = !customStyleCodeModalVisible">自定义样式</Button>
+        <!--<Dropdown trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
           <Button type="primary" size="small">
             其他操作
             <Icon type="ios-arrow-down"></Icon>
@@ -43,7 +44,7 @@
 
             <DropdownItem name="customStyle">自定义样式</DropdownItem>
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown>-->
       </FormItem>
     </Form>
 
@@ -56,7 +57,8 @@
         :mask="true"
         :z-index="3">
       <Alert type="info">提示：自定义样式会与预设样式进行浅合并，如果存在相同属性配置，自定义样式会覆盖预设样式</Alert>
-      <PnJsonEditor v-model="customStyleCode" :mode="'code'"></PnJsonEditor>
+      <!--<PnJsonEditor v-model="customStyleCode" :mode="'code'"></PnJsonEditor>-->
+      <CodeEditor v-model="customStyleCode" mode="SCSS"></CodeEditor>
       <div slot="footer">
         <Button type="default" @click="customStyleCodeModalVisible = false">关闭</Button>
       </div>

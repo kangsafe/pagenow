@@ -55,34 +55,47 @@
     value: false
   }];
 
-  const modeArray = [{
-    name: 'JavaScript',
-    path: 'ace/mode/javascript'
-  }, {
-    name: 'HTML',
-    path: 'ace/mode/html'
-  }, {
-    name: 'CSS',
-    path: 'ace/mode/css'
-  }, {
-    name: 'SCSS',
-    path: 'ace/mode/scss'
-  }, {
-    name: 'Json',
-    path: 'ace/mode/json'
-  }, {
-    name: 'Java',
-    path: 'ace/mode/java'
-  }, {
-    name: 'Text',
-    path: 'ace/mode/text'
-  }];
+  const modeArray = [
+    {
+      name: 'JavaScript',
+      path: 'ace/mode/javascript'
+    }, {
+      name: 'HTML',
+      path: 'ace/mode/html'
+    }, {
+      name: 'CSS',
+      path: 'ace/mode/css'
+    }, {
+      name: 'SCSS',
+      path: 'ace/mode/scss'
+    }, {
+      name: 'Json',
+      path: 'ace/mode/json'
+    }, {
+      name: 'Java',
+      path: 'ace/mode/java'
+    }, {
+      name: 'Text',
+      path: 'ace/mode/text'
+    }
+  ];
 
   export default {
     props: {
-      value: String
+      value: String,
+      mode: String
     },
-    mounted () {
+    mounted() {
+      if (this.mode) {
+        modeArray.forEach(item => {
+          if (item.name == this.mode) {
+            this.modePath = item.path
+          }
+        });
+      } else {
+        this.modePath = 'ace/mode/javascript'
+      }
+
       this.aceEditor = ace.edit(this.$refs.ace, {
         maxLines: 20,
         minLines: 10,
@@ -101,11 +114,11 @@
       });
       this.aceEditor.getSession().on('change', this.change)
     },
-    beforeDestroy () {
+    beforeDestroy() {
       this.aceEditor.destroy();
       this.aceEditor.container.remove();
     },
-    data () {
+    data() {
       return {
         currentValue: this.value,
         contentBackup: '',
@@ -113,31 +126,31 @@
         toggle: false,
         wrap: true,
         themePath: 'ace/theme/monokai',
-        modePath: 'ace/mode/javascript',
+        modePath: '',
         modeArray: modeArray,
         wrapArray: wrapArray
       }
     },
     methods: {
-      toggleConfigPanel () {
+      toggleConfigPanel() {
         this.toggle = !this.toggle
       },
-      change () {
+      change() {
         let content = this.aceEditor.getSession().getValue();
         this.$emit('input', content);
         this.contentBackup = content;
       },
-      handleModelPathChange (modelPath) {
+      handleModelPathChange(modelPath) {
         this.aceEditor.getSession().setMode(modelPath)
       },
-      handleWrapChange (wrap) {
+      handleWrapChange(wrap) {
         this.aceEditor.getSession().setUseWrapMode(wrap)
       }
     },
     watch: {
-      value (val) {
-        if(this.contentBackup !== val) {
-          this.aceEditor.session.setValue(val,1);
+      value(val) {
+        if (this.contentBackup !== val) {
+          this.aceEditor.session.setValue(val, 1);
           this.contentBackup = val;
         }
       }

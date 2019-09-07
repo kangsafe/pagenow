@@ -16,7 +16,7 @@ const buildAbsoluteLayoutConfigData = function () {
     showGrid: true,
     canvasGridClass: 'canvas-grid-white-10px10px',
     dragPixel: 10,  // 拖拽单位像素
-    customStyleCode: {}
+    customStyleCode: '{\n}'
   };
   return layoutConfigData
 };
@@ -63,7 +63,7 @@ const buildAbsoluteLayoutItemConfigData = function (payload) {
 
       display: 'block',
 
-      customStyleCode: {}
+      customStyleCode: '{\n}'
     },
     component: {
       id: '',

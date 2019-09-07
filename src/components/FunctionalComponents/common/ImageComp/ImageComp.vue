@@ -3,7 +3,7 @@
     <img :src="imageSrc" :style="Object.assign({
       width: component.compConfigData.width,
       height: component.compConfigData.height
-    }, component.compConfigData.customStyleCode)"/>
+    }, $PnUtil.cssToVueStyleObj(component.compConfigData.customStyleCode))"/>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
         relativePath: '',
         width: '100%',
         height: '100%',
-        customStyleCode: {}
+        customStyleCode: '{\n}'
       }
     },
     data() {
@@ -39,7 +39,7 @@
       }
     },
     watch: {
-      
+
     }
   }
 </script>

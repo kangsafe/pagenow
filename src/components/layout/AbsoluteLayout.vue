@@ -6,7 +6,7 @@
          width: layout.layoutConfigData.width + layout.layoutConfigData.widthPixelUnit,
          height: layout.layoutConfigData.height + layout.layoutConfigData.heightPixelUnit,
          backgroundColor: layout.layoutConfigData.backgroundColor
-       }, layout.layoutConfigData.customStyleCode)">
+       }, $PnUtil.cssToVueStyleObj(layout.layoutConfigData.customStyleCode))">
 
     <transition
         appear
@@ -33,7 +33,7 @@
            padding: layoutItem.layoutItemConfigData.padding + 'px',
            cursor: layoutItem.layoutItemConfigData.cursor,
            display: layoutItem.layoutItemConfigData.display
-         }, layoutItem.layoutItemConfigData.customStyleCode)"
+         }, $PnUtil.cssToVueStyleObj(layoutItem.layoutItemConfigData.customStyleCode))"
          @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
          @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
       <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
