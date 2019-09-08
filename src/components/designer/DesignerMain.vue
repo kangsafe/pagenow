@@ -12,7 +12,7 @@
         <Modal title="组件库"
                draggable
                footer-hide
-               width="340"
+               width="300"
                :z-index="3"
                v-model="leftSidebarCollapsed"
                @on-cancel="collapsedLeftSidebar">
@@ -20,7 +20,7 @@
             <span>组件库</span>
           </p>
           <div style="margin: -16px;">
-            <Collapse simple :style="{marginTop: '-17px', borderRadius: '4px'}">
+            <Collapse simple :style="{marginTop: '-17px', borderRadius: '6px'}">
               <Panel v-for="lib in componentLibrary" :key="lib.id">
                 {{lib.name}}
                 <div slot="content">
