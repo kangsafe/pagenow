@@ -95,24 +95,22 @@
             <Input size="small" v-model="componentName" disabled/>
           </FormItem>
           <FormItem label="">
-            <Dropdown :transfer="true" trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
+            <Button class="m-r-5px" size="small" type="primary"
+                    @click="customStyleCodeModalVisible = !customStyleCodeModalVisible">自定义样式</Button>
+            <Button class="m-r-5px" size="small" type="primary"
+                    @click="copyLayoutItem">复制拷贝</Button>
+            <!--<Dropdown :transfer="true" trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
               <Button type="primary" size="small">
                 操作
                 <Icon type="ios-arrow-down"></Icon>
               </Button>
               <DropdownMenu slot="list">
                 <DropdownItem name="customStyle">自定义样式</DropdownItem>
-                <DropdownItem divided name="deleteLayoutItem">删除布局块</DropdownItem>
-                <DropdownItem name="deleteComponent">解除关联组件</DropdownItem>
-                <DropdownItem divided name="copyLayoutItem">复制</DropdownItem>
+                <DropdownItem name="copyLayoutItem">复制</DropdownItem>
               </DropdownMenu>
-            </Dropdown>
+            </Dropdown>-->
           </FormItem>
-          <!--<FormItem label="功能组件">
-            <i-input size="small" v-model="componentName">
-              <Button size="small" slot="append" @click="selectFuncComp">选择</Button>
-            </i-input>
-          </FormItem>-->
+
         </Form>
       </TabPane>
       <TabPane label="过渡动画">
@@ -182,50 +180,20 @@
     },
     methods: {
 
-      dropdownClickHandle (name) {
+      /*dropdownClickHandle (name) {
         if (name == 'customStyle') {
           this.customStyleCodeModalVisible = !this.customStyleCodeModalVisible
-        }
-        if (name == 'deleteComponent') {
-          this.deleteComponent()
-        }
-        if (name == 'deleteLayoutItem') {
-          this.deleteLayoutItem()
         }
         if (name == 'copyLayoutItem') {
           this.copyLayoutItem()
         }
-      },
-
-      deleteComponent () {
-        this.$Modal.confirm({
-          title: '提醒',
-          content: '确认解除关联的组件吗？',
-          onOk: () => {
-            this.$store.commit('designer/deleteComponentByLayoutItemId', this.id);
-            this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
-          }
-        });
-      },
-
-      deleteLayoutItem () {
-        this.$Modal.confirm({
-          title: '提醒',
-          content: '确认删除此布局块吗？',
-          onOk: () => {
-            this.$store.commit('designer/deleteLayoutItem', this.id);
-            this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
-            this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
-            this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
-          }
-        });
-      },
+      },*/
 
       copyLayoutItem () {
 
         let newLayoutItemConfigData = Object.assign({}, this.layoutItemConfigData);
-        newLayoutItemConfigData.left = '0px';
-        newLayoutItemConfigData.top = '0px';
+        newLayoutItemConfigData.left = 0;
+        newLayoutItemConfigData.top = 0;
         let newLayoutItem = {
           id: this.$PnUtil.uuid(),
           layoutItemConfigData: newLayoutItemConfigData,

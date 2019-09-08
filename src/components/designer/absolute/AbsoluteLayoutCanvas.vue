@@ -49,13 +49,25 @@
              }, $PnUtil.cssToVueStyleObj(layoutItem.layoutItemConfigData.customStyleCode))"
              @click.stop="layoutItemClick(layoutItem, $event)"
              @mouseenter="layoutItemMouseenterHandle(layoutItem, $event)"
-             @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)">
+             @mouseleave="layoutItemMouseleaveHandle(layoutItem, $event)"
+             @contextmenu.prevent="layoutItemContextMenu(true, $event)">
           <FuncCompContainer :location="layoutItem.id">
             <component :is="layoutItem.component.name" :location="layoutItem.id"></component>
           </FuncCompContainer>
         </div>
       </vue-draggable-resizable>
     </transition>
+
+    <!--布局块右键菜单-->
+    <Card ref="layoutItemContextMenu" :padding="0" shadow
+          style="position: fixed; z-index: 999; display: none; border-radius: 0px;">
+      <div>
+        <CellGroup @on-click="layoutItemContextMenuClick">
+          <Cell name="menu_delLayoutItem" style="color: #ed4014;"><Icon type="md-trash"/> 删除布局块</Cell>
+          <Cell name="menu_unbindComponent"><Icon type="md-close" /> 解除关联组件</Cell>
+        </CellGroup>
+      </div>
+    </Card>
 
   </div>
 </template>
@@ -86,6 +98,43 @@
     },
     methods: {
 
+      layoutItemContextMenu (enabled, event) {
+        //console.log(event);
+        if (enabled) {
+          this.$refs.layoutItemContextMenu.$el.style.display = 'block';
+          this.$refs.layoutItemContextMenu.$el.style.left = (event.x + 5) + 'px';
+          this.$refs.layoutItemContextMenu.$el.style.top = (event.y + 5) + 'px';
+        }else {
+          this.$refs.layoutItemContextMenu.$el.style.display = 'none';
+        }
+      },
+
+      layoutItemContextMenuClick (name) {
+        let tmpLayoutItemId = this.$store.state.designer.currentSelectLayoutItemId;
+        if (name == 'menu_delLayoutItem') {
+          this.$Modal.confirm({
+            title: '提醒',
+            content: '确认删除此布局块吗？',
+            onOk: () => {
+              this.$store.commit('designer/deleteLayoutItem', tmpLayoutItemId);
+              this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
+              this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
+              this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+            }
+          });
+        }else if (name == 'menu_unbindComponent') {
+          this.$Modal.confirm({
+            title: '提醒',
+            content: '确认解除关联的组件吗？',
+            onOk: () => {
+              this.$store.commit('designer/deleteComponentByLayoutItemId', tmpLayoutItemId);
+              this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+            }
+          });
+        }
+        this.layoutItemContextMenu(false)
+      },
+
       onLayoutItemActivated (layoutItem) {
         // console.log('onLayoutItemActivated');
 
@@ -109,6 +158,9 @@
       onLayoutItemDeactivated () {
         // console.log('onLayoutItemDeactivated');
         this.currentSelectLayoutItemId = '';
+        setTimeout(item => {
+          this.layoutItemContextMenu(false)
+        }, 100)
       },
 
       onLayoutItemDrag (left, top) {
@@ -330,6 +382,8 @@
 
       layoutItemClick(layoutItem, event) {
 
+        this.layoutItemContextMenu(false);
+
         // 判断当前是否按住了ctrl按键
         if(this.keepCtrl) {
           let selectLayoutItemIds = this.currentSelectLayoutItemIds.concat();
@@ -444,5 +498,10 @@
   }
   .absolute-layout-item.activeWhite {
     box-shadow: 0 0 10px white
+  }
+
+  .ivu-cell i {
+    font-size: 16px;
+    margin-top: -2px;
   }
 </style>
