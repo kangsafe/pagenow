@@ -1,32 +1,35 @@
-# PageNow（可视化页面配置平台）
+# PageNow（基于VUE的数据可视化开发平台）
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+### 介绍
+基于Vue+iView的可视化页面开发平台，拖拽式设计，独创布局块概念，基于iView的栅格系统原生支持响应式栅格布局，以获得更好的移动设备兼容性，集成百度Echarts以实现丰富的数据可视化配置，原生通用组件满足你各种可视化页面的开发需求。
 
-#### 软件架构
-- 前端架构
-    Vue+iView
-- 后端架构
-    SpringBoot
-- 数据库
-    Mysql
+#### DEMO：[http://120.77.253.134:8080/pagenow/](http://120.77.253.134:8080/pagenow/)
+
+ **相关文档会逐步完善，请耐心等待。。。** 
 
 
-#### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+![后台管理](https://images.gitee.com/uploads/images/2019/0904/163059_e198dcf7_145187.png "系统管理主界面.png")
+![设计器](https://images.gitee.com/uploads/images/2019/0904/163114_a6f2c101_145187.png "设计器主界面.png")
 
-#### 使用说明
+### 软件架构
+- 前端架构：Vue+iView
+- 后端架构：SpringBoot
+- 数据库：MySql
+
+### 安装教程
 
 1. xxxx
 2. xxxx
 3. xxxx
 
-#### 参与贡献
+### 使用说明
+
+1. xxxx
+2. xxxx
+3. xxxx
+
+### 参与贡献
 
 1. Fork 本仓库
 2. 新建 Feat_xxx 分支
@@ -34,7 +37,7 @@
 4. 新建 Pull Request
 
 
-#### 码云特技
+### 码云特技
 
 1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
 2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
