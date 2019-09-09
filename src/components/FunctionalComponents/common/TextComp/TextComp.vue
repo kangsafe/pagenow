@@ -8,7 +8,7 @@
           fontSize: component.compConfigData.fontSize,
           color: component.compConfigData.color,
           lineHeight: component.compConfigData.lineHeight
-       }, component.compConfigData.customStyleCode)"
+       }, $PnUtil.cssToVueStyleObj(component.compConfigData.customStyleCode))"
        :title="component.compConfigData.title"
        v-html="component.compConfigData.text"
        @click="textContainerClickHandle"
@@ -39,7 +39,7 @@
         color: '#000000',
         lineHeight: '',
 
-        customStyleCode: {},
+        customStyleCode: '{\n}',
         customClickJsCode: ''
       }
     },
