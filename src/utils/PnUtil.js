@@ -84,51 +84,53 @@ const deleteTableRowUselessField = function (obj) {
 const cssToVueStyleObj = function (cssStr) {
   let styleObj = {};
 
-  // 去除空格和换行
-  cssStr = cssStr.replace(/\ +/g, '').replace(/[\r\n]/g, '');
-  // 去除 '{' 和 '}'
-  cssStr = cssStr.replace('{','').replace('}','');
+  if (cssStr) {
+    // 去除空格和换行
+    cssStr = cssStr.replace(/\ +/g, '').replace(/[\r\n]/g, '');
+    // 去除 '{' 和 '}'
+    cssStr = cssStr.replace('{','').replace('}','');
 
-  // 拆分样式项并组成样式项数组
-  let cssItems = cssStr.split(';');
+    // 拆分样式项并组成样式项数组
+    let cssItems = cssStr.split(';');
 
-  cssItems.forEach(cssItem => {
-    if(cssItem) {
-      let attr = cssItem.split(':')[0]; // 样式项键
-      let val = cssItem.split(':')[1];  // 样式项值
+    cssItems.forEach(cssItem => {
+      if(cssItem) {
+        let attr = cssItem.split(':')[0]; // 样式项键
+        let val = cssItem.split(':')[1];  // 样式项值
 
-      // 定义一个数组存储属性键中'-'出现的位置
-      let positions = [];
-      let pos = attr.indexOf('-');
-      while (pos > -1) {
-        positions.push(pos);
-        pos = attr.indexOf('-', pos + 1);
-      }
-
-      if(positions.length > 0) {
-        // 定义一个数组存储每一次出现'-'符号时要处理的替换数据
-        let replaceArr = [];
-        for (let i=0; i<positions.length; i++) {
-          // 待替换字符
-          let awaitReplaceStr = attr.substring(positions[i], positions[i]+2);
-          // 替换的字符
-          let newStr = attr.substring(positions[i]+1, positions[i]+2);
-
-          replaceArr.push({
-            awaitReplaceStr: awaitReplaceStr,
-            newStr: newStr.toLocaleUpperCase() //替换的字符要转成大写
-          });
+        // 定义一个数组存储属性键中'-'出现的位置
+        let positions = [];
+        let pos = attr.indexOf('-');
+        while (pos > -1) {
+          positions.push(pos);
+          pos = attr.indexOf('-', pos + 1);
         }
 
-        replaceArr.forEach(item=>{
-          attr = attr.replace(item.awaitReplaceStr, item.newStr)
-        })
+        if(positions.length > 0) {
+          // 定义一个数组存储每一次出现'-'符号时要处理的替换数据
+          let replaceArr = [];
+          for (let i=0; i<positions.length; i++) {
+            // 待替换字符
+            let awaitReplaceStr = attr.substring(positions[i], positions[i]+2);
+            // 替换的字符
+            let newStr = attr.substring(positions[i]+1, positions[i]+2);
+
+            replaceArr.push({
+              awaitReplaceStr: awaitReplaceStr,
+              newStr: newStr.toLocaleUpperCase() //替换的字符要转成大写
+            });
+          }
+
+          replaceArr.forEach(item=>{
+            attr = attr.replace(item.awaitReplaceStr, item.newStr)
+          })
+        }
+
+        styleObj[attr] = val
+
       }
-
-      styleObj[attr] = val
-
-    }
-  });
+    });
+  }
 
   return styleObj;
 };
