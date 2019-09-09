@@ -7,6 +7,9 @@ import { getField, updateField } from 'vuex-map-fields';
 
 const state = {
 
+  // 工程信息
+  projectInfo: {},
+
   // 页面源数据
   pageMetadata: {
     layout: {
@@ -134,6 +137,15 @@ const getters = {
   getField,
 
   /**
+   * 获取工程信息
+   * @param state
+   * @returns {state.projectInfo|{}|*|string}
+   */
+  getProjectInfo (state) {
+    return state.projectInfo
+  },
+
+  /**
    * 获取布局块对象，内部根据currentSelectLayoutItemId状态属性来查询匹配的布局块对象
    * @param state
    * @returns {*}
@@ -210,6 +222,10 @@ const mutations = {
     state.currentSelectLayoutItemIds = [];
     state.rightSidebarFuncCompConfigFormName = '';
     state.pageMetadata.layout.layoutItems = [];
+  },
+
+  setProjectInfo (state, projectInfo) {
+    state.projectInfo = projectInfo
   },
 
   setPageMetadata (state, pageMetadata) {

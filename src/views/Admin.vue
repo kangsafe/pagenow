@@ -17,6 +17,7 @@
               </template>
               <MenuItem name="ProjectManage" to="/admin/project_manage">工程管理</MenuItem>
               <MenuItem name="CompinfoManage" to="/admin/compinfo_manage">组件库管理</MenuItem>
+              <MenuItem name="EchartThemeManage" to="/admin/echart_theme_manage">图表主题管理</MenuItem>
             </Submenu>
 
           </Menu>

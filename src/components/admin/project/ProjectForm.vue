@@ -7,6 +7,11 @@
       <FormItem label="备注">
         <Input v-model="formData.remark" />
       </FormItem>
+      <FormItem label="图表主题">
+        <Select transfer v-model="formData.echartThemeId">
+          <Option v-for="item in echartThemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
     </Form>
   </div>
 </template>
@@ -24,16 +29,27 @@
       return {
         formData: {
           name: '',
-          remark: ''
+          remark: '',
+          echartThemeId: ''
         },
         ruleValidate: {
           name: [
             { required: true, message: '工程名称不能为空', trigger: 'blur' }
           ]
-        }
+        },
+        echartThemes: []
       }
     },
-    mounted() {},
+    mounted() {
+      this.$PnApi.EchartThemeApi.getAllEchartTheme().then(result=>{
+        result.data.data.forEach(item=>{
+          this.echartThemes.push({
+            label: item.name,
+            value: item.id
+          })
+        })
+      })
+    },
     methods: {},
     computed: {}
   }

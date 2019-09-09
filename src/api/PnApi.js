@@ -4,6 +4,8 @@ import ProjectApi from './ProjectApi'
 import PageApi from './PageApi'
 import TestApi from './TestApi'
 import CompinfoApi from './CompinfoApi'
+import EchartThemeApi from './EchartThemeApi'
+import ReleaseApi from './ReleaseApi'
 
 /**
  *
@@ -21,5 +23,7 @@ export default {
   ProjectApi,
   PageApi,
   TestApi,
-  CompinfoApi
+  CompinfoApi,
+  EchartThemeApi,
+  ReleaseApi
 }

@@ -8,16 +8,20 @@ const EchartCompMixin = {
   },
   data() {
     return {
-      chart: null,      // 存储图表实例
-      sourceData: null  // 存储接口返回的源数据
+      chart: null,          // 存储图表实例
+      echartThemeName: '',  // echart主题名称
+      sourceData: null,     // 存储接口返回的源数据
     }
   },
   created () {
 
   },
   mounted () {
-
-    this.chart = this.$Echarts.init(document.getElementById('chart-'+this.component.id));
+    if(this.projectInfo.echartThemeId && this.projectInfo.echartThemeJsonText) {
+      this.echartThemeName = 'globalEchartTheme';
+      this.$Echarts.registerTheme(this.echartThemeName, JSON.parse(this.projectInfo.echartThemeJsonText));
+    }
+    this.chart = this.$Echarts.init(document.getElementById('chart-'+this.component.id), this.echartThemeName);
     this.drawChart();
   },
   beforeDestroy () {
@@ -120,6 +124,13 @@ const EchartCompMixin = {
     }
   },
   computed: {
+    projectInfo () {
+      if(this.$store.state.release.pageMetadata) {
+        return this.$store.getters['release/getProjectInfo']
+      }else {
+        return this.$store.getters['designer/getProjectInfo']
+      }
+    },
     component: function () {
       if(this.$store.state.release.pageMetadata) {
         return this.$store.getters['release/getLayoutItemById'](this.location).component

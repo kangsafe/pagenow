@@ -66,16 +66,22 @@
     created() {
       // 检查当前URL中是否有预览标识，如果有，则总浏览器本地存储中读取页面源数据信息进行预览
       if(this.$route.query.preview) {
-        let dbPage = JSON.parse(localStorage.getItem('previewPageMetadata'));
-        this.layout = dbPage.layout;
-        this.$store.commit('release/setPageMetadata', dbPage)
+        let previewProjectInfo = JSON.parse(localStorage.getItem('previewProjectInfo'));
+        let previewPageMetadata = JSON.parse(localStorage.getItem('previewPageMetadata'));
+        this.layout = previewPageMetadata.layout;
+        this.$store.commit('release/setProjectInfo', previewProjectInfo);
+        this.$store.commit('release/setPageMetadata', previewPageMetadata);
+
       }else {
-        this.$PnApi.PageApi.getPageById(this.$route.meta.id).then(result => {
-          let dbPage = result.data.data;
+        this.$PnApi.ReleaseApi.getReleaseData(this.$route.meta.id).then(result => {
+          let releaseData = result.data.data;
+          let dbPage = releaseData.pageMetadata;
           dbPage.layout = JSON.parse(dbPage.layout);
           this.layout = dbPage.layout;
-          this.$store.commit('release/setPageMetadata', dbPage)
-        });
+          this.$store.commit('release/setPageMetadata', dbPage);
+
+          this.$store.commit('release/setProjectInfo', releaseData.projectInfo);
+        })
       }
     },
     mounted() {

@@ -27,6 +27,11 @@ const router = new Router({
           path: 'compinfo_manage',
           name: 'CompinfoManage',
           component: () => import('./components/admin/compinfo/CompinfoManage.vue')
+        },
+        {
+          path: 'echart_theme_manage',
+          name: 'EchartThemeManage',
+          component: () => import('./components/admin/echartTheme/EchartThemeManage.vue')
         }
       ],
     },

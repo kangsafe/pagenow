@@ -58,6 +58,10 @@
             key: 'remark'
           },
           {
+            title: '图表主题',
+            key: 'echartThemeName'
+          },
+          {
             title: '创建时间',
             key: 'create_date'
           },

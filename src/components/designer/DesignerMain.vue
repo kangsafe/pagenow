@@ -158,6 +158,12 @@
           <Tabs size="small" value="setting_tab">
             <TabPane label="配置管理" name="setting_tab" :style="{padding: '0px'}">
               <Collapse simple v-model="rightCollapseDefaultName" :style="{marginTop: '-17px'}">
+                <Panel name="project_config">
+                  <span style="font-weight: bold; color: #33CC66;">---工程信息---</span>
+                  <p slot="content">
+                    <component :is="'ProjectFormForDesigner'"></component>
+                  </p>
+                </Panel>
                 <Panel name="page_config">
                   <span style="font-weight: bold; color: #33CC66;">---页面信息---</span>
                   <p slot="content">
@@ -291,9 +297,20 @@
 
       }
     },
+    /**
+     * 初始化加载顺序：
+     * 1、先根据当前设计器路径的URL参数project_id获取工程信息
+     * 2、判断工程是否设置了全局的图表主题，如果设置了，那么加载对应的主题JSON数据存储在vuex中
+     * 3、初始化左侧边栏的工程页面树
+     * 4、加载组件库数据
+     */
     mounted() {
 
-      this.initPageTreeData();
+      this.loadProjectInfo().then(()=>{
+        this.initEchartThemeJsonText();
+        this.initPageTreeData();
+      });
+
       this.loadComponentLibrary();
 
     },
@@ -334,6 +351,9 @@
         });
       },
 
+      /**
+       * 加载组件库数据
+       */
       loadComponentLibrary () {
         this.$PnApi.CompinfoApi.buildComponentLibrary().then(result=>{
           this.componentLibrary = result.data.data;
@@ -341,95 +361,114 @@
       },
 
       /**
+       * 加载工程信息并存入vuex
+       */
+      async loadProjectInfo () {
+        return await this.$PnApi.ProjectApi.getProjectById(this.$route.query.project_id).then(result=>{
+          this.$store.commit('designer/setProjectInfo', result.data.data);
+        })
+      },
+
+      /**
+       * 初始化工程信息中的主题JSON数据并存储vuex
+       */
+      initEchartThemeJsonText () {
+        let tmpProjectInfo = Object.assign({}, this.projectInfo);
+        if(tmpProjectInfo.echartThemeId) {
+          this.$PnApi.EchartThemeApi.getEchartThemeById(tmpProjectInfo.echartThemeId).then(result=>{
+            let tmpEchartTheme = result.data.data;
+            tmpProjectInfo.echartThemeJsonText = tmpEchartTheme.jsonText;
+            this.$store.commit('designer/setProjectInfo', tmpProjectInfo);
+          });
+        }
+      },
+
+      /**
        * 初始化页面信息树数据
        */
       initPageTreeData () {
 
-        this.$PnApi.ProjectApi.getProjectById(this.$route.query.project_id).then(result => {
-          let project = result.data.data;
+        this.pageTreeData = [
+          {
+            key: this.projectInfo.id,
+            title: this.projectInfo.name,
+            expand: true,
+            disabled: true,
+            children: []
+          }
+        ];
 
-          this.pageTreeData = [
-            {
-              key: project.id,
-              title: project.name,
-              expand: true,
-              disabled: true,
-              children: []
-            }
-          ];
+        this.$PnApi.PageApi.getPagesByProjectId(this.projectInfo.id).then(result => {
+          let pages = result.data.data;
+          if(pages.length > 0) {
+            pages.forEach(item => {
+              let page = {
+                key: item.id,
+                title: item.name,
+                render: (h, {root, node, data}) => {
+                  return h('span', [
+                    h('Icon', {
+                      props: {
+                        type: 'md-browsers'
+                      }
+                    }),
+                    h('span', {
 
-          this.$PnApi.PageApi.getPagesByProjectId(this.$route.query.project_id).then(result => {
-            let pages = result.data.data;
-            if(pages.length > 0) {
-              pages.forEach(item => {
-                let page = {
-                  key: item.id,
-                  title: item.name,
-                  render: (h, {root, node, data}) => {
-                    return h('span', [
+                    }, '--('+data.title+')--'),
+
+                    h('a', {
+                      attrs: {title: '打开'},
+                      on: {
+                        click: () => {
+                          this.openPageToDesigner(data.key)
+                        }
+                      }
+                    }, [
                       h('Icon', {
                         props: {
-                          type: 'md-browsers'
+                          type: 'md-create',
                         }
-                      }),
-                      h('span', {
-
-                      }, '--('+data.title+')--'),
-
-                      h('a', {
-                        attrs: {title: '打开'},
-                        on: {
-                          click: () => {
-                            this.openPageToDesigner(data.key)
-                          }
+                      })
+                    ]),
+                    // h('a', {
+                    //   attrs: {title: '拷贝'},
+                    //   on: {
+                    //     click: () => {
+                    //       this.copyPage(data.key)
+                    //     }
+                    //   }
+                    // }, [
+                    //   h('Icon', {
+                    //     props: {
+                    //       type: 'md-copy'
+                    //     }
+                    //   })
+                    // ]),
+                    h('a', {
+                      attrs: {title: '删除'},
+                      style: {
+                        color: '#ed4014'
+                      },
+                      on: {
+                        click: () => {
+                          this.deletePage(data.key)
                         }
-                      }, [
-                        h('Icon', {
-                          props: {
-                            type: 'md-create',
-                          }
-                        })
-                      ]),
-                      // h('a', {
-                      //   attrs: {title: '拷贝'},
-                      //   on: {
-                      //     click: () => {
-                      //       this.copyPage(data.key)
-                      //     }
-                      //   }
-                      // }, [
-                      //   h('Icon', {
-                      //     props: {
-                      //       type: 'md-copy'
-                      //     }
-                      //   })
-                      // ]),
-                      h('a', {
-                        attrs: {title: '删除'},
-                        style: {
-                          color: '#ed4014'
-                        },
-                        on: {
-                          click: () => {
-                            this.deletePage(data.key)
-                          }
+                      }
+                    }, [
+                      h('Icon', {
+                        props: {
+                          type: 'md-trash'
                         }
-                      }, [
-                        h('Icon', {
-                          props: {
-                            type: 'md-trash'
-                          }
-                        })
-                      ])
+                      })
                     ])
-                  }
-                };
-                this.pageTreeData[0].children.push(page)
-              });
-            }
-          })
-
+                  ])
+                }
+              };
+              this.pageTreeData[0].children.push(page)
+            });
+          }
         })
+
       },
 
       submitPageForm () {
@@ -473,7 +512,9 @@
         }
       },
 
-
+      /**
+       * 打开页面并编辑，在这里将会初始化vuex中的pageMetadata数据
+       */
       openPageToDesigner (pageId) {
         this.$store.commit('designer/setRightSidebarPageConfigFormName', 'PageFormForDesigner');
         this.$store.commit('designer/resetDesigner');
@@ -526,6 +567,7 @@
     },
     computed: {
       ...mapFields({
+        projectInfo: 'projectInfo',
         pageMetadata: 'pageMetadata',
         currentSelectLayoutItemId: 'currentSelectLayoutItemId'
       }),

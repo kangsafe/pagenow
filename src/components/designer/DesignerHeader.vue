@@ -135,12 +135,15 @@
 
       previewPage () {
         //console.log(this.pageMetadata);
+        // 将当前工程信息和当前打开页面的源数据存入本地存储
+        localStorage.setItem('previewProjectInfo', JSON.stringify(this.projectInfo));
         localStorage.setItem('previewPageMetadata', JSON.stringify(this.pageMetadata));
         this.$PnUtil.openPageToBlank(this.pageMetadata.path, {preview: 'true'})
       },
     },
     computed: {
       ...mapFields({
+        projectInfo: 'projectInfo',
         pageMetadata: 'pageMetadata'
       }),
     }
