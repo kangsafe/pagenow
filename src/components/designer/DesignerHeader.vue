@@ -72,21 +72,19 @@
     },
     methods: {
 
+      /**
+       * 保存当前编辑页面
+       */
       saveCurrentEditPage () {
         let page = Object.assign({}, this.pageMetadata);
         page.layout = JSON.stringify(page.layout);
+        delete page.echartThemeJsonText;
         this.$PnApi.PageApi.updatePage(page).then(result => {
           if(result.data.code == 1) {
             this.$Message.success('保存成功')
           }
         })
-        // this.$PnApi.PageApi.updatePageLayout(this.currentSelectPageId, this.pageMetadata.layout).then(result => {
-        //   if(result.data.code == 1) {
-        //     this.$Message.success('保存成功')
-        //   }
-        // })
       },
-
 
       /**
        * 保存草稿

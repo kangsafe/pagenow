@@ -25,6 +25,17 @@
       <FormItem label="关联组件">
         <Input size="small" v-model="component" disabled/>
       </FormItem>
+      <FormItem label="独立主题">
+        <i-switch v-model="ownEchartTheme" :true-value="'1'" :false-value="'0'">
+          <span slot="open"></span>
+          <span slot="close"></span>
+        </i-switch>
+      </FormItem>
+      <FormItem label="图表主题方案">
+        <Select size="small" transfer v-model="echartThemeId">
+          <Option v-for="item in echartThemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
+        </Select>
+      </FormItem>
       <FormItem label="布局方案">
         <Select size="small" v-model="developCanvas" @on-change="developCanvasChangeHandle">
           <Option v-for="item in $PnDict.layoutSchemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -32,11 +43,7 @@
       </FormItem>
       <FormItem label="操作">
         <Button size="small" type="primary" @click="heavyLoadPage" style="margin-right: 5px;">重载</Button>
-
       </FormItem>
-      <!--<FormItem label="操作">
-
-      </FormItem>-->
     </Form>
   </div>
 </template>
@@ -53,13 +60,21 @@
     name: 'PageFormForDesigner',
     data() {
       return {
-
+        echartThemes: []
       }
     },
     mounted() {
-
+      this.$PnApi.EchartThemeApi.getAllEchartTheme().then(result=>{
+        result.data.data.forEach(item=>{
+          this.echartThemes.push({
+            label: item.name,
+            value: item.id
+          })
+        })
+      })
     },
     methods: {
+
       developCanvasChangeHandle (value) {
         this.$store.commit('designer/resetDesigner');
 
@@ -85,7 +100,9 @@
         remark: 'pageMetadata.remark',
         create_date: 'pageMetadata.create_date',
         component: 'pageMetadata.component',
-        developCanvas: 'pageMetadata.developCanvas'
+        developCanvas: 'pageMetadata.developCanvas',
+        ownEchartTheme: 'pageMetadata.ownEchartTheme',
+        echartThemeId: 'pageMetadata.echartThemeId'
       })
     },
     watch: {

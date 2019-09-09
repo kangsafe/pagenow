@@ -46,7 +46,9 @@
           title: '',
           component: '',
           developCanvas: '',
-          remark: ''
+          remark: '',
+          ownEchartTheme: false,
+          echartThemeId: ''
         },
         ruleValidate: {
           name: [

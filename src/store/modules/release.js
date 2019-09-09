@@ -13,11 +13,10 @@ const getters = {
     return state.projectInfo
   },
 
-  /**
-   * 根据布局块的ID获取布局块对象
-   * @param state
-   * @returns {function(*): *}
-   */
+  getPageMetadata (state) {
+    return state.pageMetadata
+  },
+
   getLayoutItemById: (state) => (id) => {
     return state.pageMetadata.layout.layoutItems.find(o=>o.id==id)
   }

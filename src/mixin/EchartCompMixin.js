@@ -17,10 +17,16 @@ const EchartCompMixin = {
 
   },
   mounted () {
-    if(this.projectInfo.echartThemeId && this.projectInfo.echartThemeJsonText) {
+    if(this.pageMetadata.ownEchartTheme == '1' && this.pageMetadata.echartThemeId) {
       this.echartThemeName = 'globalEchartTheme';
-      this.$Echarts.registerTheme(this.echartThemeName, JSON.parse(this.projectInfo.echartThemeJsonText));
+      this.$Echarts.registerTheme(this.echartThemeName, JSON.parse(this.pageMetadata.echartThemeJsonText));
+    }else {
+      if(this.projectInfo.echartThemeId && this.projectInfo.echartThemeJsonText) {
+        this.echartThemeName = 'globalEchartTheme';
+        this.$Echarts.registerTheme(this.echartThemeName, JSON.parse(this.projectInfo.echartThemeJsonText));
+      }
     }
+
     this.chart = this.$Echarts.init(document.getElementById('chart-'+this.component.id), this.echartThemeName);
     this.drawChart();
   },
@@ -129,6 +135,13 @@ const EchartCompMixin = {
         return this.$store.getters['release/getProjectInfo']
       }else {
         return this.$store.getters['designer/getProjectInfo']
+      }
+    },
+    pageMetadata () {
+      if(this.$store.state.release.pageMetadata) {
+        return this.$store.getters['release/getPageMetadata']
+      }else {
+        return this.$store.getters['designer/getPageMetadata']
       }
     },
     component: function () {

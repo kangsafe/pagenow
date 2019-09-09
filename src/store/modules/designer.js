@@ -146,6 +146,15 @@ const getters = {
   },
 
   /**
+   * 获取页面源数据
+   * @param state
+   * @returns {state.pageMetadata|{layout}|*|string|EchartCompMixin.computed.pageMetadata|null}
+   */
+  getPageMetadata (state) {
+    return state.pageMetadata
+  },
+
+  /**
    * 获取布局块对象，内部根据currentSelectLayoutItemId状态属性来查询匹配的布局块对象
    * @param state
    * @returns {*}
@@ -199,9 +208,20 @@ const actions = {
         developCanvas: page.developCanvas,
         remark: page.remark,
         create_date: page.create_date,
-        layout: JSON.parse(page.layout)
+        layout: JSON.parse(page.layout),
+        ownEchartTheme: page.ownEchartTheme,
+        echartThemeId: page.echartThemeId
       };
-      commit('setPageMetadata', pageMetadataTmp)
+
+      if(pageMetadataTmp.ownEchartTheme == '1' && pageMetadataTmp.echartThemeId) {
+        PnApi.EchartThemeApi.getEchartThemeById(pageMetadataTmp.echartThemeId).then(result=>{
+          let echartTheme = result.data.data;
+          pageMetadataTmp.echartThemeJsonText = echartTheme.jsonText;
+          commit('setPageMetadata', pageMetadataTmp)
+        })
+      }else {
+        commit('setPageMetadata', pageMetadataTmp)
+      }
     });
 
   }

@@ -7,7 +7,7 @@
       <FormItem label="备注">
         <Input size="small" v-model="remark" disabled/>
       </FormItem>
-      <FormItem label="工程图表主题">
+      <FormItem label="图表主题方案">
         <Select size="small" transfer v-model="echartThemeId" @on-change="echartThemeIdChangeHandle">
           <Option v-for="item in echartThemes" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
