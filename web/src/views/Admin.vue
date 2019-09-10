@@ -56,7 +56,7 @@
     background: #f5f7f9;
     position: relative;
     border-radius: 4px;
-    overflow: hidden;
+    overflow: auto;
   }
   .layout-logo{
     width: 100px;
