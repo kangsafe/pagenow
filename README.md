@@ -37,10 +37,74 @@
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/102924_de45055c_145187.png "数据库截图.png")
 
-提示：如果是纯前端开发人员不会初始化数据库的，可在Issuse中提问
+提示：如果是纯前端开发人员不会初始化数据库的，私信我或在Q群中提问或者自行某度。
 
-2. xxxx
-3. xxxx
+2. 后端程序部署
+
+注意：建议JDK版本在1.8及以上，环境变量自行某度配置。
+
+- 运行环境检测：在cmd中运行
+
+```
+java -version
+```
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/103618_e5d86616_145187.png "java-version.png")
+
+- 进入项目server目录，使用解压缩工具打开pagenow-0.0.1-SNAPSHOT.jar文件，以window下部署为例：
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/105057_41c11068_145187.png "使用压缩文件打开配置文件目录.png")
+
+修改application.properties配置文件，这里主要配置附件上传的目录路径与启动端口号，下图截图中已备注讲解：
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/105253_dba37caa_145187.png "application.properties.png")
+
+修改db.properties配置文件，这里主要修改数据库连接池相关配置：
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/105511_0f9fa5c3_145187.png "db.properties.png")
+
+以上两个配置文件的修改在解压缩工具中修改保存，关闭解压缩工具即可，然后在命令行工具cmd中进入server目录，执行如下命令启动项目：
+
+```
+java -jar pagenow-0.0.1-SNAPSHOP.jar
+```
+
+启动成功如下图：
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/110558_4891dcb0_145187.png "启动springboot.png")
+
+测试运行情况：打开浏览器，输入http://localhost:8090，看到如下界面即为启动成功：
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/111154_633d0efb_145187.png "springboost测试访问.png")
+
+3. 前端项目安装：
+
+进入项目web目录：
+
+安装相关依赖包：
+
+```
+# 使用 npm    
+npm install
+
+# 使用 yarn    
+yarn install
+```
+
+修改相关配置文件：打开.env文件
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/111915_3ad6def4_145187.png "evn文件.png")
+
+启动项目：前端项目默认使用8081端口启动
+
+```
+# 使用 npm    
+npm run serve
+
+# 使用 yarn    
+yarn serve
+```
+
 
 ### 使用说明
 
@@ -48,19 +112,13 @@
 2. xxxx
 3. xxxx
 
-### 参与贡献
+### 捐助
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+生活艰苦，码字不易，如果您觉得项目还不错，请作者喝杯奶茶吧！
 
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/113217_c381929b_145187.jpeg "支付宝.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/113234_c0b3857e_145187.jpeg "微信.jpg")
 
-### 码云特技
+### 联系方式
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+作者QQ：229041307
