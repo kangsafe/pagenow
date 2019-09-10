@@ -29,7 +29,7 @@
     methods: {
       funcCompContainerClick () {
         if(this.$slots.default) {
-          this.$store.commit('designer/setCurrentSelectLayoutItemId', this.location);
+          // this.$store.commit('designer/setCurrentSelectLayoutItemId', this.location);
           this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', this.$slots.default[0].componentOptions.tag + 'Form');
         }
       }
