@@ -109,28 +109,9 @@ yarn serve
 
 ### 使用说明
 
-简单录制一段使用视频，详细使用说明后续持续更新。。
+相关使用说明教程已上传优酷视频，可自行上去观看
 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/115819_344b7524_145187.gif "1568087645577.gif")
-
-
-1. 创建工程：
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/153345_b7e2da63_145187.png "工程管理.png")
-
-2. 组件库管理
-
-组件库管理是对系统中开发的组件的统一信息管理，用于在设计器中展示组件库而使用，只有在代码中编写相关组件，并在此添加组件信息才可在设计器中拖拽使用， **目前系统没有设置权限登录，因此不建议各位乱修改通用组件栏目内的信息** ，组件的开发文档后续会更新。。。
-
-3. 图表主题管理
-
-此处可以统一管理Echart的图表主题，可在Echarts官网中配置相关主题数据[ Echart主题配置工具 ](https://echarts.baidu.com/theme-builder/)，配置好之后，将json复制粘贴至本系统即可。
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/154632_9826dc49_145187.png "图表主题管理.png")
-
-4. 设计器介绍
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/155129_1a8eb295_145187.png "设计器介绍.png")
+[使用说明教程视频](https://v.youku.com/v_show/id_XNDM1NjIwNTY5Ng==.html?spm=a2h0j.11185381.listitem_page1.5!3~A)
 
 ### 捐助
 
