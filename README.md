@@ -108,9 +108,9 @@ yarn serve
 
 ### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. 简单录制一段使用视频，详细使用说明后续持续更新。。
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/115819_344b7524_145187.gif "1568087645577.gif")
 
 ### 捐助
 
