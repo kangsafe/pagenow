@@ -8,21 +8,24 @@
             lineHeight: '48px',
             padding: '0 20px'
           }">
-    <Button size="small" type="primary" style="margin-right: 5px;"
+    <Button class="m-r-5px" size="small" type="primary"
             :disabled="!pageMetadata.id"
             @click="saveCurrentEditPage">保存</Button>
 
-    <Drawer
-        title="全局配置"
-        v-model="globalConfigDataDrawerVisible"
-        width="450"
-        :mask-closable="true">
-      <GlobalConfigDataForm></GlobalConfigDataForm>
-    </Drawer>
+    <Poptip transfer trigger="hover" placement="bottom-start"
+            title="说明" content="一般在执行布局块复制拷贝的时候需要点击保存并重载">
+      <Button class="m-r-5px" size="small" type="success"
+            :disabled="!pageMetadata.id"
+            @click="saveCurrentEditPageAndHeavyLoad">保存并重载</Button>
+    </Poptip>
+
+    <Poptip transfer trigger="hover" placement="bottom-start"
+            title="说明" content="可以将当前页面临时保存在浏览器本地存储中">
     <ButtonGroup size="small" style="margin-right: 5px;">
       <Button type="primary" :disabled="!pageMetadata.id" @click="saveDraft">存为草稿</Button>
       <Button type="default" :disabled="!pageMetadata.id" @click="loadDraft">加载草稿</Button>
     </ButtonGroup>
+    </Poptip>
     <Button size="small" type="primary"
             style="margin-right: 5px;"
             :disabled="!pageMetadata.id"
@@ -40,12 +43,19 @@
             :disabled="!$store.state.designer.pageMetadata.id"
             @click="previewPage">预览</Button>
 
-
     <div :style="{float: 'right'}">
       <Button size="small" type="primary" style=""
               @click="globalConfigDataDrawerVisible = !globalConfigDataDrawerVisible">全局配置</Button>
     </div>
 
+
+    <Drawer
+        title="全局配置"
+        v-model="globalConfigDataDrawerVisible"
+        width="450"
+        :mask-closable="true">
+      <GlobalConfigDataForm></GlobalConfigDataForm>
+    </Drawer>
 
   </Header>
 </template>
@@ -84,6 +94,17 @@
             this.$Message.success('保存成功')
           }
         })
+      },
+
+      /**
+       * 保存并重载当前页面
+       */
+      saveCurrentEditPageAndHeavyLoad () {
+        this.saveCurrentEditPage();
+        setTimeout(()=>{
+          this.$store.commit('designer/resetDesigner');
+          this.$store.dispatch('designer/loadPage', this.pageMetadata.id);
+        },150);
       },
 
       /**

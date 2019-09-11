@@ -42,7 +42,7 @@
         </Select>
       </FormItem>
       <FormItem label="操作">
-        <Button size="small" type="primary" @click="heavyLoadPage" style="margin-right: 5px;">重载</Button>
+        <Button size="small" type="primary" @click="heavyLoadPage" style="margin-right: 5px;">重载页面</Button>
       </FormItem>
     </Form>
   </div>
@@ -88,6 +88,7 @@
       },
 
       heavyLoadPage () {
+        this.$store.commit('designer/resetDesigner');
         this.$store.dispatch('designer/loadPage', this.id);
       }
     },

@@ -111,9 +111,14 @@
         }
       },
 
+      /**
+       * 布局块右键菜单点击事件处理
+       * @param name
+       */
       layoutItemContextMenuClick (name) {
         let tmpLayoutItemId = this.$store.state.designer.currentSelectLayoutItemId;
         let tmpLayoutItemIds = this.currentSelectLayoutItemIds.concat();
+        // 删除布局块
         if (name == 'menu_delLayoutItem') {
           this.$Modal.confirm({
             title: '提醒',
@@ -135,6 +140,7 @@
             }
           });
         }
+        // 解绑关联组件
         else if (name == 'menu_unbindComponent') {
           this.$Modal.confirm({
             title: '提醒',
@@ -145,6 +151,7 @@
             }
           });
         }
+        // 复制拷贝
         else if (name == 'menu_copyLayoutItem') {
 
           let newLayoutItemIds = [];
@@ -185,6 +192,12 @@
               this.$store.commit('designer/setCurrentSelectLayoutItemIds', newLayoutItemIds)
             },100)
           }
+
+          this.$Message.info({
+            duration: 5,
+            closable: true,
+            content: '执行复制拷贝操作之后，建议保存并重载当前页面'
+          })
 
         }
         this.layoutItemContextMenu(false)
