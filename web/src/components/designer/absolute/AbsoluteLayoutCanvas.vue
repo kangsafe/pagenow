@@ -65,6 +65,7 @@
         <CellGroup @on-click="layoutItemContextMenuClick">
           <Cell name="menu_delLayoutItem" style="color: #ed4014;"><Icon type="md-trash"/> 删除布局块</Cell>
           <Cell name="menu_unbindComponent"><Icon type="md-close" /> 解除关联组件</Cell>
+          <Cell name="menu_copyLayoutItem"><Icon type="md-copy" /> 复制拷贝</Cell>
         </CellGroup>
       </div>
     </Card>
@@ -85,6 +86,7 @@
     data() {
       return {
         tmpCurrentSelectLayoutItemId: '', // 临时存储当前选中布局块的ID
+
         keepCtrl: false, // 标识当前是否保持按住Ctrl按键（mac下会监听command按键），用于多选布局块时使用
         topList: {}, // 用于ctrl多选拖拽
         leftList: {}, // 用于ctrl多选拖拽
@@ -111,18 +113,29 @@
 
       layoutItemContextMenuClick (name) {
         let tmpLayoutItemId = this.$store.state.designer.currentSelectLayoutItemId;
+        let tmpLayoutItemIds = this.currentSelectLayoutItemIds.concat();
         if (name == 'menu_delLayoutItem') {
           this.$Modal.confirm({
             title: '提醒',
-            content: '确认删除此布局块吗？',
+            content: '确认删除所选中的布局块吗？',
             onOk: () => {
-              this.$store.commit('designer/deleteLayoutItem', tmpLayoutItemId);
-              this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
-              this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
-              this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+              let layoutItemIds = [];
+              if(tmpLayoutItemIds.length > 0) {
+                layoutItemIds = tmpLayoutItemIds
+              }else {
+                layoutItemIds.pushNoRepeat(tmpLayoutItemId)
+              }
+              layoutItemIds.forEach(id => {
+                this.$store.commit('designer/deleteLayoutItem', id);
+                this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
+                this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
+                this.$store.commit('designer/setCurrentSelectLayoutItemIds', []);
+                this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
+              });
             }
           });
-        }else if (name == 'menu_unbindComponent') {
+        }
+        else if (name == 'menu_unbindComponent') {
           this.$Modal.confirm({
             title: '提醒',
             content: '确认解除关联的组件吗？',
@@ -131,6 +144,48 @@
               this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '')
             }
           });
+        }
+        else if (name == 'menu_copyLayoutItem') {
+
+          let newLayoutItemIds = [];
+          let layoutItemIds = [];
+          if(this.currentSelectLayoutItemIds.length > 0) {
+            layoutItemIds = this.currentSelectLayoutItemIds.concat();
+          }else {
+            layoutItemIds.pushNoRepeat(tmpLayoutItemId)
+          }
+
+          layoutItemIds.forEach(id => {
+            let layoutItem = this.$store.getters['designer/getLayoutItemById'](id);
+            let newLayoutItemConfigData = Object.assign({}, layoutItem.layoutItemConfigData);
+            newLayoutItemConfigData.left = layoutItem.layoutItemConfigData.left + 30;
+            newLayoutItemConfigData.top = layoutItem.layoutItemConfigData.top + 30;
+
+            let newLayoutItem = {
+              id: this.$PnUtil.uuid(),
+              layoutItemConfigData: newLayoutItemConfigData,
+              component: {
+                id: '',
+                name: '',
+                compConfigData: {}
+              }
+            };
+            if(layoutItem.component.id) {
+              let newComponent = Object.assign({}, layoutItem.component);
+              newComponent.id = this.$PnUtil.uuid();
+              newLayoutItem.component = newComponent
+            }
+
+            this.$store.commit('designer/addLayoutItem', newLayoutItem);
+            newLayoutItemIds.pushNoRepeat(newLayoutItem.id)
+          });
+
+          if (this.currentSelectLayoutItemIds.length > 0) {
+            setTimeout(()=>{
+              this.$store.commit('designer/setCurrentSelectLayoutItemIds', newLayoutItemIds)
+            },100)
+          }
+
         }
         this.layoutItemContextMenu(false)
       },
@@ -159,9 +214,11 @@
       onLayoutItemDeactivated () {
         // console.log('onLayoutItemDeactivated');
         this.tmpCurrentSelectLayoutItemId = '';
+
+        // 此处关闭右键菜单要设置一段延时，否则在布局块失活时，同步关闭菜单的话，会出现菜单点击无效的情况
         setTimeout(item => {
           this.layoutItemContextMenu(false)
-        }, 100)
+        }, 250)
       },
 
       onLayoutItemDrag (left, top) {
@@ -385,9 +442,10 @@
         // console.log('layoutCanvasClick');
         if (!this.currentSelectLayoutItemId) {
           this.registerKeyDownAndUp(); // 重新注册键盘监听
-          this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
+
           this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', '');
           this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
+          this.$store.commit('designer/setCurrentSelectLayoutItemId', '');
           this.$store.commit('designer/setCurrentSelectLayoutItemIds', [])
         }
       },
@@ -508,10 +566,10 @@
   }
 
   .absolute-layout-item.activeBlack {
-    box-shadow: 0 0 10px #000
+    box-shadow: 0 0 15px #000
   }
   .absolute-layout-item.activeWhite {
-    box-shadow: 0 0 10px white
+    box-shadow: 0 0 15px white
   }
 
   .ivu-cell i {

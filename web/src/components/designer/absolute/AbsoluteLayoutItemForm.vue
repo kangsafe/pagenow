@@ -97,8 +97,8 @@
           <FormItem label="">
             <Button class="m-r-5px" size="small" type="primary"
                     @click="customStyleCodeModalVisible = !customStyleCodeModalVisible">自定义样式</Button>
-            <Button class="m-r-5px" size="small" type="primary"
-                    @click="copyLayoutItem">复制拷贝</Button>
+            <!--<Button class="m-r-5px" size="small" type="primary"
+                    @click="copyLayoutItem">复制拷贝</Button>-->
             <!--<Dropdown :transfer="true" trigger="click" placement="bottom-start" @on-click="dropdownClickHandle">
               <Button type="primary" size="small">
                 操作
@@ -189,6 +189,9 @@
         }
       },*/
 
+      /**
+       * 弃用
+       */
       copyLayoutItem () {
 
         let newLayoutItemConfigData = Object.assign({}, this.layoutItemConfigData);
