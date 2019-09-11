@@ -5,6 +5,8 @@
 
 #### DEMO：[http://120.77.253.134:8080/pagenow/](http://120.77.253.134:8080/pagenow/)
 
+温馨提示：由于目前主要编码工作都在设计器部分，故系统管理部分还没有做过多优化，请注意，除了组件库管理最好不要乱修改通用组件部分数据，其他模块的数据都可以任你改。同时收到部分反馈，不知道怎么用，那么请移步 [使用说明教程视频](https://v.youku.com/v_show/id_XNDM1NjIwNTY5Ng==.html?spm=a2h0j.11185381.listitem_page1.5!3~A)
+
  **相关文档会逐步完善，请耐心等待。。。** 
 
 #### 系统截图：
@@ -74,7 +76,7 @@ java -jar pagenow-0.0.1-SNAPSHOP.jar
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/110558_4891dcb0_145187.png "启动springboot.png")
 
-测试运行情况：打开浏览器，输入http://localhost:8090，看到如下界面即为启动成功：
+测试运行情况：打开浏览器，输入（http://localhost:8090）看到如下界面即为启动成功：
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/111154_633d0efb_145187.png "springboost测试访问.png")
 
