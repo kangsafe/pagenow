@@ -84,7 +84,7 @@
     name: 'AbsoluteLayoutCanvas',
     data() {
       return {
-        currentSelectLayoutItemId: '', // 临时存储当前选中布局块的ID
+        tmpCurrentSelectLayoutItemId: '', // 临时存储当前选中布局块的ID
         keepCtrl: false, // 标识当前是否保持按住Ctrl按键（mac下会监听command按键），用于多选布局块时使用
         topList: {}, // 用于ctrl多选拖拽
         leftList: {}, // 用于ctrl多选拖拽
@@ -140,7 +140,7 @@
 
         this.registerKeyDownAndUp(); // 重新注册键盘监听
 
-        this.currentSelectLayoutItemId = layoutItem.id;
+        this.tmpCurrentSelectLayoutItemId = layoutItem.id;
 
         // 点击布局块的时候，给布局块设置droppable的属性scope为layoutItemScope，
         // 与组件库拖拽对象的scope对应，这样组件库的拖拽对象就可以放置在当前点击的布局块里
@@ -153,19 +153,19 @@
         }*/
         this.$store.commit('designer/setRightSidebarFuncCompConfigFormName', '');
         this.$store.commit('designer/setRightSidebarLayoutItemConfigFormName', 'AbsoluteLayoutItemForm');
-        this.$store.commit('designer/setCurrentSelectLayoutItemId', this.currentSelectLayoutItemId)
+        this.$store.commit('designer/setCurrentSelectLayoutItemId', this.tmpCurrentSelectLayoutItemId)
       },
 
       onLayoutItemDeactivated () {
         // console.log('onLayoutItemDeactivated');
-        this.currentSelectLayoutItemId = '';
+        this.tmpCurrentSelectLayoutItemId = '';
         setTimeout(item => {
           this.layoutItemContextMenu(false)
         }, 100)
       },
 
       onLayoutItemDrag (left, top) {
-        let currentLayoutItem = this.$store.getters['designer/getLayoutItemById'](this.currentSelectLayoutItemId);
+        let currentLayoutItem = this.$store.getters['designer/getLayoutItemById'](this.tmpCurrentSelectLayoutItemId);
 
         let offsetLeft = left - currentLayoutItem.layoutItemConfigData.left; // 左偏移
         let offsetTop = top - currentLayoutItem.layoutItemConfigData.top; // 右偏移
@@ -173,7 +173,7 @@
         let currentSelectLayoutItemIds = this.$store.state.designer.currentSelectLayoutItemIds;
         if (currentSelectLayoutItemIds.length > 0) {
           currentSelectLayoutItemIds.forEach(id => {
-            if (id != this.currentSelectLayoutItemId) {
+            if (id != this.tmpCurrentSelectLayoutItemId) {
               let otherLayoutItem = this.$store.getters['designer/getLayoutItemById'](id);
               $('#drag-'+id).css('left', otherLayoutItem.layoutItemConfigData.left + offsetLeft);
               $('#drag-'+id).css('top', otherLayoutItem.layoutItemConfigData.top + offsetTop);
@@ -184,11 +184,11 @@
 
       onLayoutItemDragStop (left, top) {
         // console.log('onLayoutItemDragStop');
-        this.$store.commit('designer/setLayoutItemLeftAndTop', {id: this.currentSelectLayoutItemId, left: left, top: top});
+        this.$store.commit('designer/setLayoutItemLeftAndTop', {id: this.tmpCurrentSelectLayoutItemId, left: left, top: top});
         let currentSelectLayoutItemIds = this.$store.state.designer.currentSelectLayoutItemIds;
         if (currentSelectLayoutItemIds.length > 0) {
           currentSelectLayoutItemIds.forEach(id => {
-            if (id != this.currentSelectLayoutItemId) {
+            if (id != this.tmpCurrentSelectLayoutItemId) {
               let otherLayoutItem = this.$store.getters['designer/getLayoutItemById'](id);
               this.$store.commit('designer/setLayoutItemLeftAndTop',
                 {id: id, left: $('#drag-'+id).position().left, top: $('#drag-'+id).position().top});
@@ -204,7 +204,7 @@
       onLayoutItemResizeStop (left, top, width, height) {
         // console.log('onLayoutItemResizeStop');
         this.$store.commit('designer/setLayoutItemWidthAndHeight',
-          {id: this.currentSelectLayoutItemId, width: width, height: height})
+          {id: this.tmpCurrentSelectLayoutItemId, width: width, height: height})
       },
 
       /**
@@ -217,13 +217,24 @@
         $(document).unbind('keyup');
 
         $(document).bind("keydown", function(e) {
+
           if(_this.$PnUtil.isMac()) {
             if(e.keyCode == 91) { // Command键
               _this.keepCtrl = true;
+              if(_this.tmpCurrentSelectLayoutItemId) {
+                let tmpIds = _this.currentSelectLayoutItemIds.concat();
+                tmpIds.pushNoRepeat(_this.tmpCurrentSelectLayoutItemId);
+                _this.$store.commit('designer/setCurrentSelectLayoutItemIds', tmpIds)
+              }
             }
           }else if(_this.$PnUtil.isWindows()) {
             if(e.keyCode == 17) { // Ctrl键
               _this.keepCtrl = true;
+              if(_this.tmpCurrentSelectLayoutItemId) {
+                let tmpIds = _this.currentSelectLayoutItemIds.concat();
+                tmpIds.pushNoRepeat(_this.tmpCurrentSelectLayoutItemId);
+                _this.$store.commit('designer/setCurrentSelectLayoutItemIds', tmpIds)
+              }
             }
           }
 
@@ -392,8 +403,10 @@
           if(selectLayoutItemIds.indexOf(layoutItem.id) > -1) {
             for (let i=0; i<selectLayoutItemIds.length; i++) {
               if(layoutItem.id == selectLayoutItemIds[i]) {
-                selectLayoutItemIds.splice(i, 1);
-                i--
+                if(selectLayoutItemIds.length > 1) {
+                  selectLayoutItemIds.splice(i, 1);
+                  i--
+                }
               }
             }
           }else {
