@@ -76,7 +76,7 @@ java -jar pagenow-0.0.1-SNAPSHOP.jar
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/110558_4891dcb0_145187.png "启动springboot.png")
 
-测试运行情况：打开浏览器，输入（http://localhost:8090）看到如下界面即为启动成功：
+测试运行情况：打开浏览器，输入地址，看到如下界面即为启动成功：
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0910/111154_633d0efb_145187.png "springboost测试访问.png")
 
