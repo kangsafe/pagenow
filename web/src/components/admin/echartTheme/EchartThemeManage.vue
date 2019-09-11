@@ -1,6 +1,7 @@
 <template>
   <div class="echart-theme-manage">
-    <Button type="primary" @click="addEchartTheme">新建主题</Button>
+    <Button v-show="node_env == 'development'" type="primary" @click="addEchartTheme">新建主题</Button>
+    <Alert v-show="node_env == 'production'" type="info">测试服务器环境已隐藏此功能的管理操作</Alert>
     <Divider />
     <Table ref="table" :columns="columns" :data="data"></Table>
 
@@ -24,6 +25,7 @@
     name: 'EchartThemeManage',
     data() {
       return {
+        node_env: process.env.NODE_ENV,
         echartThemeFormDrawerVisible: false,
         columns: [
           {
@@ -38,54 +40,7 @@
             title: '创建时间',
             key: 'create_date'
           },
-          {
-            title: '操作',
-            key: 'action',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    size: 'small',
-                    type: 'primary',
-                    icon: 'md-create'
-                  },
-                  'class': {
-                    'm-r-5px': true
-                  },
-                  on: {
-                    click: () => {
-                      this.editEchartTheme(params.row)
-                    }
-                  }
-                }),
-                h('Poptip', {
-                  props: {
-                    confirm: true,
-                    transfer: true,
-                    title: '您确定要删除此项吗？'
-                  },
-                  style: {
 
-                  },
-                  on: {
-                    'on-ok': () => {
-                      this.deleteEchartTheme(params.row.id)
-                    }
-                  }
-                }, [
-                  h('Button', {
-                    props: {
-                      size: 'small',
-                      type: 'error',
-                      icon: 'md-trash'
-                    }
-                  },)
-                ])
-              ]);
-            }
-          }
         ],
         data: [
 
@@ -93,7 +48,58 @@
       }
     },
     mounted() {
-      this.loadEchartThemes()
+      this.loadEchartThemes();
+
+      if (this.node_env == 'development') {
+        this.columns.push({
+          title: '操作',
+          key: 'action',
+          width: 150,
+          align: 'center',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  size: 'small',
+                  type: 'primary',
+                  icon: 'md-create'
+                },
+                'class': {
+                  'm-r-5px': true
+                },
+                on: {
+                  click: () => {
+                    this.editEchartTheme(params.row)
+                  }
+                }
+              }),
+              h('Poptip', {
+                props: {
+                  confirm: true,
+                  transfer: true,
+                  title: '您确定要删除此项吗？'
+                },
+                style: {
+
+                },
+                on: {
+                  'on-ok': () => {
+                    this.deleteEchartTheme(params.row.id)
+                  }
+                }
+              }, [
+                h('Button', {
+                  props: {
+                    size: 'small',
+                    type: 'error',
+                    icon: 'md-trash'
+                  }
+                },)
+              ])
+            ]);
+          }
+        })
+      }
     },
     methods: {
 

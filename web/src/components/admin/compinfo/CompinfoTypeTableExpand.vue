@@ -1,6 +1,7 @@
 <template>
   <div class="">
-    <Button size="small" type="primary" @click="addCompinfo">新建组件</Button>
+    <Button v-show="node_env == 'development'" size="small" type="primary" @click="addCompinfo">新建组件</Button>
+    <Alert v-show="node_env == 'production'" type="info">测试服务器环境已隐藏此功能的管理操作</Alert>
     <Divider/>
     <Table :columns="columns" :data="tableData"></Table>
 
@@ -30,6 +31,7 @@
     },
     data() {
       return {
+        node_env: process.env.NODE_ENV,
         createCompinfoDrawerVisible: false,
         columns: [
           {
@@ -48,60 +50,64 @@
             title: '创建日期',
             key: 'create_date'
           },
-          {
-            title: '操作',
-            key: 'action',
-            width: 150,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    size: 'small',
-                    type: 'primary',
-                    icon: 'md-create'
-                  },
-                  'class': {
-                    'm-r-5px': true
-                  },
-                  on: {
-                    click: () => {
-                      this.editCompinfo(params.row)
-                    }
-                  }
-                }),
-                h('Poptip', {
-                  props: {
-                    confirm: true,
-                    transfer: true,
-                    title: '您确定要删除此项吗？'
-                  },
-                  style: {
 
-                  },
-                  on: {
-                    'on-ok': () => {
-                      this.deleteCompinfo(params.row.id)
-                    }
-                  }
-                }, [
-                  h('Button', {
-                    props: {
-                      size: 'small',
-                      type: 'error',
-                      icon: 'md-trash'
-                    }
-                  },)
-                ])
-              ]);
-            }
-          }
         ],
         tableData: []
       }
     },
     mounted() {
       this.loadCompinfos();
+
+      if(this.node_env == 'development') {
+        this.columns.push({
+          title: '操作',
+          key: 'action',
+          width: 150,
+          align: 'center',
+          render: (h, params) => {
+            return h('div', [
+              h('Button', {
+                props: {
+                  size: 'small',
+                  type: 'primary',
+                  icon: 'md-create'
+                },
+                'class': {
+                  'm-r-5px': true
+                },
+                on: {
+                  click: () => {
+                    this.editCompinfo(params.row)
+                  }
+                }
+              }),
+              h('Poptip', {
+                props: {
+                  confirm: true,
+                  transfer: true,
+                  title: '您确定要删除此项吗？'
+                },
+                style: {
+
+                },
+                on: {
+                  'on-ok': () => {
+                    this.deleteCompinfo(params.row.id)
+                  }
+                }
+              }, [
+                h('Button', {
+                  props: {
+                    size: 'small',
+                    type: 'error',
+                    icon: 'md-trash'
+                  }
+                },)
+              ])
+            ]);
+          }
+        })
+      }
     },
     methods: {
 

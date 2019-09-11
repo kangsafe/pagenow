@@ -2,8 +2,9 @@
 
 <template>
   <div class="compinfo-manage">
-    <Button type="primary" @click="createCompinfoTypeDrawerVisible = !createCompinfoTypeDrawerVisible">创建类型</Button>&nbsp;
-
+    <Button v-show="node_env == 'development'"
+            type="primary" @click="createCompinfoTypeDrawerVisible = !createCompinfoTypeDrawerVisible">创建类型</Button>&nbsp;
+    <Alert v-show="node_env == 'production'" type="info">测试服务器环境已隐藏此功能的管理操作</Alert>
     <Divider />
     <Table :columns="columns" :data="tableData"></Table>
 
@@ -29,6 +30,7 @@
     name: 'CompinfoManage',
     data() {
       return {
+        node_env: process.env.NODE_ENV,
         createCompinfoTypeDrawerVisible: false,
         columns: [
           {
